@@ -3,6 +3,8 @@
 > References: 
 > [proxy-server](../devops/proxy-server.md)
 
+
+
 [Squid](http://www.squid-cache.org/) is a caching proxy for the Web supporting HTTP, HTTPS, FTP, and more. It reduces bandwidth and improves response times by caching and reusing  frequently-requested web pages. Squid has extensive access controls and  makes a great server accelerator.
 
 When a browser comes across an https:// URL, it does one of two things: 
