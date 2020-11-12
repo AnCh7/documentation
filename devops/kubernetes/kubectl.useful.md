@@ -8,12 +8,12 @@ for kind in `kubectl api-resources | tail +2 | awk '{ print $1 }'`; do kubectl e
 kubectl cp default/XXXXXXXXXX:/app ~/Downloads/app
 ```
 
-##### Ssh to pod:
+##### SSH to pod:
 ```bash
 kubectl exec -it XXXXXXXXXX -- /bin/bash
 ```
 
-##### Ssh to container in pod:
+##### SSH to container in pod:
 ```bash
 kubectl exec -it XXXXXXXXXX --container YYYYYYYYY -- /bin/bash
 ```
