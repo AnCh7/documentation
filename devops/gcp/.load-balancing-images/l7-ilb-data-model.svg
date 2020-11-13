@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 796 267" width="796" height="267">
+  <defs>
+    <clipPath id="inner_stroke_clip_path">
+      <path d="M 8 8.793413 L 132 8.793413 L 132 64.79341 L 8 64.79341 Z"/>
+    </clipPath>
+    <font-face font-family="Roboto" font-size="12" panose-1="2 0 0 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-73.24219" underline-thickness="48.828125" slope="0" x-height="528.3203" cap-height="710.9375" ascent="927.7344" descent="-244.14062" font-weight="400">
+      <font-face-src>
+        <font-face-name name="Roboto-Regular"/>
+      </font-face-src>
+    </font-face>
+    <clipPath id="inner_stroke_clip_path_2">
+      <path d="M 172 8.793413 L 296 8.793413 L 296 64.79341 L 172 64.79341 Z"/>
+    </clipPath>
+    <clipPath id="inner_stroke_clip_path_3">
+      <path d="M 336 8.793413 L 460 8.793413 L 460 64.79341 L 336 64.79341 Z"/>
+    </clipPath>
+    <clipPath id="inner_stroke_clip_path_4">
+      <path d="M 500 8.793413 L 624 8.793413 L 624 64.79341 L 500 64.79341 Z"/>
+    </clipPath>
+    <clipPath id="inner_stroke_clip_path_5">
+      <path d="M 664 8.793413 L 788 8.793413 L 788 64.79341 L 664 64.79341 Z"/>
+    </clipPath>
+    <clipPath id="inner_stroke_clip_path_6">
+      <path d="M 664 84.79341 L 788 84.79341 L 788 140.79341 L 664 140.79341 Z"/>
+    </clipPath>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBall_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" color="#3486f6">
+      <g>
+        <circle cx="2.9999986" cy="0" r="2.99999734868332" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBall_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" color="#479a5f">
+      <g>
+        <circle cx="2.9999986" cy="0" r="2.99999734868332" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBall_Marker_3" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#479a5f">
+      <g>
+        <circle cx="-2.9999986" cy="0" r="2.99999734868332" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Roboto" font-size="10" panose-1="2 0 0 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-73.24219" underline-thickness="48.828125" slope="0" x-height="528.3203" cap-height="710.9375" ascent="927.7344" descent="-244.14062" font-weight="700">
+      <font-face-src>
+        <font-face-name name="Roboto-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Roboto" font-size="10" panose-1="2 0 0 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-73.24219" underline-thickness="48.828125" slope="0" x-height="528.3203" cap-height="710.9375" ascent="927.7344" descent="-244.14062" font-weight="400">
+      <font-face-src>
+        <font-face-name name="Roboto-Regular"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.9.4 
+    <dc:date>2019-12-09 21:58:47 +0000</dc:date>
+  </metadata>
+  <g id="l7-ilb-data-model" stroke="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none" fill="none">
+    <title>l7-ilb-data-model</title>
+    <g id="l7-ilb-data-model: Layer 1">
+      <title>Layer 1</title>
+      <g id="Graphic_2620">
+        <rect x="8" y="8.793413" width="124" height="56" fill="white"/>
+        <rect x="8" y="8.793413" width="124" height="56" stroke="#dfdfdf" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#inner_stroke_clip_path)"/>
+        <text transform="translate(40 22.793413)" fill="#212121">
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x=".41210938" y="11">Forwarding</tspan>
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x="20.527344" y="25">rule</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2621">
+        <rect x="172" y="8.793413" width="124" height="56" fill="white"/>
+        <rect x="172" y="8.793413" width="124" height="56" stroke="#dfdfdf" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#inner_stroke_clip_path_2)"/>
+        <text transform="translate(192 22.793413)" fill="#212121">
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x=".21679688" y="11">Target HTTP(S)</tspan>
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x="26.950195" y="25">Proxy</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2622">
+        <rect x="336" y="8.793413" width="124" height="56" fill="white"/>
+        <rect x="336" y="8.793413" width="124" height="56" stroke="#dfdfdf" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#inner_stroke_clip_path_3)"/>
+        <text transform="translate(374 29.793413)" fill="#212121">
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x=".3330078" y="11">URL Map</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2623">
+        <rect x="500" y="8.793413" width="124" height="56" fill="white"/>
+        <rect x="500" y="8.793413" width="124" height="56" stroke="#dfdfdf" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#inner_stroke_clip_path_4)"/>
+        <text transform="translate(539 22.793413)" fill="#212121">
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x=".44628906" y="11">Backend</tspan>
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x="4.0498047" y="25">Service</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2624">
+        <rect x="664" y="8.793413" width="124" height="56" fill="white"/>
+        <rect x="664" y="8.793413" width="124" height="56" stroke="#dfdfdf" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#inner_stroke_clip_path_5)"/>
+        <text transform="translate(703 22.793413)" fill="#212121">
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x=".11035156" y="11">Instance</tspan>
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x="3.6933594" y="25">Groups</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2625">
+        <rect x="664" y="84.79341" width="124" height="56" fill="white"/>
+        <rect x="664" y="84.79341" width="124" height="56" stroke="#dfdfdf" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#inner_stroke_clip_path_6)"/>
+        <text transform="translate(711 105.79341)" fill="#212121">
+          <tspan font-family="Roboto" font-size="12" font-weight="400" fill="#212121" x=".13183594" y="11">NEGs</tspan>
+        </text>
+      </g>
+      <g id="Line_2626">
+        <title>path arrow - grey primary</title>
+        <line x1="132" y1="36.793413" x2="165.5" y2="36.793413" marker-end="url(#FilledBall_Marker)" stroke="#3486f6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_2627">
+        <title>path arrow - grey primary</title>
+        <line x1="296" y1="36.793413" x2="329.5" y2="36.793413" marker-end="url(#FilledBall_Marker)" stroke="#3486f6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_2628">
+        <title>path arrow - grey primary</title>
+        <line x1="460" y1="36.793413" x2="493.5" y2="36.793413" marker-end="url(#FilledBall_Marker)" stroke="#3486f6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_2629">
+        <title>path arrow - grey primary</title>
+        <path d="M 657.5 112.79341 L 640 112.79341 L 640 36.793413 L 657.5 36.793413" marker-end="url(#FilledBall_Marker_2)" marker-start="url(#FilledBall_Marker_3)" stroke="#479a5f" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,4.0" stroke-width="1"/>
+      </g>
+      <g id="Line_2630">
+        <title>path arrow - grey primary</title>
+        <line x1="624" y1="36.793413" x2="639" y2="36.793413" stroke="#479a5f" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,4.0" stroke-width="1"/>
+      </g>
+      <g id="Graphic_2663">
+        <text transform="translate(336 77)" fill="#616161">
+          <tspan font-family="Roboto" font-size="10" font-weight="700" fill="#616161" x="0" y="9">Path Matcher</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="9"> </tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="3.45" y="31">•	Route Rule</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="8.75" y="42">•	Rule Match</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="53">•	URL Match</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="64">•	Header Match</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="75">•	Query Parameter Match</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="8.75" y="97">•	Rule Action</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="108">•	Weighted Traffic Splitting</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="119">•	URL Rewrite</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="130">•	Traffic Mirroring</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="141">•	Fault Injection</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="152">•	Header Transforms</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="163">•	Redirect</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2664">
+        <text transform="translate(495 98)" fill="#747575">
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="8.75" y="9">•</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="9">Locality LB Policy</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="8.75" y="20">•</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="20">Consistent Hash LB Settings</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="31">•</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="31">Cookie</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="17.65" y="42">•</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="42">Header </tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="8.75" y="64">•</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="64">Circuit Breakers</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#747575" x="8.75" y="75">•</tspan>
+          <tspan font-family="Roboto" font-size="10" font-weight="400" fill="#616161" y="75">Outlier Detection</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
