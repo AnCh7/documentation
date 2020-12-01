@@ -24,3 +24,16 @@ gcloud config set account ${SERVICE_ACCOUNT}
 gcloud config set project ${PROJECT_ID}
 gcloud config set compute/zone ${ZONE}
 ```
+
+### Get a list of all plugins
+
+Run script: Manage Jenkins ---> Script Console ---> Run
+
+```groovy
+List plugins = new ArrayList(Jenkins.instance.pluginManager.plugins);
+Collections.sort(plugins)
+plugins.each{
+  plugin ->
+    println ("${plugin.getShortName()}:${plugin.getVersion()}")
+}
+```
