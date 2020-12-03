@@ -1,3 +1,9 @@
+## Useful URLs
+
+https://github.com/purcell/emacs.d
+https://github.com/hlissner/doom-emacs
+https://github.com/d12frosted/homebrew-emacs-plus
+
 ## macOS installation
 
 1. Install emacs: https://emacsformacosx.com/builds
