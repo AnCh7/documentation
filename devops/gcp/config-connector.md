@@ -32,11 +32,11 @@ You can choose to manage resources with a single service account, or multiple se
 
 With cluster mode, you can use a single Google service account to create and manage resources, even if you are using Config Connector to manage multiple projects.
 
-![Diagram showing Config Connector managing multiple Projects using the same service account](.config.connector-images/cc-project-types.svg)
+![Diagram showing Config Connector managing multiple Projects using the same service account](.config-connector-images/cc-project-types.svg)
 
 Namespaced mode lets you manage multiple projects with multiple Google service accounts bound to your Config Connector cluster.
 
-![Diagram showing Config Connector managing multiple Projects using the two different service accounts](.config.connector-images/cc-project-types-namespaced.svg)
+![Diagram showing Config Connector managing multiple Projects using the two different service accounts](.config-connector-images/cc-project-types-namespaced.svg)
 
 ---
 
