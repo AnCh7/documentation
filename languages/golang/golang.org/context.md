@@ -1,3 +1,23 @@
+### Go Concurrency Patterns: Context
+
+> https://blog.golang.org/context
+
+`context` package makes it easy to pass request-scoped values, cancelation signals, and deadlines across API boundaries to all the goroutines involved in handling a request.
+
+The `Done` method returns a channel that acts as a cancelation signal to functions running on behalf of the `Context`: when the channel is closed, the functions should abandon their work and return.
+
+The `Err` method returns an error indicating why the `Context` was canceled.
+
+A `Context` does *not* have a `Cancel` method for the same reason the `Done` channel is receive-only: the function receiving a cancelation signal is usually not the one that sends the signal.
+
+A `Context` is safe for simultaneous use by multiple goroutines. Code can pass a single `Context` to any number of goroutines and cancel that `Context` to signal all of them.
+
+`Value` allows a `Context` to carry request-scoped data.
+
+The `context` package provides functions to *derive* new `Context` values from existing ones. These values form a tree: when a `Context` is canceled, all `Contexts` derived from it are also canceled.
+
+
+
 ### Package context
 
 > https://golang.org/pkg/context/
