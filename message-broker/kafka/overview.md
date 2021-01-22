@@ -51,7 +51,7 @@
       - Ex: 12 Partitions, 15 Consumers = 12 Partitions processed by 12 consumers, 3 consumers doing nothing
   - When processing is successful, the Consumer Group Offset for the partition is updated - the consumer receives the next message
   - When processing is unsuccessful, the offset is *not* updated. The message stays in the topic and the consumer group does not advance  to the next message on that partition until it's processed successfully.
-- Message Retention is based on the configuration for the Topic. The current shipt default is 7 days.
+- Message Retention is based on the configuration for the Topic.
 
 ##### Partition Configuration
 
