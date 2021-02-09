@@ -34,6 +34,42 @@ Notification Triggers:
 | Completed       | `"run:completed"`       | When the run has completed on a happy path and can't go any further. |
 | Errored         | `"run:errored"`         | When the run has terminated early due to error or cancelation. |
 
+###### Create a Notification Configuration
+
+```
+POST /workspaces/:workspace_id/notification-configurations
+```
+
+###### List Notification Configurations
+
+```
+GET /workspaces/:workspace_id/notification-configurations
+```
+
+###### Show a Notification Configuration
+
+```
+GET /notification-configurations/:notification-configuration-id
+```
+
+###### Update a Notification Configuration
+
+```
+PATCH /notification-configurations/:notification-configuration-id
+```
+
+###### Verify a Notification Configuration
+
+```
+POST /notification-configurations/:notification-configuration-id/actions/verify
+```
+
+###### Delete a Notification Configuration
+
+```
+DELETE /notification-configurations/:notification-configuration-id
+```
+
 
 
 ### Plans API
