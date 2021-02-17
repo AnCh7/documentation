@@ -21,6 +21,7 @@ process() {
 
 N=4
 (
+# CHANGE PARENT DIRECTORY IF NEEDED
 for each_dir in */.git; do 
    # PARALLEL
    ((i=i%N)); ((i++==0)) && wait
