@@ -63,7 +63,7 @@ If a workspace is configured to use Terraform 0.10.0 or later, you can commit an
 
 Marking a variable as sensitive prevents anybody (including you) from  viewing its value in the variables section of the workspace in Terraform Cloud's UI or with its Variables API endpoint.
 
-Terraform Cloud passes variables to Terraform by writing a `terraform.tfvars` file and passing the `-var-file=terraform.tfvars` option to the Terraform command.Do not commit a file named `terraform.tfvars` to version control, since Terraform Cloud will overwrite it. 
+Terraform Cloud passes variables to Terraform by writing a `terraform.tfvars` file and passing the `-var-file=terraform.tfvars` option to the Terraform command. Do not commit a file named `terraform.tfvars` to version control, since Terraform Cloud will overwrite it. 
 
 Terraform Cloud performs Terraform runs on disposable Linux worker VMs  using a POSIX-compatible shell. Before running Terraform, Terraform  Cloud populates the shell with environment variables using the `export` command.
 
