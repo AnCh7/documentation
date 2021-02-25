@@ -58,6 +58,8 @@ Variables are shown as drop-down select boxes at the top of the dashboard. These
 
 A query like `prod.servers.*` will fill the variable with all possible values that exist in the wildcard position.
 
+Specify possible values: `prod.servers.{server-east2,server-west2}.bytes_free.sum, 'sum')`
+
 A query `apps.$app.servers.*` uses the variable `$app` in its query definition.
 
 Using `__searchFilter` in the query field will filter the query result based on what the user types in the dropdown select box. When nothing has been entered by the user the default value for `__searchFilter` is `*` and `` when used as part of a regular expression.
