@@ -51,3 +51,25 @@ The same Context may be passed to functions running in different goroutines; Con
 ---
 
 **TODO** returns a non-nil, empty Context. Code should use context.TODO when it's unclear which Context to use or it is not yet available (because the surrounding function has not yet been extended to accept a Context parameter).
+
+
+
+### Contexts and structs
+
+> References:
+> https://blog.golang.org/context-and-structs
+
+
+When designing an API with context, remember the advice: pass `context.Context` in as an argument; don't store it in structs.
+
+##### Prefer contexts passed as arguments
+
+With this pass-as-argument design, users can set per-call deadlines, cancellation, and metadata. There's no expectation that a `context.Context` passed to one method will be used by any other method. Context is scoped to as small an operation as it needs to be, which greatly  increases the utility and clarity of `context` in this package.
+
+##### Storing context in structs leads to confusion
+
+When you store the context in a struct, you obscure lifetime to the callers, or worse intermingle two scopes together in unpredictable ways. The API would need a good deal of documentation to explicitly tell the user exactly what the `context.Context` is used for. The user might also have to read code rather than being able to rely on the structure of the API conveys.
+
+##### Preserving backwards compatibility
+
+The duplicate approach should be preferred over the context-in-struct. However, in some cases it's impractical: for example, if your API  exposes a large number of functions, then duplicating them all might be  infeasible.
