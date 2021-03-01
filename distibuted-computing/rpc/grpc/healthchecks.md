@@ -76,3 +76,46 @@ With this tool, you can use the same health check configuration in all your gRPC
 1. Find the gRPC "health" module in your favorite language and start using it (example [Go library](https://godoc.org/github.com/grpc/grpc-go/health)).
 2. Ship the [grpc_health_probe](https://github.com/grpc-ecosystem/grpc-health-probe/) binary in your container.
 3. [Configure](https://github.com/grpc-ecosystem/grpc-health-probe/tree/1329d682b4232c102600b5e7886df8ffdcaf9e26#example-grpc-health-checking-on-kubernetes) Kubernetes "exec" probe to invoke the "grpc_health_probe" tool in the container.
+
+Examples:
+
+```bash
+$ grpc_health_probe -addr=localhost:5000
+healthy: SERVING
+
+$ grpc_health_probe -addr=localhost:9999 -connect-timeout 250ms -rpc-timeout 100ms
+failed to connect service at "localhost:9999": context deadline exceeded
+exit status 2
+```
+
+Example for Kubernetes:
+
+1. Choose a [binary release](https://github.com/grpc-ecosystem/grpc-health-probe/releases) and download it in your Dockerfile:
+
+   ```bash
+   RUN GRPC_HEALTH_PROBE_VERSION=v0.3.1 && \
+       wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
+       chmod +x /bin/grpc_health_probe
+   ```
+
+2. In your Kubernetes Pod specification manifest, specify a `livenessProbe` and/or `readinessProbe` for the container:
+
+   ```yaml
+   spec:
+     containers:
+     - name: server
+       image: "[YOUR-DOCKER-IMAGE]"
+       ports:
+       - containerPort: 5000
+       readinessProbe:
+         exec:
+           command: ["/bin/grpc_health_probe", "-addr=:5000"]
+         initialDelaySeconds: 5
+       livenessProbe:
+         exec:
+           command: ["/bin/grpc_health_probe", "-addr=:5000"]
+         initialDelaySeconds: 10
+   ```
+
+   This approach provide proper readiness/liveness checking to your applications that implement the [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+
