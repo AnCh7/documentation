@@ -1,9 +1,7 @@
 ### Graphite
 
 > References:
->
 > https://graphite.readthedocs.io/en/latest/overview.html
->
 > https://matt.aimonetti.net/posts/2013-06-practical-guide-to-graphite-monitoring/
 
 
