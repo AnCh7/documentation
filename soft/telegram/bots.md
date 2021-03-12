@@ -1,10 +1,11 @@
-# Telegram Bots
+## Telegram Bots
 
-### URLs
-https://core.telegram.org/bots
-https://core.telegram.org/bots/api
-https://core.telegram.org/bots/faq
-https://github.com/python-telegram-bot/python-telegram-bot/wiki
+> References:
+> https://core.telegram.org/bots
+> https://core.telegram.org/bots/api
+> https://core.telegram.org/bots/faq
+> https://github.com/python-telegram-bot/python-telegram-bot/wiki
+> https://habr.com/ru/post/543676/
 
 ### Description
 Telegram Bots are special accounts that do not require an additional phone number to set up. Users can interact with bots in two ways:
