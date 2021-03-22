@@ -146,3 +146,32 @@ Deferred functions are executed in LIFO order.
 
 **Arrays**
 
+Arrays are values. Assigning one array to another copies all the elements.
+
+If you pass an array to a function, it will receive a *copy* of the array, not a pointer to it.
+
+The size of an array is part of its type.  The types `[10]int` and `[20]int` are distinct.
+
+**Slices**
+
+Slices hold references to an underlying array, and if you assign one slice to another, both refer to the same array.
+
+If the data exceeds the capacity, the slice is reallocated.
+
+**Maps**
+
+The key can be of any type for which the equality operator is defined, such as integers, floating point and complex numbers, strings, pointers, interfaces (as long as the dynamic type supports equality), structs and arrays.
+
+A set can be implemented as a map with value type `bool`.
+
+The “comma ok” idiom.
+
+```
+seconds, ok = timeZone[tz]
+```
+
+**Printing**
+
+You don't need to provide a format string - `Print` and `Println` functions do not take a format string but instead generate a default format for each argument. 
+
+The formatted print functions `fmt.Fprint` and friends take as a first argument any object that implements the `io.Writer` interface.
