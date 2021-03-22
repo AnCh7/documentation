@@ -112,3 +112,37 @@ for _, value := range array {
 ```
 
 Go has no comma operator and `++` and `--` are statements not expressions.
+
+**Switch** 
+
+- The expressions need not be constants or even integers.
+- The cases are evaluated top to bottom until a match is found
+- if the `switch` has no expression it switches on `true`.
+- There is no automatic fall through, but cases can be presented in comma-separated lists.
+
+##### Functions
+
+Go's functions and methods can return multiple values.
+
+The return or result "parameters" of a Go function can be given names and used as regular variables, just like the incoming parameters.
+
+**Defer**
+
+Go's `defer` statement schedules a function call (the *deferred* function) to be run immediately before the function executing the `defer` returns.
+
+The arguments to the deferred function (which include the receiver if the function is a method) are evaluated when the *defer* executes, not when the *call* executes.
+
+Deferred functions are executed in LIFO order.
+
+##### Data
+
+**Allocation**
+
+`new(T)` allocates zeroed storage for a new item of type `T` and returns its address, a value of type `*T`. Zero value of each type can be used without further initialization.
+
+*composite literal* is an expression that creates a new instance each time it is evaluated.
+
+`make(T, args)` creates slices, maps, and channels only, and it returns an *initialized* (not *zeroed*) value of type `T` (not `*T`).
+
+**Arrays**
+
