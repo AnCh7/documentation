@@ -4,8 +4,6 @@
 >
 > https://golang.org/doc/effective_go.html
 
-
-
 ##### Formatting
 
 The `gofmt` program (also available as `go fmt`) reads a Go program and emits the source in a standard style of indentation and vertical alignment, retaining and if necessary reformatting comments.
@@ -65,11 +63,11 @@ Idiomatic Go programs have semicolons only in places such as `for` loop clauses 
 - new control structures including a type switch and a multiway communications multiplexer, `select`. 
 - no parentheses and the bodies must always be brace-delimited.
 
-**If**
+##### If
 
 Mandatory braces encourage writing simple `if` statements on multiple lines. 
 
-**For**
+##### For
 
 There are three forms of `for` loop, only one of which has semicolons.
 
@@ -113,20 +111,18 @@ for _, value := range array {
 
 Go has no comma operator and `++` and `--` are statements not expressions.
 
-**Switch** 
+##### Switch
 
 - The expressions need not be constants or even integers.
 - The cases are evaluated top to bottom until a match is found
 - if the `switch` has no expression it switches on `true`.
 - There is no automatic fall through, but cases can be presented in comma-separated lists.
 
-##### Functions
-
 Go's functions and methods can return multiple values.
 
 The return or result "parameters" of a Go function can be given names and used as regular variables, just like the incoming parameters.
 
-**Defer**
+##### Defer
 
 Go's `defer` statement schedules a function call (the *deferred* function) to be run immediately before the function executing the `defer` returns.
 
@@ -134,9 +130,7 @@ The arguments to the deferred function (which include the receiver if the functi
 
 Deferred functions are executed in LIFO order.
 
-##### Data
-
-**Allocation**
+##### Allocation
 
 `new(T)` allocates zeroed storage for a new item of type `T` and returns its address, a value of type `*T`. Zero value of each type can be used without further initialization.
 
@@ -144,7 +138,7 @@ Deferred functions are executed in LIFO order.
 
 `make(T, args)` creates slices, maps, and channels only, and it returns an *initialized* (not *zeroed*) value of type `T` (not `*T`).
 
-**Arrays**
+##### Arrays
 
 Arrays are values. Assigning one array to another copies all the elements.
 
@@ -152,26 +146,67 @@ If you pass an array to a function, it will receive a *copy* of the array, not a
 
 The size of an array is part of its type.  The types `[10]int` and `[20]int` are distinct.
 
-**Slices**
+##### Slices
 
 Slices hold references to an underlying array, and if you assign one slice to another, both refer to the same array.
 
 If the data exceeds the capacity, the slice is reallocated.
 
-**Maps**
+##### Maps
 
 The key can be of any type for which the equality operator is defined, such as integers, floating point and complex numbers, strings, pointers, interfaces (as long as the dynamic type supports equality), structs and arrays.
 
 A set can be implemented as a map with value type `bool`.
 
-The “comma ok” idiom.
+The "comma ok" idiom.
 
 ```
 seconds, ok = timeZone[tz]
 ```
 
-**Printing**
+##### Printing
 
 You don't need to provide a format string - `Print` and `Println` functions do not take a format string but instead generate a default format for each argument. 
 
 The formatted print functions `fmt.Fprint` and friends take as a first argument any object that implements the `io.Writer` interface.
+
+##### Constants
+
+In Go, enumerated constants are created using the `iota` enumerator. Since `iota` can be part of an expression and expressions can be implicitly repeated, it is easy to build intricate sets of values.
+
+```go
+type ByteSize float64
+
+const (
+    _           = iota // ignore first value by assigning to blank identifier
+    KB ByteSize = 1 << (10 * iota)
+    MB
+    GB
+    TB
+    PB
+    EB
+    ZB
+    YB
+)
+```
+
+##### The init function
+
+Each source file can define its own niladic `init` function to set up whatever state is required.  (Actually each file can have multiple `init` functions.) `init` is called after all the variable declarations in the package have evaluated their initializers, and those are evaluated only after all the imported packages have been initialized.
+
+##### Methods
+
+The rule about pointers vs. values for receivers is that value methods can be invoked on pointers and values, but pointer methods can only be invoked on pointers. This rule arises because pointer methods can modify the receiver; invoking them on a value would cause the method to receive a copy of the value, so any modifications would be discarded. The language therefore disallows this mistake.
+
+
+
+
+
+
+
+
+
+
+
+
+
