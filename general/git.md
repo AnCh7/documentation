@@ -9,10 +9,11 @@ process() {
 	echo ----------------------------;
 	cd $1/..;
 	pwd;
-
-	# WILL RESET ALL
+	# track all remote branches
+	git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done;
+	# update local branches which track remote branches
 	git fetch --all;
-	git reset --hard origin/master;
+	git pull --all;
 	echo;
 	git config core.filemode false;
 
@@ -21,7 +22,6 @@ process() {
 
 N=4
 (
-# CHANGE PARENT DIRECTORY IF NEEDED
 for each_dir in */.git; do 
    # PARALLEL
    ((i=i%N)); ((i++==0)) && wait
