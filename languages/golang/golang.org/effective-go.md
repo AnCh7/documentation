@@ -198,15 +198,31 @@ Each source file can define its own niladic `init` function to set up whatever s
 
 The rule about pointers vs. values for receivers is that value methods can be invoked on pointers and values, but pointer methods can only be invoked on pointers. This rule arises because pointer methods can modify the receiver; invoking them on a value would cause the method to receive a copy of the value, so any modifications would be discarded. The language therefore disallows this mistake.
 
+##### Interfaces
 
+Interfaces in Go provide a way to specify the behavior of an object: if something can do *this*, then it can be used *here*.
 
+A type can implement multiple interfaces.
 
+##### Interface conversions and type assertions 
 
+A type assertion takes an interface value and extracts from it a value of the specified explicit type.
 
+```go
+value.(typeName)
+```
 
+To extract the string we know is in the value, we could write:
 
+```go
+if str, ok := value.(string); ok {
+    return str
+} else if str, ok := value.(Stringer); ok {
+    return str.String()
+}
+```
 
+##### Generality
 
-
-
+If a type exists only to implement an interface and will never have exported methods beyond that interface, there is no need to export the type itself.
 
