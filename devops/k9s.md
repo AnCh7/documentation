@@ -1,9 +1,7 @@
 ## k9s
 
 > References:
->
 > https://github.com/derailed/k9s
->
 > https://k9scli.io
 
 ##### Installation
@@ -35,13 +33,6 @@ k9s --context coolCtx
 
 # Start K9s in readonly mode - with all cluster modification commands disabled
 k9s --readonly
-```
-
-```bash
-aws-okta login shipt-platform && $(aws-okta env shipt-platform)
-
-kubectl config use-context platform-development-east-1-1-17.shipt.k8s.local
-k9s --context platform-development-east-1-1-17.shipt.k8s.local
 ```
 
 ##### Logs
@@ -125,4 +116,3 @@ On RBAC enabled clusters, you would need to give your users/groups  capabilities
 ##### Skins
 
 Skins are YAML files, that enable a user to change the K9s presentation layer. K9s skins are loaded from `$HOME/.k9s/skin.yml`.
-
