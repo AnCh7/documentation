@@ -224,5 +224,26 @@ if str, ok := value.(string); ok {
 
 ##### Generality
 
-If a type exists only to implement an interface and will never have exported methods beyond that interface, there is no need to export the type itself.
+If a type exists only to implement an interface and will never have exported methods beyond that interface, there is no need to export the type itself. In such cases, the constructor should return an interface value rather than the implementing type.
 
+##### The blank identifier
+
+The blank identifier can be assigned or declared with any value of any type, with the value discarded harmlessly. It's a bit like writing to the Unix `/dev/null` file: it represents a write-only value to be used as a place-holder where a variable is needed but the actual value is irrelevant.
+
+To import the package only for its side effects, rename the package to the blank identifier:
+
+```go
+import _ "net/http/pprof"
+```
+
+If it's necessary only to ask whether a type implements an interface, without actually using the interface itself, perhaps as part of an error check, use the blank identifier to ignore the type-asserted value:
+
+```go
+if _, ok := val.(json.Marshaler); ok {
+    fmt.Printf("value %v of type %T implements json.Marshaler\n", val, val)
+}
+```
+
+##### Embedding
+
+When we embed a type, the methods of that type become methods of the outer type, but when they are invoked the receiver of the method is the inner type, not the outer one.
