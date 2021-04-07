@@ -247,3 +247,31 @@ if _, ok := val.(json.Marshaler); ok {
 ##### Embedding
 
 When we embed a type, the methods of that type become methods of the outer type, but when they are invoked the receiver of the method is the inner type, not the outer one.
+
+##### Concurrency
+
+Only one goroutine has access to the value at any given time. Data races cannot occur, by design.
+
+Do not communicate by sharing memory; instead, share memory by communicating.
+
+A goroutine is a function executing concurrently with other goroutines in the same address space.  It is lightweight - just an a allocation of stack space. Stacks start small, so they are cheap, and grow by allocating (and freeing) heap storage as required.
+
+Goroutines are multiplexed onto multiple OS threads so if one should block, such as while waiting for I/O, others continue to run.  Their design hides many of the complexities of thread creation and management.
+
+Function literals are closures: the implementation makes sure the variables referred to by the function survive as long as they are active.
+
+```go
+func Announce(message string, delay time.Duration) {
+    go func() {
+        time.Sleep(delay)
+        fmt.Println(message)
+    }()  // Note the parentheses - must call the function.
+}
+```
+
+Unbuffered channels combine communication—the exchange of a value—with synchronization—guaranteeing that two calculations (goroutines) are in a known state.
+
+Receivers always block until there is data to receive. If the channel is unbuffered, the sender blocks until the receiver has received the value.
+
+If the channel has a buffer, the sender blocks only until the value has been copied to the buffer; if the buffer is full, this means waiting until some receiver has retrieved a value.
+
