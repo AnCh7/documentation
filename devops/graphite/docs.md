@@ -89,3 +89,30 @@ metric_path value timestamp\n
 
 `timestamp` is the number of seconds since unix epoch time. Carbon-cache will use the time of arrival if the `timestamp` is set to `-1`.
 
+# Data Types
+
+*Counters* are the most basic and default type. They are treated as a count of a type of event per second, and are, in [Graphite](http://graphite.readthedocs.org), typically averaged over one minute. That is, when looking at a graph, you are usually seeing the average number of events per second during a one-minute period.
+
+Do not use a counter to expose a value that can decrease. For example, do not use a counter for the number of currently running processes; instead use a gauge.
+
+---
+
+*Timers* are meant to track how long something took. They are an invaluable tool for tracking application performance.
+
+---
+
+*Gauges* are a constant data type. They are not subject to averaging, and they don’t change unless you change them. That is, once you set a gauge value, it will be a flat line on the graph until you change it again.
+
+Gauges are typically used for measured values like temperatures or current memory usage, but also "counts" that can go up and down, like the number of concurrent requests.
+
+---
+
+*Sets* count the number of unique values passed to a key.
+
+---
+
+A *histogram* samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values.
+
+---
+
+Similar to a *histogram*, a *summary* samples observations (usually things like request durations and response sizes). While it also provides a total count of observations and a sum of all observed values, it calculates configurable quantiles over a sliding time window.
