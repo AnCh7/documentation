@@ -18,7 +18,7 @@ Make sure that your StatsD flush interval is at least as long as your Graphite i
 
 ---
 
-In StatsD, counters keep track of events that happen, as opposed to gauges, which keep track of a value that fluctuates. **Yourstat.count** keeps the total number of times that this event happened, and **Yourstat.rate** keeps the rate that this thing happens *per second*.
+In StatsD, **counters** keep track of events that happen, as opposed to **gauges**, which keep track of a value that fluctuates. **Yourstat.count** keeps the total number of times that this event happened, and **Yourstat.rate** keeps the rate that this thing happens *per second*.
 
 ---
 
