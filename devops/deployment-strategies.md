@@ -31,11 +31,19 @@ In Kubernetes:
 - Set `.spec.strategy.rollingUpdate.maxUnavailable` and `.spec.strategy.rollingUpdate.maxSurge` to some reasonable value.
 - Configure the `readinessProbe`.
 
-#### Blue/Green (Red/Black) deployments
+#### Blue/Green deployments
 
 > Version B is released alongside version A, then the traffic is switched to version B.
 
 [![kubernetes blue-green deployment](.deployment-strategies-images/grafana-blue-green.png)](https://github.com/ContainerSolutions/k8s-deployment-strategies/blob/master/blue-green/grafana-blue-green.png)
+
+```
+- version 1 is serving traffic
+- deploy version 2
+- wait until version 2 is ready
+- switch incoming traffic from version 1 to version 2
+- shutdown version 1
+```
 
 We always manage 2 versions of our production environment. One of them  is considered **blue** — i.e this is the version that is now live. The new versions are always deployed to the **green replica** of the environment. After we run the necessary tests and verifications to make sure the **blue** environment is ready we just flip over the traffic, so **green** becomes **blue** and **blue** becomes **green**.
 

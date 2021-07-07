@@ -275,3 +275,27 @@ Receivers always block until there is data to receive. If the channel is unbuffe
 
 If the channel has a buffer, the sender blocks only until the value has been copied to the buffer; if the buffer is full, this means waiting until some receiver has retrieved a value.
 
+##### Channels of channels
+
+One of the most important properties of Go is that a channel is a first-class value that can be allocated and passed around like any other.  A common use of this property is to implement safe, parallel demultiplexing.
+
+##### Parallelization
+
+If the calculation can be broken into separate pieces that can execute independently across multiple CPU cores, it can be parallelized, with a channel to signal when each piece completes.
+
+##### Errors
+
+By convention, errors have type `error`, a simple built-in interface.
+
+```
+type error interface {
+    Error() string
+}
+```
+
+Function `panic` that in effect creates a run-time error that will stop the program.  The function takes a single argument of arbitrary type—often a string—to be printed as the program dies.  It's also a way to indicate that something impossible has happened, such as exiting an infinite loop.
+
+When `panic` is called, including implicitly for run-time errors such as indexing a slice out of bounds or failing a type assertion, it immediately stops execution of the current function and begins unwinding the stack of the goroutine, running any deferred functions along the way.  If that unwinding reaches the top of the goroutine's stack, the program dies.
+
+It is possible to use the built-in function `recover` to regain control of the goroutine and resume normal execution.  Because the only code that runs while unwinding is inside deferred functions, `recover` is only useful inside deferred functions. Because `recover` always returns `nil` unless called directly from a deferred function, deferred code can call library routines that themselves use `panic` and `recover` without failing. 
+
