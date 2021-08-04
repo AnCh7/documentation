@@ -6,6 +6,7 @@
 > https://blog.golang.org/publishing-go-modules
 > https://blog.golang.org/v2-go-modules
 > https://blog.golang.org/module-compatibility
+> https://golang.org/doc/modules/managing-dependencies
 
 
 
