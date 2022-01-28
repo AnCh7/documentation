@@ -634,4 +634,6 @@ The same `AdmissionReview` object is used for both mutating and validating admis
 
 Admission webhooks are not registered in the CRD manifest. The reason is that they apply  not only to CRDs, but to any kind of resource. You can even add custom  admission webhooks to standard Kubernetes resources. Instead there are registration objects: `MutatingWebhookRegistration` and `ValidatingWebhookRegistration`.
 
-## Structural Schemas and the Future of CustomResourceDefinitions
+### Summary
+
+Admission and conversion webhooks take CRDs to a completely different level. Before these features, CRs were mostly used for small,  not-so-serious use cases, often for configuration and for in-house  applications where API compatibility was not that important. With webhooks CRs look much more like native resources, with a long  lifecycle and powerful semantics.
