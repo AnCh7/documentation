@@ -43,4 +43,16 @@ To avoid this, we always divide our data into two parts, the *training set* and 
 
 *categorical* (contain values that are one of a discrete set of choices, such as `occupation`) versus *continuous* (contain a number that represents a quantity, such as `age`).
 
-Validation Sets and Test Sets
+---
+
+Split our dataset into two sets: the *training set* (which our model sees in training) and the *validation set*, also known as the *development set* (which is used only for evaluation). Introduce another level of even more highly reserved data: the *test set*.
+
+---
+
+Computer vision:
+
+- recognize items in an image at least as well as people can - object recognition
+- where objects in an image are, and can highlight their locations and name each found object - object detection
+- synthetically generate variations of input images, such as by rotating them or changing their brightness and contrast - data augmentation
+
+Gathering Data

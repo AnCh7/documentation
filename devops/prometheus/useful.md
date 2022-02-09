@@ -95,3 +95,19 @@ sum by (job)(rate(http_requests_total{job="node"}[5m]))
 
 A common mistake is to try to take the sum and then the rate. The only mathematical operations you can safely directly apply to a counter's values are `rate`, `irate`, `increase`, and `resets`.
 
+# API
+
+Finding series by label matchers:
+```
+curl -g 'https://prometheus.example.com/api/v1/series?' --data-urlencode 'match[]=metric_name{label_name="name"}' | jq .
+```
+
+TSDB stats:
+```
+curl https://prometheus.example.com/api/v1/status/tsdb | jq .
+```
+
+Delete series:
+```
+curl -X POST -g 'https://prometheus.example.com/api/v1/admin/tsdb/delete_series?match[]=metric_name{label_name="name"}'
+```
