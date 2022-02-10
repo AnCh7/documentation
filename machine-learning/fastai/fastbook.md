@@ -55,4 +55,53 @@ Computer vision:
 - where objects in an image are, and can highlight their locations and name each found object - object detection
 - synthetically generate variations of input images, such as by rotating them or changing their brightness and contrast - data augmentation
 
-Gathering Data
+---
+
+In a cell, typing `?func_name` - the signature of the function and a short description.
+
+In a cell, typing `??func_name` - the signature of the function, a short description, and the source code.
+
+If you are using the fastai library: `doc(*func_name*)` in a cell will open a window with the signature of the function, a short description, and links to the source code on GitHub and the full documentation of the function in the [library docs](https://docs.fast.ai).
+
+Type `%debug` in the next cell and execute to open the [Python debugger](https://oreil.ly/RShnP), which will let you inspect the content of every variable.
+
+---
+
+`DataLoaders` is a thin class that just stores whatever `DataLoader` objects you pass to it and makes them available as `train` and `valid`.
+
+```
+class DataLoaders(GetAttr):
+    def __init__(self, *loaders): self.loaders = loaders
+    def __getitem__(self, i): return self.loaders[i]
+    train,valid = add_props(lambda i,self: self[i])
+```
+
+---
+
+*Data augmentation* refers to creating random variations of our input data, such that they appear different but do not change the meaning of the data. Examples of common data augmentation techniques for images are rotation, flipping, perspective warping, brightness changes, and contrast changes.
+
+---
+
+```
+interp = ClassificationInterpretation.from_learner(learn)
+interp.plot_confusion_matrix()
+```
+
+![img](.fastbook-images/dlcf_02in07.png)
+
+Therefore, the diagonal of the matrix shows the images that were classified correctly, and the off-diagonal cells represent those that were classified incorrectly. 
+
+---
+
+Creating a Notebook App from the Model
+
+- IPython widgets (ipywidgets) - GUI components
+- Voilà
+
+---
+
+Cells that begin with a `!` do not contain Python code, but instead contain code that is passed to your shell (bash, Windows PowerShell, etc.).
+
+---
+
+Measurement bias
