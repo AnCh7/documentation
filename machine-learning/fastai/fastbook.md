@@ -104,4 +104,133 @@ Cells that begin with a `!` do not contain Python code, but instead contain code
 
 ---
 
-Measurement bias
+Chapter 4. Under the Hood: Training a Digit Classifier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+xxxx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Tabular Modeling
+
+Continuous variables are numerical data, such as “age,” that can be  directly fed to the model, since you can add and multiply them directly. Categorical variables contain a number of discrete levels, such as  “movie ID,” for which addition and multiplication don’t have meaning  (even if they’re stored as numbers).
+
+Recent studies have shown that the vast majority of datasets can be best modeled with just two methods:
+
+- Ensembles of decision trees (i.e., random forests and gradient boosting machines), mainly for structured data (such as you might find  in a database table at most companies)
+
+- Multilayered neural networks learned with SGD (i.e., shallow and/or deep learning), mainly for unstructured data (such as audio, images, and natural language)
+
+#### Decision Trees
+
+![An example of decision tree](.fastbook-images/dlcf_0906.png)
+
+---
+
+Replace every date column with a set of date metadata columns, such as holiday, day of week, and month. 
+
+---
+
+Handle strings and missing data with TabularPandas - `procs = [Categorify, FillMissing]`
+
+---
+
+Creating the Decision Tree
+
+![img](.fastbook-images/dlcf_09in01.png)
+
+The top node represents the *initial model* before any splits have been done, when all the data is in one group. This is the simplest possible model. It is the result of asking zero questions and will always predict the value to be the average value of the whole dataset.
+
+The bottom row contains our *leaf nodes*: the nodes with no answers coming out of them, because there are no more questions to be answered.
+
+Bagging:
+
+1. Randomly choose a subset of the rows of your data (i.e., “bootstrap replicates of your learning set”).
+2. Train a model using this subset.
+3. Save that model, and then return to step 1 a few times.
+4. This will give you multiple trained models. To make a prediction, predict using all of the models, and then take the average of each of those model’s predictions.
+
+---
+
+Models with the lowest error result from using a subset of features but with a larger number of trees:
+
+![sklearn max_features chart](.fastbook-images/dlcf_0907.png)
+
+---
+
+The OOB error is a way of measuring prediction error in the training  dataset by including in the calculation of a row’s error trees only  where that row was *not* included in training. This allows us to see whether the model is overfitting, without needing a separate validation set.
+
+---
+
+The OOB score is a number returned by sklearn that ranges between 1.0 for a perfect model and 0.0 for a random model.
+
+---
+
+Partial dependence plots try to answer the question: if a row varied on nothing other than the feature in question, how would it impact the dependent variable?
+
+```go
+from sklearn.inspection import plot_partial_dependence
+
+fig,ax = plt.subplots(figsize=(12, 4))
+plot_partial_dependence(m, valid_xs_final, ['YearMade','ProductSize'], grid_resolution=20, ax=ax);
+```
+
+![image-20220216110304135](.fastbook-images/image-20220216110304135.png)
+
+We can see a nearly linear relationship between year and price.
+
+---
+
+```
+!pip install treeinterpreter
+!pip install waterfallcharts
+
+prediction,bias,contributions = treeinterpreter.predict(m, row.values)
+```
+
+`prediction` is the prediction that the random forest makes. `bias` is the prediction based on taking the mean of the dependent variable (i.e., the *model* that is the root of every tree). `contributions` tells us the total change in prediction due to each of the independent variables. 
+
+![image-20220216111820098](.fastbook-images/image-20220216111820098.png)
+
+#### Ensembling
+
+Why random forests work so well: each tree has errors, but those errors are not correlated with each other, so the average of those errors should tend toward zero once there are enough trees. 
+
+We can then include a random forest in *another* ensemble—an ensemble of the random forest and the neural network.
+
+#### Boosting
+
+*Boosting*, where we add models instead of averaging them:
+
+1. Train a small model that underfits your dataset.
+2. Calculate the predictions in the training set for this model.
+3. Subtract the predictions from the targets; these are called the *residuals* and represent the error for each point in the training set.
+4. Go back to step 1, but instead of using the original targets, use the residuals as the targets for the training.
+5. Continue doing this until you reach a stopping criterion, such as a  maximum number of trees, or you observe your validation set error  getting worse.
+
+*Gradient boosting machines* (GBMs) and *gradient boosted decision trees* (GBDTs). *XGBoost* is the most popular.
