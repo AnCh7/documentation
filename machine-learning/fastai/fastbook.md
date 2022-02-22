@@ -104,30 +104,78 @@ Cells that begin with a `!` do not contain Python code, but instead contain code
 
 ---
 
-Chapter 4. Under the Hood: Training a Digit Classifier
+*rank* is the number of axes or dimensions in a tensor; *shape* is the size of each axis of a tensor.
+
+---
+
+Two main ways to measure distance in this context:
+
+- Take the mean of the *absolute value* of differences (absolute value is the function that replaces negative values with positive values). This is called the *mean absolute difference* or *L1 norm*.
+- Take the mean of the *square* of differences (which makes everything positive) and then take the *square root* (which undoes the squaring). This is called the *root mean squared error* (RMSE) or *L2 norm*.
+
+The difference between L1 norm and mean squared error (MSE) is that the latter will penalize bigger mistakes more heavily than the former (and  be more lenient with small mistakes).
+
+##### NumPy Arrays and PyTorch Tensors
+
+A NumPy array is a multidimensional table of data, with all items of the same type. Since that can be any type at all, they can even be arrays of arrays, with the innermost arrays potentially being different sizes—this is called a *jagged array*.
+
+A PyTorch tensor is nearly the same thing as a NumPy array, but with an additional restriction - a tensor cannot use just any old type—it has to use a single basic numeric type for all components, a PyTorch tensor cannot be jagged. 
+
+```
+data = [[1,2,3],[4,5,6]]
+arr = array (data)
+tns = tensor(data)
+```
+
+Broadcasting - automatically expand the tensor with the smaller rank to have the same size as the one with the larger rank.
+
+##### Stochastic Gradient Descent
+
+![Graph showing the steps for Gradient Descent](.fastbook-images/dlcf_0401.png)
+
+
+
+1. *Initialize* the weights.
+
+We initialize the parameters to random values.
+
+1. For each image, use these weights to *predict* whether it appears to be a 3 or a 7.
+2. Based on these predictions, calculate how good the model is (its *loss*).
+3. Calculate the *gradient*, which measures for each weight how changing that weight would change the loss.
+4. *Step* (that is, change) all the weights based on that calculation.
+
+Increase the weight by a small amount, and see if the loss goes up or down.
+
+1. Go back to step 2 and *repeat* the process.
+2. Iterate until you decide to *stop* the training process (for instance, because the model is good enough or you don’t want to wait any longer).
+
+---
+
+Calculating Gradients
+
+The key point about a derivative is this: for any function, such as the quadratic function we saw in the previous section, we can calculate its derivative. The derivative is another function. It calculates the change, rather than the value. For instance, the derivative of the quadratic function at the value 3 tells us how rapidly the function changes at the value 3.
+
+The gradients tell us only the slope of our function; they don’t tell us exactly how far to adjust the parameters. But they do give us some idea of how far: if the slope is very large, that may suggest that we have more adjustments to do, whereas if the slope is very small, that may suggest that we are close to the optimal value.
+
+![An illustration of gradient descent with a LR too low](.fastbook-images/dlcf_0402.png)
+
+---
+
+The `sigmoid` function always outputs a number between 0 and 1. It’s defined as  follows:
+
+```python
+def sigmoid(x): return 1/(1+torch.exp(-x))
+```
+
+---
+
+The key difference is that the metric is to drive human understanding and the loss is to drive automated learning. To drive automated learning, the loss must be a function that has a meaningful derivative. It can’t have big flat sections and large jumps, but instead must be reasonably smooth. 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-xxxx
-
-
-
-
-
-
-
+SGD and Mini-Batches
 
 
 
