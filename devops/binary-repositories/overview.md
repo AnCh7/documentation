@@ -26,7 +26,7 @@
 
 > https://fury.co/pricing
 
-- Team 50P - $100/mo
+- Team 50 persons - $100/mo
 
 
 
@@ -454,3 +454,38 @@ Free and open source.
 ##### Verdict
 
 Popular project and it can be very useful for Golang projects.
+
+
+
+### pypiserver
+
+>  https://github.com/pypiserver/pypiserver
+
+`pypiserver` is a minimal [PyPI](https://pypi.org) compatible server for `pip` or `easy_install`. It is based on [bottle](http://bottlepy.org) and serves packages from regular directories. Wheels, bdists, eggs and accompanying PGP-signatures can be uploaded either with `pip`, `setuptools`, `twine`, `pypi-uploader`, or simply copied with `scp`.
+
+`pypiserver` implements the same interfaces as [PyPI](https://pypi.org), allowing standard Python packaging tooling such as `pip` and `twine` to interact with it as a package index just as they would with [PyPI](https://pypi.org), while making it much easier to get a running index server.
+
+
+
+### PyPICloud
+
+> https://pypicloud.readthedocs.io/en/latest/
+> https://github.com/stevearc/pypicloud
+
+```
++---------+        +-------+        +-----------+
+| Storage | <----> | Cache | <----> | Pypicloud |
++---------+        +-------+        +-----------+
+```
+
+The **Storage** layer is where the actual package files will be kept and served from. This can be S3, GCS, Azure Blob Storage or a directory on the server running pypicloud.
+
+The **Cache** layer stores information about which packages are in stored in Storage. This can be DynamoDB, Redis, or any SQL database.
+
+The **Pypicloud** webserver itself is stateless, and you can have any number of them as long as they use the same Cache.
+
+- Storage backends: files, S3, CloudFront, Google Cloud Storage, Azure Blob Storage
+- Caching backends: SQLAlchemy, Redis, DynamoDB
+- Access control
+- HTTP API
+
