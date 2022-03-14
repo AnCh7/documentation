@@ -14,9 +14,12 @@ process() {
 	# update local branches which track remote branches
 	git fetch --all;
 	git pull --all;
+	# checkout master or main and print status
+	git checkout master;
+	git checkout main;
+	git status;
 	echo;
 	git config core.filemode false;
-
 	cd ../..;
 }
 
