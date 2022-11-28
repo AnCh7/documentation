@@ -84,3 +84,24 @@ Greeting.propTypes = {
   name: PropTypes.string
 };
 ```
+
+### React Native what exactly is the <> (empty) component
+
+It's the React shortcut for `Fragment` component.
+```js
+import React, { Component } from 'react'
+class Component extends Component {
+  render() {
+    return <> <ComponentA/> <ComponentB/> </>
+  }
+}
+```
+or
+```js
+import React, { Component, Fragment } from 'react'
+class Component extends Component {
+  render() {
+    return <Fragment> <ComponentA/> <ComponentB/> </Fragment>
+  }
+}
+```
