@@ -1,12 +1,11 @@
-### Functional Components vs. Class Components
+# Functional Components vs. Class Components
 
 A functional component is just a plain JavaScript function that returns  JSX. A class component is a JavaScript class that extends `React.Component` which has a render method. 
-
 Inside a functional component, we are passing props as an argument of the function. In a class, you need to use `this` to refer to props.
 
 To use state variables in a functional component, we need to use `useState` Hook, which takes an argument of initial state. 
 
-#### Convert react class-based to functional component
+# Convert react class-based to functional component
 
 > References:
 > https://nimblewebdeveloper.com/blog/convert-react-class-to-function-component
@@ -23,8 +22,7 @@ To use state variables in a functional component, we need to use `useState` Hook
 9. replace compentDidMount with useEffect
 10. replace componentDidUpdate with useEffect
 
-
-#### How to fetch data with React Hooks
+# How to fetch data with React Hooks
 
 > References:
 > https://www.robinwieruch.de/react-hooks-fetch-data
@@ -63,7 +61,7 @@ function App() {
 export default App;
 ```
 
-### Typechecking With PropTypes
+# Typechecking With PropTypes
 
 PropTypes was originally exposed as part of the React core module, and is commonly used with React components.
 
@@ -85,7 +83,7 @@ Greeting.propTypes = {
 };
 ```
 
-### React Native what exactly is the <> (empty) component
+# React Native what exactly is the <> (empty) component
 
 It's the React shortcut for `Fragment` component.
 ```js
@@ -105,3 +103,70 @@ class Component extends Component {
   }
 }
 ```
+
+# Using the Effect Hook
+
+They let you use state and other React features without writing a class. Data fetching, setting up a subscription, and manually changing the DOM in React components are all examples of side effects.
+
+If you’re familiar with React class lifecycle methods, you can think of useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
+
+#### Effects Without Cleanup
+
+Sometimes, we want to **run some additional code after React has updated the DOM.** Network requests, manual DOM mutations, and logging are common examples of effects that don’t require a cleanup.
+
+```typescript
+import React, { useState, useEffect } from 'react';
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {    document.title = `You clicked ${count} times`;  });
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+#### Effects with Cleanup
+
+```typescript
+import React, { useState, useEffect } from "react";
+
+function FriendStatus(props) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+
+  if (isOnline === null) {
+    return "Loading...";
+  }
+
+  return isOnline ? "Online" : "Offline";
+}
+```
+
+Tips:
+
+- Use Multiple Effects to Separate Concerns 
+- Optimizing Performance by Skipping Effects
+
+```typescript
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]); // Only re-run the effect if count changes
+```
+
