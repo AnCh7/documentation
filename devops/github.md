@@ -35,7 +35,9 @@ while True:
 	    p.wait()
 ```
 
-##### CODEOWNERS
+
+
+## Codeowners
 
 Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.
 
@@ -81,3 +83,26 @@ apps/ @octocat
 /docs/ @doctocat
 ```
 
+
+
+## Github CLI
+
+> References:
+>
+> https://cli.github.com/manual
+
+
+
+Install
+
+```shell
+asdf plugin-add github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git
+asdf install github-cli 1.10.2
+asdf global github-cli 1.10.2
+```
+
+Auth
+
+```shell
+gh auth login
+```
