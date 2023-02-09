@@ -498,9 +498,21 @@ than supervised finetuning.
 
 ---
 
+#### Popular open-source LLMs
 
+> https://twitter.com/goodside/status/1618245657759993856
 
+Who uses big, open-source LLMs like BLOOM, OPT, or GPT-NeoX in production? What tasks are they good at? What are the advantages over Curie?
 
+- I know a large customer service company (~$2B valuation) is using Flan T5 11B. They started with GPT3, got enough customer data, and now they fine-tuned Flan.
+- Have spoken with some running a consumer conversational product at one of the largest 5 tech companies, running GPT-NeoX, don't want lock in, want more customization... cost...
+- NovelAI is using a fine tuned neo B afaik
+- For multilingual zero shot NLP, models like bloomz and mT0 are much better and faster than Gpt3.
+- Flan, bloom, Nemo, is what I have seen. Can’t disclose where, but Fortune 500
+- I'm using OPT for a writing project. It's surprisingly good at few-shot learning.
+- We then distil those preferences into a reward model and apply reinforcement learning to Google's Flan T5 (11B). Our final model performs similarly to fine-tuned GPT-3 Davinci (175B) and reduces egregious failure by 66% compared to a fine-tuned GPT-3 Curie model.
+- open source LLMs are *really good*. they suck at benchmarks like HELM compared to closed models, but fine-tuned accuracy is amazing, inference is dirt cheap, and both flan-t5-xxl + gpt-neox-20b fit on a single a100.
+- Well tuned smaller models work great e.g. BART on @huggingface work well!
 
 
 
