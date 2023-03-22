@@ -4,35 +4,84 @@ Clone all repos from a github organization
 
 ```python
 #!/usr/bin/python
-# https://docs.github.com/en/free-pro-team@latest/rest/reference/repos
 
 import requests
 import json
 import subprocess
+from git import Repo
+import os
 
-GITHUB_ORGANIZATION = "xxxxxxx"
-ACCESS_TOKEN="xxxxxxx"
-CLONE_DIR="./"
+
+github_org = "xxxxxxx"
+access_token="xxxxxxx"
+current_dir = os.path.dirname(os.path.realpath(__file__))
 
 page = 0
 while True:
-	print("============ Started")
-	url = "https://api.github.com/orgs/" + GITHUB_ORGANIZATION + "/repos?per_page=100&access_token=" + ACCESS_TOKEN + "&page=" + str(page)
-	print(url)
+	print("Started")
+
+	url = "https://api.github.com/orgs/" + github_org + "/repos?per_page=100&access_token=" + access_token + "&page=" + str(page)
 	page = page + 1
 
-	headers = {'Authorization': 'token ' + ACCESS_TOKEN}
-	r = requests.get(url, headers=headers, auth=('username', ACCESS_TOKEN))
+	headers = {'Authorization': 'token ' + access_token}
+	response = requests.get(url, headers=headers, auth=('username', access_token))
 
-	data = json.loads(r.text)
-	if len(data) == 0:
-		print("============ Finished")
+	repos = json.loads(response.text)
+	if len(repos) == 0:
 		break
 
-	for repo in data:
-	    print("============ Cloning repo: " + repo['full_name'])
-	    p = subprocess.Popen(["git","clone", repo['clone_url']], cwd=CLONE_DIR)  
-	    p.wait()
+	for repo in repos:
+		try:
+			Repo.clone_from(repo['clone_url'], current_dir + "/" + repo['name'])
+			print("Cloning repository: " + repo['name'])
+		except Exception as error:
+			if "already exists and is not an empty directory" in error.stderr:
+				continue
+			else:
+				raise
+
+print("Finished")
+```
+
+
+
+Update all repositories
+
+```python
+#!/usr/bin/python
+
+import git
+import os
+
+if __name__ == "__main__":
+    sub_dirs = next(os.walk('.'))[1]
+    for sub_dir in sub_dirs:
+        try:
+            print("============= Processing repository: " + sub_dir)
+            repo = git.Repo(sub_dir)
+        except git.InvalidGitRepositoryError as error:
+            print("Invalid repository. Skip")
+            continue
+
+        if len(repo.branches) == 0:
+            print("No branches found. Skip")
+            continue
+
+        print("Discard any current changes")
+        repo.git.reset('--hard')
+
+        try:
+            origins = repo.remotes.origin.pull(allow_unrelated_histories=True)
+            print("Pull remote branches:")
+            for origin in origins:
+                print("- " + str(origin))
+        except git.GitCommandError as error:
+            print("Repository not found. Skip")
+            continue
+
+        print("Active branch is: "+repo.active_branch.name)
+
+print("Finished")
 ```
 
 
@@ -88,21 +137,21 @@ apps/ @octocat
 ## Github CLI
 
 > References:
->
 > https://cli.github.com/manual
 
-
-
-Install
-
+##### Install
 ```shell
 asdf plugin-add github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git
 asdf install github-cli 1.10.2
 asdf global github-cli 1.10.2
 ```
 
-Auth
-
+##### Auth
 ```shell
 gh auth login
+```
+
+##### Commands
+```shell
+gh pr create --title "xxxxxxxx" --body "yyyyyyyyy"
 ```
