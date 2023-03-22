@@ -73,6 +73,41 @@ Search Concepts:
 
 Engineers write their documentation in Markdown files which live  together with their code - and with little configuration get a  nice-looking doc site in Backstage.
 
+# Integrations
+
+Integrations allow Backstage to read or publish data using external providers such as GitHub, GitLab, Bitbucket, LDAP, or cloud providers.
+
+# Plugins
+
+Backstage is a single-page application composed of a set of plugins.
+
+Each plugin is treated as a self-contained web app and can include almost any type of content. Plugins all use a common set of platform APIs and reusable UI components. Plugins can fetch data from external sources using the regular browser APIs or by depending on external modules to do the work.
+
+# Configuration
+
+Configuration is stored in YAML files where the defaults are `app-config.yaml` and `app-config.local.yaml` for local overrides. Other sets of files can by loaded by passing `--config <path>` flags.
+
+# Authentication
+
+Sign-in and identification of users, as well as delegating access to third-party resources. Supported:
+
+    Atlassian
+    Auth0
+    Azure
+    Bitbucket
+    Cloudflare Access
+    GitHub
+    GitLab
+    Google
+    Google IAP
+    Okta
+    OneLogin
+    OAuth2Proxy
+
+Backstage can also *authorize* specific data, APIs, or  interface actions - meaning that Backstage has the ability to enforce  rules about what type of access is allowed for a given user of a system. This is done via The permission framework.
+
+# Deploying Backstage
+
 
 
 
