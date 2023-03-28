@@ -84,6 +84,118 @@ if __name__ == "__main__":
 print("Finished")
 ```
 
+Add a team to all repositories
+
+```go
+func main() {
+	// Replace with your personal access token, organization and team names.
+	accessToken := "xxxxxx"
+	orgName := "xxxxxx"
+	teamName := "xxxxxx"
+
+	// Init the GitHub client
+	oauth2Client := oauth2.NewClient(context.Background(), oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken}))
+	ghClient := gh.NewClient(oauth2Client)
+
+	ctx := context.Background()
+
+	// List all teams
+	var allTeams []*gh.Team
+	teamsOpts := &gh.ListOptions{PerPage: 100}
+	fmt.Printf("Listing all teams\n")
+	for {
+		teams, resp, err := ghClient.Teams.ListTeams(ctx, orgName, teamsOpts)
+		if err != nil {
+			fmt.Printf("Error listing teams: %v\n", err)
+			os.Exit(1)
+		}
+		allTeams = append(allTeams, teams...)
+		if resp.NextPage == 0 {
+			break
+		}
+		teamsOpts.Page = resp.NextPage
+		fmt.Printf("Page %d of teams (total %d) \n", teamsOpts.Page, len(allTeams))
+	}
+
+	var teamID int64
+	// Get teamID and print teams
+	for _, team := range allTeams {
+		fmt.Printf("Team ID: %d, Name: %s\n", *team.ID, *team.Name)
+		if *team.Name == teamName {
+			teamID = *team.ID
+			fmt.Printf("Found team %s with ID %d\n", teamName, teamID)
+		}
+	}
+	if teamID == 0 {
+		fmt.Printf("Team %s not found\n", teamName)
+		os.Exit(1)
+	}
+
+	var orgID int64
+	// Get organization details
+	org, _, err := ghClient.Organizations.Get(ctx, orgName)
+	if err != nil {
+		fmt.Printf("Error getting organization details: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Print organization ID
+	fmt.Printf("Organization ID: %d, Name: %s\n", *org.ID, *org.Name)
+	orgID = *org.ID
+
+	// List all repos in org
+	var allRepos []*gh.Repository
+	repoOpts := &gh.RepositoryListByOrgOptions{ListOptions: gh.ListOptions{PerPage: 100}}
+	fmt.Printf("Listing all repositories\n")
+	for {
+		repos, resp, err := ghClient.Repositories.ListByOrg(ctx, orgName, repoOpts)
+		if err != nil {
+			fmt.Printf("Error listing repositories: %v\n", err)
+			os.Exit(1)
+		}
+		allRepos = append(allRepos, repos...)
+		if resp.NextPage == 0 {
+			break
+		}
+		repoOpts.Page = resp.NextPage
+		fmt.Printf("Page %d of repositories (total %d) \n", repoOpts.Page, len(allRepos))
+	}
+
+	// Iterate through each repo
+	for _, repo := range allRepos {
+		if repo.Archived != nil && *repo.Archived {
+			fmt.Printf("Repo %s is archived, skipping\n", *repo.Name)
+			continue
+		}
+
+		// Check if team is already managing the repo
+		repository, resp, err := ghClient.Teams.IsTeamRepoByID(ctx, orgID, teamID, *repo.Owner.Login, *repo.Name)
+		if err != nil {
+			if resp.StatusCode == 404 {
+				fmt.Printf("Team %s is not managing repo %s\n", teamName, *repo.Name)
+			} else {
+				fmt.Printf("Error checking team membership: %v\n", err)
+				continue
+			}
+		}
+		if repository != nil {
+			fmt.Printf("Team %s is already managing repo %s\n", teamName, *repo.Name)
+			continue
+		}
+
+		// Add team to this repo, with read-only rights
+		opt := &gh.TeamAddTeamRepoOptions{Permission: "pull"}
+		_, err = ghClient.Teams.AddTeamRepoByID(ctx, orgID, teamID, *repo.Owner.Login, *repo.Name, opt)
+		if err != nil {
+			fmt.Printf("Error adding team to repo: %v\n", err)
+			continue
+		}
+
+		fmt.Printf("Successfully added team %s to repo %s with read-only rights\n", teamName, *repo.Name)
+	}
+}
+```
+
 
 
 ## Codeowners
