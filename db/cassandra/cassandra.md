@@ -19,7 +19,7 @@ The topology of Cassandra includes several layers:
 
 Cassandra stores some of its data in RAM, in the form of *MemTable*. There is another part of the data that is saved to disk as *SSTable*. Cassandra also has a unique instance called *Commit Log* that keeps records of all transactions and is stored on disk.
 
-![img](.cassandra-images/0*w2fAIiYr_YMnNv9i.png)
+![img](.cassandra-images/2.png)
 
 Cassandra itself has built-in mechanisms for data replication.  Therefore, there is no need to use distributed data storage systems like Ceph or GlusterFS in the case of a Cassandra cluster comprising a large number of nodes. In this situation, the most appropriate solution is to store data on the node’s disk via [local persistent volumes](https://kubernetes.io/docs/concepts/storage/volumes/#local) or by mounting `hostPath`.
 
@@ -29,7 +29,7 @@ To do a full backup, you have to flush in-memory data (*Memtables*) to the disk 
 
 Then the node backs up the data (by saving a *snapshot*) and saves the scheme (*keyspace*). However, there is one problem: the backup itself isn’t sufficient. We  also have to preserve data identifiers (in the form of dedicated tokens) for which the Cassandra node is responsible.
 
-![img](.cassandra-images/0*5fgMCOnnVGdOTomN-20200402155657242.png)
+![img](.cassandra-images/1.png)
 
 ### Configuration
 
