@@ -108,33 +108,4 @@ Backstage can also *authorize* specific data, APIs, or  interface actions - mean
 
 # Deploying Backstage
 
-
-
-
-
-
-
-
-
-
-
----
-
-#### Pros:
-
-- many plugins
-- many integrations
-
-#### Cons:
-
-- pure frontend, written in Typescript and React
-- backed plugins and caching configuration
-- Backend Services (MVP) feature is not implemented yet 
-- early stage, alpha version
-- kubernetes plugins doesn't support all resources
-- complicated catalog file structure
-- cumbersome and hard to customize
-- will be hard to get the teams to align with having the catalog infos
-- yet another place to stick docs and other stuff
-- requires a lot of work to make it work as intended
-- haven't seen articles and reviews not from Spotify staff
+TODO

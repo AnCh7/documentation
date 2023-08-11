@@ -8,6 +8,8 @@
 
 
 
+*Deep learning* is a computer technique to extract and transform data—with use cases ranging from human speech recognition to animal imagery classification—by using multiple layers of neural networks. Each of these layers takes its inputs from previous layers and progressively refines them. The layers are trained by algorithms that minimize their errors and improve their accuracy.
+
 Training a machine learning model:![image-20220204110930690](.fastbook-images/image-20220204110930690.png)
 
 Detailed training loop:
@@ -27,6 +29,17 @@ A *metric* is a function that measures the quality of the model’s predictions 
 -  `error_rate`tells you what percentage of images in the validation set are being classified incorrectly.
 -  `accuracy` (which is just `1.0 - error_rate`)
 
+---
+
+*Fine-tuning* - A transfer learning technique that updates the parameters of a pretrained model by training for additional epochs using a different task from that used for pretraining:
+
+1. Use one epoch to fit just those parts of the model necessary to get the new random head to work correctly with your dataset.
+2. Use the number of epochs requested when calling the method to fit the entire model, updating the weights of the later layers (especially the head) faster than the earlier layers (which, as we’ll see, generally don’t require many changes from the pretrained weights).
+
+The *head* of a model is the part that is newly added to be specific to the new dataset. An *epoch* is one complete pass through the dataset.
+
+---
+
 *Machine learning* is a discipline in which we define a program not by writing it entirely ourselves, but by learning from data.
 
 *Deep learning* is a specialty within machine learning that uses *neural networks* with multiple *layers*.
@@ -40,6 +53,8 @@ To make the training process go faster, we might start with a *pretrained model*
 When we train a model, a key concern is to ensure that our model *generalizes*: it learns general lessons from our data that also apply to new items it will encounter, so it can make good predictions on those items. The risk is that if we train our model badly, instead of learning general lessons, it effectively memorizes what it has already seen, and then it will make poor predictions about new images. Such a failure is called *overfitting*.
 
 To avoid this, we always divide our data into two parts, the *training set* and the *validation set*. We train the model by showing it only the training set, and then we evaluate how well the model is doing by seeing how well it performs on items from the validation set. In this way, we check if the lessons the model learns from the training set are lessons that generalize to the validation set. In order for a person to assess how well the model is doing on the validation set overall, we define a *metric*. During the training process, when the model has seen every item in the training set, we call that an *epoch*.
+
+---
 
 *categorical* (contain values that are one of a discrete set of choices, such as `occupation`) versus *continuous* (contain a number that represents a quantity, such as `age`).
 
@@ -90,6 +105,10 @@ interp.plot_confusion_matrix()
 ![img](.fastbook-images/dlcf_02in07.png)
 
 Therefore, the diagonal of the matrix shows the images that were classified correctly, and the off-diagonal cells represent those that were classified incorrectly. 
+
+---
+
+When we use a model for getting predictions, instead of training, we call it *inference*.
 
 ---
 
