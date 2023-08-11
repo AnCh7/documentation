@@ -772,3 +772,33 @@ ToT achieves 10x perf by leveraging LLM's ability to:
 1. generate diverse choices of intermediate "thoughts" toward problem solving
 2. self-evaluate thoughts via deliberate reasoning
 3. search algorithms (e.g., bfs/dfs) that help systematically explore the problem space
+
+---
+
+https://www.lesswrong.com/posts/BKvJNzALpxS3LafEs/measuring-and-improving-the-faithfulness-of-model-generated
+
+We then show that an alternative to chain-of-thought prompting — answering questions by breaking them into subquestions — improves faithfulness while maintaining good task performance.
+
+---
+
+#### What is the best open-source TTS out there?
+
+Tortoise or Bark. Tortoise is great but *super* slow. Bark is quite natural sounding but low audio quality.  
+https://github.com/neonbjb/tortoise-tts
+https://github.com/suno-ai/bark
+
+---
+
+#### What’s the difference between GGML and GPTQ models and other formats?
+
+- GPTQ is a specific format for GPU only.
+
+  Great for 8- and 4-bit inference, great support  through projects such as AutoGPTQ, ExLLaMA, etc. AutoGPTQ support for  training/fine-tuning is in the works.
+
+- GGML is designed for CPU and Apple M series but can also offload some layers on the GPU.
+
+  The ggml file contains a quantized representation of model weights. Therefore, lower quality. The benefit is 4x less RAM requirements, 4x  less RAM *bandwidth* requirements, and thus faster inference on the CPU.
+
+- bitsandbytes - Great 8-bit and 4-bit quantization schemes for training/fine-tuning, but for inference GPTQ and AWQ outperform it.
+- AWQ - Great for 8- and 4-bit inference, outperforms GPTQ, and is reorder-free, so is generally faster.
+
