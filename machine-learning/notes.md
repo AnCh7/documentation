@@ -804,6 +804,86 @@ https://github.com/suno-ai/bark
 
 ---
 
+#### Embeddings
+
+> https://simonwillison.net/2023/Sep/4/llm-embeddings/
+
+An embedding model lets you take a string of text—a word, sentence,  paragraph or even a whole document—and turn that into an array of  floating point numbers called an *embedding vector*.
+
+A model will always produce the same length of array—1,536 numbers for the [OpenAI embedding model](https://platform.openai.com/docs/guides/embeddings).
+
+I like to think of an embedding vector as a location in  1,536-dimensional space. The distance between two vectors is a measure  of how semantically similar they are in meaning, at least according to  the model that produced them.
+
+“One happy dog” and “A playful hound” will end up close together, even  though they don’t share any keywords. The embedding vector represents  the language model’s interpretation of the meaning of the text.
+
+Things you can do with embeddings include:
+
+1. Find **related items**.
+2. Build **semantic search**.
+3. Implement **retrieval augmented generation** — the trick  where you take a user’s question, find relevant documentation in your own corpus and use that to get an LLM to spit out an answer.
+4. **Clustering**: you can find clusters of nearby items and identify patterns in a corpus of documents.
+5. **Classification**: calculate the embedding of a piece of text and compare it to pre-calculated “average” embeddings for different categories.
+
+---
+
 ## Emerging Architectures for LLM Applications
 
-> https://a16z.com/emerging-architectures-for-llm-applications/
+> https://a16z.com/emerging-architectures-for-llm-applications
+
+![https://a16z.com/wp-content/uploads/2023/06/2657-Emerging-LLM-App-Stack-R2-1-of-4-2.png](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/2657-Emerging-LLM-App-Stack-R2-1-of-4-2-20231005133949766.png)
+
+#### In-context learning
+
+The core idea of in-context learning is to use LLMs off the shelf (i.e., without any fine-tuning), then control their behavior through clever prompting and conditioning on private “contextual” data.
+
+The workflow can be divided into three stages:
+
+- Data preprocessing / embedding: This stage involves storing private data (legal documents, in our example) to be retrieved later. Typically, the documents are broken into chunks, passed through an embedding model, then stored in a specialized database called a vector database.
+
+- Prompt construction / retrieval: When a user submits a query, the application constructs a series of prompts to submit to the language model. A compiled prompt typically combines a prompt template hard-coded by the developer; examples of valid outputs called few-shot examples; any necessary information retrieved from external APIs; and a set of relevant documents retrieved from the vector database.
+- Prompt execution / inference: Once the prompts have been compiled, they are submitted to a pre-trained LLM for inference—including both proprietary model APIs and open-source or self-trained models. Some developers also add operational systems like logging, caching, and validation at this stage.
+
+---
+
+## Building RAG-based LLM Applications for Production
+
+> https://www.anyscale.com/blog/a-comprehensive-guide-for-building-rag-based-llm-applications-part-1
+
+#### RAG examples
+
+- https://github.com/run-llama/sec-insights/
+- https://github.com/astronomer/ask-astro
+
+![image2](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/image8.png)
+
+1. Pass the query to the embedding model to semantically represent it as an embedded query vector.
+2. Pass the embedded query vector to our vector DB.
+3. Retrieve the top-k relevant contexts – measured by distance between the query  embedding and all the embedded chunks in our knowledge base.
+4. Pass the query text and retrieved context text to our LLM.
+5. The LLM will generate a response using the provided content.
+
+#### Data
+
+![image3](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/image3.png)
+
+#### Prompt for software development workflow
+
+```
+You are an expert software engineer.
+Reply with JUST the commit message, without quotes, comments, questions, etc!
+
+*Briefly* summarize this partial conversation about programming.
+Include less detail about older parts and more detail about the most recent messages.
+Start a new paragraph every time the topic changes!
+
+This is only part of a longer conversation so *DO NOT* conclude the summary with language like "Finally, ...". Because the conversation continues after the summary.
+The summary *MUST* include the function names, libraries, packages that are being discussed.
+The summary *MUST* include the filenames that are being referenced by the assistant inside the ```...``` fenced code blocks!
+The summaries *MUST NOT* include ```...``` fenced code blocks!
+
+Phrase the summary with the USER in first person, telling the ASSISTANT about the conversation.
+Write *as* the user.
+The user should refer to the assistant as *you*.
+Start the summary with "I asked you...".
+```
+

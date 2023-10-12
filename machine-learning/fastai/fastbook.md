@@ -148,20 +148,17 @@ tns = tensor(data)
 
 Broadcasting - automatically expand the tensor with the smaller rank to have the same size as the one with the larger rank.
 
+---
+
 ##### Stochastic Gradient Descent
 
 ![Graph showing the steps for Gradient Descent](.fastbook-images/dlcf_0401.png)
 
-
-
-1. *Initialize* the weights.
-
-We initialize the parameters to random values.
-
+1. Initialize the weights.
 1. For each image, use these weights to *predict* whether it appears to be a 3 or a 7.
-2. Based on these predictions, calculate how good the model is (its *loss*).
-3. Calculate the *gradient*, which measures for each weight how changing that weight would change the loss.
-4. *Step* (that is, change) all the weights based on that calculation.
+1. Based on these predictions, calculate how good the model is (its *loss*).
+1. Calculate the *gradient*, which measures for each weight how changing that weight would change the loss.
+1. Step (that is, change) all the weights based on that calculation.
 
 Increase the weight by a small amount, and see if the loss goes up or down.
 
@@ -188,15 +185,40 @@ def sigmoid(x): return 1/(1+torch.exp(-x))
 
 ---
 
-The key difference is that the metric is to drive human understanding and the loss is to drive automated learning. To drive automated learning, the loss must be a function that has a meaningful derivative. It can’t have big flat sections and large jumps, but instead must be reasonably smooth. 
+The key difference is that the metric is to drive human understanding and the loss is to drive automated learning. To drive automated learning, the loss must be a function that has a meaningful derivative. It can’t have big flat sections and large jumps, but instead must be reasonably smooth.
 
+---
 
+##### SGD and Mini-Batches
 
+we calculate the average loss for a few data items at a time. This is called a *mini-batch*. The number of data items in the mini-batch is called the *batch size*.
 
+---
 
-SGD and Mini-Batches
+A neural network contains a lot of numbers, but they are only of two types: numbers that are calculated, and the parameters that these numbers are calculated from:
 
+- Activations - Numbers that are calculated (both by linear and nonlinear layers)
+- Parameters - Numbers that are randomly initialized, and optimized (that is, the numbers that define the model)
 
+Our activations and parameters are all contained in *tensors*. These are simply regularly shaped arrays—for example, a matrix. Matrices have rows and columns; we call these the *axes* or *dimensions*. The number of dimensions of a tensor is its *rank*. There are some special tensors:
+- Rank-0: scalar
+- Rank-1: vector
+- Rank-2: matrix
+
+---
+
+| Term             | Meaning                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| ReLU             | Function that returns 0 for negative numbers and doesn’t change positive numbers. |
+| Mini-batch       | A small group of inputs and labels gathered together in two  arrays. A gradient descent step is updated on this batch (rather than a  whole epoch). |
+| Forward pass     | Applying the model to some input and computing the predictions. |
+| Loss             | A value that represents how well (or badly) our model is doing. |
+| Gradient         | The derivative of the loss with respect to some parameter of the model. |
+| Backward pass    | Computing the gradients of the loss with respect to all model parameters. |
+| Gradient descent | Taking a step in the direction opposite to the gradients to make the model parameters a little bit better. |
+| Learning rate    | The size of the step we take when applying SGD to update the parameters of the model. |
+
+### Image Classification
 
 
 
