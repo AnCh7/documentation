@@ -784,6 +784,7 @@ We then show that an alternative to chain-of-thought prompting — answering que
 #### What is the best open-source TTS out there?
 
 Tortoise or Bark. Tortoise is great but *super* slow. Bark is quite natural sounding but low audio quality.  
+
 https://github.com/neonbjb/tortoise-tts
 https://github.com/suno-ai/bark
 
@@ -830,7 +831,7 @@ Things you can do with embeddings include:
 
 > https://a16z.com/emerging-architectures-for-llm-applications
 
-![https://a16z.com/wp-content/uploads/2023/06/2657-Emerging-LLM-App-Stack-R2-1-of-4-2.png](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/2657-Emerging-LLM-App-Stack-R2-1-of-4-2-20231005133949766.png)
+![https://a16z.com/wp-content/uploads/2023/06/2657-Emerging-LLM-App-Stack-R2-1-of-4-2.png](.notes-images/2657-Emerging-LLM-App-Stack-R2-1-of-4-2.png)
 
 #### In-context learning
 
@@ -854,7 +855,7 @@ The workflow can be divided into three stages:
 - https://github.com/run-llama/sec-insights/
 - https://github.com/astronomer/ask-astro
 
-![image2](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/image8.png)
+![image2](.notes-images/image8.png)
 
 1. Pass the query to the embedding model to semantically represent it as an embedded query vector.
 2. Pass the embedded query vector to our vector DB.
@@ -864,7 +865,7 @@ The workflow can be divided into three stages:
 
 #### Data
 
-![image3](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/image3.png)
+![image3](.notes-images/image3.png)
 
 #### Prompt for software development workflow
 
