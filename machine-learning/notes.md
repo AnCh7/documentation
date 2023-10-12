@@ -22,7 +22,7 @@ The answer is after the proof.                              45.7
 
 #### GPT model series
 
-![image-20221227212643623](.gpt3-images/image-20221227212643623.png)
+![image-20221227212643623](.notes-images/image-20221227212643623.png)
 
 ---
 
@@ -322,7 +322,7 @@ None of the prompt injection tricks I’ve tried seem to do anything:
 
 https://timdettmers.com/2023/01/16/which-gpu-for-deep-learning/
 
-![Image](.gpt3-images/FmmZzEaagAE7vxB.png)
+![Image](.notes-images/FmmZzEaagAE7vxB.png)
 
 ---
 
@@ -602,7 +602,7 @@ We have introduced Toolformer, a language model that learns in a self-supervised
 
 ---
 
-![image-20230221203002701](.gpt3-images/image-20230221203002701.png)
+![image-20230221203002701](.notes-images/image-20230221203002701.png)
 
 ---
 
@@ -765,7 +765,7 @@ Write the first chapter of the lengthy novel. End the chapter with a shocking re
 
 #### Tree-of-Thought (ToT)
 
-![Image](.gpt3-images/Fwc2cB7XsAURVWm.jpeg)
+![Image](.notes-images/Fwc2cB7XsAURVWm.jpeg)
 
 ToT achieves 10x perf by leveraging LLM's ability to:
 
@@ -802,3 +802,8 @@ https://github.com/suno-ai/bark
 - bitsandbytes - Great 8-bit and 4-bit quantization schemes for training/fine-tuning, but for inference GPTQ and AWQ outperform it.
 - AWQ - Great for 8- and 4-bit inference, outperforms GPTQ, and is reorder-free, so is generally faster.
 
+---
+
+## Emerging Architectures for LLM Applications
+
+> https://a16z.com/emerging-architectures-for-llm-applications/
