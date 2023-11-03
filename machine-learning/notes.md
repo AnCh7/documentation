@@ -796,12 +796,15 @@ https://github.com/suno-ai/bark
 
   Great for 8- and 4-bit inference, great support  through projects such as AutoGPTQ, ExLLaMA, etc. AutoGPTQ support for  training/fine-tuning is in the works.
 
+- bitsandbytes - Great 8-bit and 4-bit quantization schemes for training/fine-tuning, but for inference GPTQ and AWQ outperform it.
+
+- AWQ - Great for 8- and 4-bit inference, outperforms GPTQ, and is reorder-free, so is generally faster.
+
 - GGML is designed for CPU and Apple M series but can also offload some layers on the GPU.
 
   The ggml file contains a quantized representation of model weights. Therefore, lower quality. The benefit is 4x less RAM requirements, 4x  less RAM *bandwidth* requirements, and thus faster inference on the CPU.
 
-- bitsandbytes - Great 8-bit and 4-bit quantization schemes for training/fine-tuning, but for inference GPTQ and AWQ outperform it.
-- AWQ - Great for 8- and 4-bit inference, outperforms GPTQ, and is reorder-free, so is generally faster.
+- GGUF / GGML are file formats for quantized models created by Georgi Gerganov who also created llama.cpp which you need to interact with these files. GGUF files usually already include all the necessary files (tokenizer etc.).
 
 ---
 
@@ -845,27 +848,6 @@ The workflow can be divided into three stages:
 - Prompt execution / inference: Once the prompts have been compiled, they are submitted to a pre-trained LLM for inference—including both proprietary model APIs and open-source or self-trained models. Some developers also add operational systems like logging, caching, and validation at this stage.
 
 ---
-
-## Building RAG-based LLM Applications for Production
-
-> https://www.anyscale.com/blog/a-comprehensive-guide-for-building-rag-based-llm-applications-part-1
-
-#### RAG examples
-
-- https://github.com/run-llama/sec-insights/
-- https://github.com/astronomer/ask-astro
-
-![image2](.notes-images/image8.png)
-
-1. Pass the query to the embedding model to semantically represent it as an embedded query vector.
-2. Pass the embedded query vector to our vector DB.
-3. Retrieve the top-k relevant contexts – measured by distance between the query  embedding and all the embedded chunks in our knowledge base.
-4. Pass the query text and retrieved context text to our LLM.
-5. The LLM will generate a response using the provided content.
-
-#### Data
-
-![image3](.notes-images/image3.png)
 
 #### Prompt for software development workflow
 
