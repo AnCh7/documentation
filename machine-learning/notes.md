@@ -870,3 +870,19 @@ The user should refer to the assistant as *you*.
 Start the summary with "I asked you...".
 ```
 
+---
+
+#### How do I find out the context size of a model?
+
+- Llama 1 models are 2048.
+- Llama 2 models are 4096.
+- Any model which says 8k, 16k, etc in the title. These numbers mean the models were trained with those contexts specifically in mind. These models usually still need to have the proper scaling factor applied (rope/compression) unless they are GGUFv2 models.
+- Codellama models support up to 100k tokens.
+- All llama models support varying context sizes using rope or compression scaling factors, with varying levels of success.
+- You can often glean more info about them by finding the original cards for the full weight models they are based on.
+- Loading the file using llama.cpp (./main -m model.gguf) shows the supposed context length the author set:
+```llm_load_print_meta: n_ctx_train = 4096```.
+- Without having to download the whole file, you could read the beginning of it in a hex editor while referring to the GGUF specification to find context_length set to 4096.
+
+---
+
