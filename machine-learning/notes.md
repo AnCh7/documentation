@@ -893,6 +893,7 @@ Start the summary with "I asked you...".
 Use this script to check optimal thread count. 
 Modify the thread parameters in the script as per you liking.
 https://github.com/ggerganov/llama.cpp/issues/34#issuecomment-1529176263
+https://github.com/ggerganov/llama.cpp/discussions/4167
 
 ```python
 import subprocess
@@ -1014,5 +1015,46 @@ make
 -n 400 \
 -t 10 \
 -e
+```
+
+---
+
+#### Your settings are (probably) hurting your model
+
+https://www.reddit.com/r/LocalLLaMA/comments/17vonjo/your_settings_are_probably_hurting_your_model_why/
+
+- Temperature
+
+![r/LocalLLaMA - A graph I made to demonstrate how temperature operates](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/your-settings-are-probably-hurting-your-model-why-sampler-v0-v5hqj5mjzf0c1.png)
+
+Temperature actually controls is the scaling of the scores. Every time a token generates, it must assign thousands of scores to all  tokens that exist in the vocabulary (32,000 for Llama 2) and the  temperature simply helps to either reduce (lowered temp) or increase  (higher temp) the scoring of the extremely low probability tokens.
+
+- Top P
+
+![r/LocalLLaMA - Unsure of where this graph came from, but it's accurate.](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/your-settings-are-probably-hurting-your-model-why-sampler-v0-z987a78fjg0c1.png)
+
+With Top P, you are keeping as many tokens as is necessary to reach a cumulative sum.
+
+Top K is doing something even more linear, by only considering as many tokens are in the top specified value, so Top K 5 = only the top 5 tokens are considered always. I'd suggest just leaving it off entirely if you're not doing debugging. 
+
+Let's say you have a Top P of 0.80, and your top two tokens are: 81% and 19%.
+Top P would completely ignore the 2nd token, despite it being pretty reasonable. This leads to higher determinism in responses unnecessarily.
+
+- Repetition Penalty
+
+This penalty is more of a bandaid fix than a good solution to preventing repetition. I recommend that if you use this, you do not set it higher than 1.20 and treat that as the effective 'maximum'.
+
+---
+
+#### Ask Claude to think step-by-step
+
+```
+Human: I have two pet cats. One of them is missing a leg. The other one has a normal number of legs for a cat to have. In total, how many legs do my cats have?
+
+Assistant: Can I think step-by-step?
+
+Human: Yes, please do.
+
+Assistant:
 ```
 
