@@ -1058,3 +1058,50 @@ Human: Yes, please do.
 Assistant:
 ```
 
+---
+
+#### llamacpp settings
+
+ngl: Run without the `ngl` parameter and see how much free VRAM you have. Increment `ngl=NN` until you are using almost all your VRAM.
+
+For example: with a 7B model and an 8K context I can fit all the layers on the GPU in 6GB of VRAM. Similarly, the 13B model will fit in 11GB of VRAM:
+
+```
+ggml_init_cublas: GGML_CUDA_FORCE_MMQ:   no
+ggml_init_cublas: CUDA_USE_TENSOR_CORES: yes
+ggml_init_cublas: found 1 CUDA devices:
+  Device 0: NVIDIA A100-SXM4-40GB, compute capability 8.0
+
+llm_load_tensors: ggml ctx size       =    0.38 MiB
+llm_load_tensors: using CUDA for GPU acceleration
+llm_load_tensors: system memory used  =   86.32 MiB
+llm_load_tensors: VRAM used           = 30649.55 MiB
+llm_load_tensors: offloading 32 repeating layers to GPU
+llm_load_tensors: offloading non-repeating layers to GPU
+llm_load_tensors: offloaded 33/33 layers to GPU
+....................................................................................................
+llama_new_context_with_model: n_ctx      = 2048
+llama_new_context_with_model: freq_base  = 1000000.0
+llama_new_context_with_model: freq_scale = 1
+llama_kv_cache_init: VRAM kv self = 256.00 MB
+llama_new_context_with_model: KV self size  =  256.00 MiB, K (f16):  128.00 MiB, V (f16):  128.00 MiB
+llama_build_graph: non-view tensors processed: 1124/1124
+llama_new_context_with_model: compute buffer total size = 187.22 MiB
+llama_new_context_with_model: VRAM scratch buffer: 184.04 MiB
+llama_new_context_with_model: total VRAM used: 31089.59 MiB (model: 30649.55 MiB, context: 440.04 MiB)
+Available slots:
+ -> Slot 0 - max context: 2048
+{"timestamp":1705707505,"level":"INFO","function":"main","line":3097,"message":"HTTP server listening","port":"27960","hostname":"127.0.0.1"}
+
+llama server listening at http://127.0.0.1:27960
+
+all slots are idle and system prompt is empty, clear the KV cache
+```
+
+```
+$ nvidia-smi
+
+|   0  NVIDIA A100-SXM...  Off  | 00000000:00:04.0 Off |                    0 |
+| N/A   34C    P0    55W / 400W |  33200MiB / 40536MiB |      0%      Default |
+```
+
