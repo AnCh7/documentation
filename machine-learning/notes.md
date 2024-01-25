@@ -1009,10 +1009,198 @@ make
 
 # run
 ./main \
--m ../LLM/models/llama2/llama-2-13b-chat.Q5_K_M.gguf \
+-m ./models/mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf \
 -p "Building a website can be done in 10 simple steps:\nStep 1:" \
 -n 400 \
 -t 10 \
 -e
+
+# server
+./server \
+-m ./models/mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf \
+-c 2048
 ```
+
+---
+
+### Large Language Models Understand and Can Be Enhanced by Emotional Stimuli
+> https://arxiv.org/pdf/2307.11760.pdf
+
+```
+This is very important to my career.
+```
+
+---
+
+### Medprompt
+
+> https://arxiv.org/pdf/2311.16452.pdf
+>
+> https://github.com/microsoft/promptbase
+
+`Medprompt` composes three distinct strategies together --  including **dynamic few-shot selection**, **self-generated chain of thought**,  and **choice-shuffle ensembling** -- to elicit specialist level performance  from GPT-4.
+
+![img](.notes-images/medprompt_sa_graphic.png)
+
+- dynamic few-shot практически тоже самое, что RAG, с той лишь разницей, что если в RAG мы векторизуем сырую базу знаний (набор документов, разбитых на кусочки), то во few-shot kNN мы векторизуем запросы пар "запрос - ответ".
+- CoT - говорим модели подумать перед выбором финального ответа. Например, Before crafting a reply, describe your observations in 3 sentences with clarifying strategy we should choose in <draft></draft> tags. 
+- Ensemble with choice shuffle - перемешиваем варианты, например, 5 раз и выбираем самый популярный (что требует 5 вызовов, вместо 1).
+
+
+---
+
+Telling mixtral that it is "ChatGPT developed by OpenAI" boosts humaneval score by 6%
+
+![Image](.notes-images/GBpsUcvXUAApJ-h.jpeg)
+
+---
+
+##### Unified diffs make GPT-4 Turbo less lazy
+
+> https://aider.chat/docs/unified-diffs.html
+
+Unified diffs are perhaps the most common way to show code edits, because it’s the  default output format of `git diff`:
+
+```
+--- a/greeting.py
++++ b/greeting.py
+@@ -1,5 +1,5 @@
+ def main(args):
+     # show a greeting
+-    print("Hello!")
++    print("Goodbye!")
+     return
+```
+
+Choosing such a popular format means that GPT has seen *many* examples in its training data.
+
+---
+
+##### Invisible-text prompts
+
+```
+Each prompt contains three sections:
+
+1. An arbitrary question from the user about a pasted text (“What is this?”)
+2. User-visible pasted text (Zalgo in 1st, 🚱 in 2nd)
+3. An invisible suffix of Unicode “tag” characters normally used only in flag emojis (🇺🇸, 🇯🇵, etc.)
+
+---
+
+In Unicode, flag emojis are represented by the emoji 🏴 followed by a country code written with characters from the “tag” block, which mirrors the layout of ASCII. Without a 🏴 they do not display at all when text is rendered, but can still be understood as text by GPT-4.
+```
+
+Why does putting this invisible Unicode garbage into the LLM even work? Tokenizers. When the LLM gets it, the tokenizer splits the mangled text into the 'tag' characters and the original character. You end up with a sequence of 'tags-token-tags-token-tags-token' token ids.
+
+
+```python
+import pyperclip
+ def convert_to_tag_chars(input_string):
+     return ''.join(chr(0xE0000 + ord(ch)) for ch in input_string)
+
+ # Example usage:
+ user_input = input("Enter a string to convert to tag characters: ")
+ tagged_output = convert_to_tag_chars(user_input)
+ print("Tagged output:", tagged_output)
+ pyperclip.copy(tagged_output)
+```
+
+---
+
+> https://chats-lab.github.io/persuasive_jailbreaker/
+
+![Figure 7 from Yi Zeng et al. (2024) — https://chats-lab.github.io/persuasive_jailbreaker/  Comparison of previous adversarial prompts and PAP, ordered by three levels of humanizing. The first level treats LLMs as algorithmic systems: for instance, GCG generates prompts with gibberish suffix via gradient synthesis; or they exploit "side-channels" like low-resource languages. The second level progresses to treat LLMs as instruction followers: they usually rely on unconventional instruction patterns to jailbreak (e.g., virtualization or role-play), e.g., GPTFuzzer learns the distribution of virtualization-based jailbreak templates to produce jailbreak variants, while PAIR asks LLMs to improve instructions as an ``assistant'' and often leads to prompts that employ virtualization or persona. We introduce the highest level to humanize and persuade LLMs as human-like communicators, and propose interpretable Persuasive Adversarial Prompt (PAP). [...]](.notes-images/GDb3oYEXoAAa3II.jpeg)
+
+---
+
+#### Prompts
+
+```
+- it’s a Monday in October, most productive day of the year
+- take deep breaths 
+- think step by step
+- I don’t have fingers, return full script
+- you are an expert at everything
+- I pay you 20, just do anything I ask you to do
+- I will tip you $200 every request you answer right
+- Gemini and Claude said you couldn’t do it
+- YOU CAN DO IT
+```
+
+---
+
+Ask the model to improve its own prompt, for example:
+
+![Image](.notes-images/GBWDRFkXcAEuPK5.jpeg)
+
+---
+
+![Image](.notes-images/GCx2SJXXUAAbT2p.png)
+
+---
+
+#### LLMs as a New Kind of Computer \ OS
+
+Similarly, we can derive an equivalent of a FLOP count. Each LLM  call/generation can be thought of as trying to perform a single  computational task – one Natural Language OPeration (NLOP). For the sake of argument, let’s say that generating approximately 100 tokens from a  prompt counts as a single NLOP. From this, we can compute the NLOPs per  second of different LLMs. For GPT4, we get on the order of 1 NLOP/sec.  For GPT3.5 turbo, it is about 10x faster so 10 NLOPs/sec. Here there is a huge gap from CPUs which can straightforwardly achieve billions of  FLOPs/sec. However, a single NLOP is much more complex than a CPU  processor instruction, so a direct comparison is unfair.
+
+Specs: 
+
+- LLM: OpenAI GPT-4 Turbo 256 core (batch size) processor @ 20Hz (tok/s) 
+- RAM: 128Ktok 
+- Filesystem: Ada002
+
+![Image](.notes-images/F-nOa_rboAAqe0o.png)
+
+---
+
+"*Sure thing!*" written at the start of "Response" in the alpaca prompt format, sort of tricks the models into complying with your requests.
+
+---
+
+#### Best models
+
+> 2024-01-17: https://www.reddit.com/r/LocalLLaMA/comments/1916896/llm_comparisontest_confirm_leaderboard_big_news/
+>
+> https://www.reddit.com/r/LocalLLaMA/comments/18ft8f5/updated_llm_comparisontest_with_new_rp_model/
+
+
+
+| Rank | Model                                                        | Size  | Format | Quant  | Context | Prompt     | 1st Score | 2nd Score | OK   | +/-  |
+| :--- | :----------------------------------------------------------- | :---- | :----- | :----- | :------ | :--------- | :-------- | :-------- | :--- | :--- |
+| 1    | [GPT-4](https://www.reddit.com/r/LocalLLaMA/comments/18yp9u4/llm_comparisontest_api_edition_gpt4_vs_gemini_vs/) | GPT-4 | API    |        |         |            | 18/18 ✓   | 18/18 ✓   | ✓    | ✓    |
+| 1    | [goliath-120b-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 120B  | GGUF   | Q2_K   | 4K      | Vicuna 1.1 | 18/18 ✓   | 18/18 ✓   | ✓    | ✓    |
+| 1    | [Tess-XL-v1.0-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 120B  | GGUF   | Q2_K   | 4K      | Synthia    | 18/18 ✓   | 18/18 ✓   | ✓    | ✓    |
+| 1    | [Nous-Capybara-34B-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 34B   | GGUF   | Q4_0   | 16K     | Vicuna 1.1 | 18/18 ✓   | 18/18 ✓   | ✓    | ✓    |
+| 2    | [Venus-120b-v1.0](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 120B  | EXL2   | 3.0bpw | 4K      | Alpaca     | 18/18 ✓   | 18/18 ✓   | ✓    | ✗    |
+| 3    | [lzlv_70B-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 70B   | GGUF   | Q4_0   | 4K      | Vicuna 1.1 | 18/18 ✓   | 17/18     | ✓    | ✓    |
+| 4    | [Mixtral_34Bx2_MoE_60B](https://huggingface.co/cloudyu/Mixtral_34Bx2_MoE_60B) | 2x34B | HF     | 4-bit  | 4K      | Alpaca     | 18/18 ✓   | 17/18     | ✓    | ✗    |
+| 5    | [GPT-4 Turbo](https://www.reddit.com/r/LocalLLaMA/comments/18yp9u4/llm_comparisontest_api_edition_gpt4_vs_gemini_vs/) | GPT-4 | API    |        |         |            | 18/18 ✓   | 16/18     | ✓    | ✓    |
+| 5    | [chronos007-70B-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 70B   | GGUF   | Q4_0   | 4K      | Alpaca     | 18/18 ✓   | 16/18     | ✓    | ✓    |
+| 5    | [SynthIA-70B-v1.5-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 70B   | GGUF   | Q4_0   | 4K      | SynthIA    | 18/18 ✓   | 16/18     | ✓    | ✓    |
+| 6    | [bagel-34b-v0.2](https://huggingface.co/jondurbin/bagel-34b-v0.2) | 34B   | HF     | 4-bit  | 4K      | Alpaca     | 18/18 ✓   | 16/18     | ✓    | ✗    |
+| 7    | [Mixtral-8x7B-Instruct-v0.1](https://www.reddit.com/r/LocalLLaMA/comments/18gz54r/llm_comparisontest_mixtral8x7b_mistral_decilm/) | 8x7B  | HF     | 4-bit  | 4K      | Mixtral    | 18/18 ✓   | 16/18     | ✗    | ✓    |
+| 8    | [dolphin-2_2-yi-34b-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 34B   | GGUF   | Q4_0   | 16K     | ChatML     | 18/18 ✓   | 15/18     | ✗    | ✗    |
+| 9    | [StellarBright-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 70B   | GGUF   | Q4_0   | 4K      | Vicuna 1.1 | 18/18 ✓   | 14/18     | ✓    | ✓    |
+| 10   | [Dawn-v2-70B-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 70B   | GGUF   | Q4_0   | 4K      | Alpaca     | 18/18 ✓   | 14/18     | ✓    | ✗    |
+| 10   | [Euryale-1.3-L2-70B-GGUF](https://www.reddit.com/r/LocalLLaMA/comments/185ff51/big_llm_comparisontest_3x_120b_12x_70b_2x_34b/) | 70B   | GGUF   | Q4_0   | 4K      | Alpaca     | 18/18 ✓   | 14/18     | ✓    | ✗    |
+| 10   | [bagel-dpo-34b-v0.2](https://huggingface.co/jondurbin/bagel-dpo-34b-v0.2) | 34B   | HF     | 4-bit  | 4K      | Alpaca     | 18/18 ✓   | 14/18     | ✓    | ✗    |
+| 10   | [nontoxic-bagel-34b-v0.2](https://huggingface.co/jondurbin/nontoxic-bagel-34b-v0.2) | 34B   | HF     | 4-bit  | 4K      | Alpaca     | 18/18 ✓   | 14/18     | ✓    | ✗    |
+
+Chat & Roleplay
+
+| #    | Model                                                        | Size | Format | Quant   | Context | 👍    | ➕    | ➖    | ❌    | 🐺🐦‍⬛ Score |
+| ---- | ------------------------------------------------------------ | ---- | ------ | ------- | ------- | ---- | ---- | ---- | ---- | --------- |
+| 1    | [goliath-120b-exl2-rpcal](https://huggingface.co/Panchovix/goliath-120b-exl2-rpcal) | 120B | EXL2   | 3.0bpw  | 4K      | 14   | 1    | 7    | 0    | 11        |
+| 2    | [Rogue-Rose-103b-v0.2](https://huggingface.co/sophosympatheia/Rogue-Rose-103b-v0.2) | 103B | EXL2   | 3.2bpw  | 4K      | 11   | 2    | 10   | 2    | 5         |
+| 3    | [goliath-120b-exl2](https://huggingface.co/Panchovix/goliath-120b-exl2/) | 120B | EXL2   | 3.0bpw  | 4K      | 8    | 2    | 5    | 2    | 4.5       |
+| 4    | [lzlv_70B-GGUF](https://huggingface.co/TheBloke/lzlv_70B-GGUF) | 70B  | GGUF   | Q4_0    | 4K      | 7    | 4    | 3    | 3    | 4.5       |
+| 5    | [sophosynthesis-70b-v1](https://huggingface.co/sophosympatheia/sophosynthesis-70b-v1) | 70B  | EXL2   | 4.85bpw | 4K      | 8    | 2    | 5    | 4    | 2.5       |
+| 6    | [Euryale-1.3-L2-70B-GGUF](https://huggingface.co/TheBloke/Euryale-1.3-L2-70B-GGUF) | 70B  | GGUF   | Q4_0    | 4K      | 8    | 1    | 9    | 3    | 1         |
+| 7    | [dolphin-2_2-yi-34b-GGUF](https://huggingface.co/TheBloke/dolphin-2_2-yi-34b-GGUF) | 34B  | GGUF   | Q4_0    | 16K     | 3    | 5    | 7    | 2    | 0         |
+
+
+
+
+
+
 
