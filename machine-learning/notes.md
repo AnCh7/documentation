@@ -1248,11 +1248,12 @@ Specs:
 
 #### Best models
 
-> 2024-01-17: https://www.reddit.com/r/LocalLLaMA/comments/1916896/llm_comparisontest_confirm_leaderboard_big_news/
->
-> https://www.reddit.com/r/LocalLLaMA/comments/18ft8f5/updated_llm_comparisontest_with_new_rp_model/
+> 2024-01-17:
 
+>https://www.reddit.com/r/LocalLLaMA/comments/1916896/llm_comparisontest_confirm_leaderboard_big_news/
+>https://www.reddit.com/r/LocalLLaMA/comments/18ft8f5/updated_llm_comparisontest_with_new_rp_model/
 
+4 German data protection trainings
 
 | Rank | Model                                                        | Size  | Format | Quant  | Context | Prompt     | 1st Score | 2nd Score | OK   | +/-  |
 | :--- | :----------------------------------------------------------- | :---- | :----- | :----- | :------ | :--------- | :-------- | :-------- | :--- | :--- |
@@ -1287,7 +1288,11 @@ Chat & Roleplay
 | 6    | [Euryale-1.3-L2-70B-GGUF](https://huggingface.co/TheBloke/Euryale-1.3-L2-70B-GGUF) | 70B  | GGUF   | Q4_0    | 4K      | 8    | 1    | 9    | 3    | 1         |
 | 7    | [dolphin-2_2-yi-34b-GGUF](https://huggingface.co/TheBloke/dolphin-2_2-yi-34b-GGUF) | 34B  | GGUF   | Q4_0    | 16K     | 3    | 5    | 7    | 2    | 0         |
 
+---
 
+SillyTavern format: I'll stick to the **original universal Roleplay preset** and enjoy excellent conversations regardless of model used, instead of spending time and effort on perfecting a model-specific prompt format, only to then get clearly subpar results with that. 
+
+---
 
 
 
