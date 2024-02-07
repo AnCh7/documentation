@@ -1114,13 +1114,13 @@ https://www.reddit.com/r/LocalLLaMA/comments/17vonjo/your_settings_are_probably_
 
 - Temperature
 
-![r/LocalLLaMA - A graph I made to demonstrate how temperature operates](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/your-settings-are-probably-hurting-your-model-why-sampler-v0-v5hqj5mjzf0c1.png)
+![r/LocalLLaMA - A graph I made to demonstrate how temperature operates](.notes-images/your-settings-are-probably-hurting-your-model-why-sampler-v0-v5hqj5mjzf0c1.png)
 
 Temperature actually controls is the scaling of the scores. Every time a token generates, it must assign thousands of scores to all  tokens that exist in the vocabulary (32,000 for Llama 2) and the  temperature simply helps to either reduce (lowered temp) or increase  (higher temp) the scoring of the extremely low probability tokens.
 
 - Top P
 
-![r/LocalLLaMA - Unsure of where this graph came from, but it's accurate.](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/your-settings-are-probably-hurting-your-model-why-sampler-v0-z987a78fjg0c1.png)
+![r/LocalLLaMA - Unsure of where this graph came from, but it's accurate.](.notes-images/your-settings-are-probably-hurting-your-model-why-sampler-v0-z987a78fjg0c1.png)
 
 With Top P, you are keeping as many tokens as is necessary to reach a cumulative sum.
 

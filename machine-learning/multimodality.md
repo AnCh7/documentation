@@ -10,7 +10,33 @@ LLaVa connects pre-trained [CLIP ViT-L/14](https://openai.com/research/clip) vis
 
 LLaVA-1.5 uses Llama 2.
 
+LLaVA-1.6 uses:
 
+- NousResearch/Nous-Hermes-2-Yi-34B
+- lmsys/vicuna-13b-v1.5
+- lmsys/vicuna-7b-v1.5
+- mistralai/Mistral-7B-Instruct-v0.2
+
+Compared with LLaVA-1.5, LLaVA-1.6 has several improvements:
+
+1. **Increasing the input image resolution** to 4x more  pixels. This allows it to grasp more visual details. It supports three  aspect ratios, up to 672x672, 336x1344, 1344x336 resolution.
+2. **Better visual reasoning and OCR capability** with an improved visual instruction tuning data mixture.
+3. **Better visual conversation for more scenarios**, covering different applications. Better world knowledge and logical reasoning.
+4. **Efficient deployment and inference** with [SGLang](https://github.com/sgl-project/sglang).
+
+##### Detailed Technical Improvement
+
+- Dynamic High Resolution
+
+![img](.multimodality-images/high_res_arch_v2.png)
+
+- Data Mixture
+  - High-quality User Instruct Data: 
+    - (1) Existing GPT-V data. LAION-GPT-V and ShareGPT-4V. 
+    - (2) A small 15K visual instruction tuning dataset covering different applications.
+  - Multimodal Document/Chart Data:
+    - (1) We remove [TextCaps](https://textvqa.org/textcaps/) from our training data and replace TextCaps with DocVQA and SynDog-EN.
+    - (2) Motivated by [Qwen-VL-7B-Chat](https://huggingface.co/Qwen/Qwen-VL), we further add ChartQA, DVQA, and AI2D for better chart and diagram understanding.
 
 ### BakLLaVA-1
 
@@ -19,5 +45,52 @@ LLaVA-1.5 uses Llama 2.
 
 BakLLaVA 1 is a Mistral 7B base augmented with the LLaVA 1.5 architecture.
 
+### Yi VL
 
+> https://huggingface.co/01-ai/Yi-VL-34B
+> https://github.com/01-ai
 
+##### Features
+
+- Multi-round text-image conversations: Yi-VL can take both text and images as inputs and produce text outputs.
+- 448×448 resolution
+
+##### Architecture
+
+- Yi-VL adopts the [LLaVA](https://github.com/haotian-liu/LLaVA) architecture
+  - Vision Transformer (ViT) [CLIP ViT-H/14 model](https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K) and used for image encoding.
+  - Projection Module: two-layer Multilayer Perceptron (MLP) with layer normalizations.
+  - LLM: Yi-34B-Chat and Yi-6B-Chat
+
+![image/png](.multimodality-images/EGVHSWG4kAcX01xDaoeXS.png)
+
+##### Training
+
+- Stage 1: The parameters of ViT and the projection module are  trained using an image resolution of 224×224. The LLM weights are  frozen. The training leverages an image caption dataset comprising 100  million image-text pairs from [LAION-400M](https://laion.ai/blog/laion-400-open-dataset/). The primary objective is to enhance the ViT's knowledge acquisition  within our specified architecture and to achieve better alignment  between the ViT and the LLM.
+- Stage 2: The image resolution of ViT is scaled up to 448×448, and the parameters of ViT and the projection module are trained. It aims to further boost the model's capability for discerning intricate visual  details. The dataset used in this stage includes about 25 million image-text pairs, such as [LAION-400M](https://laion.ai/blog/laion-400-open-dataset/), [CLLaVA](https://huggingface.co/datasets/LinkSoul/Chinese-LLaVA-Vision-Instructions), [LLaVAR](https://llavar.github.io/), [Flickr](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset), [VQAv2](https://paperswithcode.com/dataset/visual-question-answering-v2-0), [RefCOCO](https://github.com/lichengunc/refer/tree/master), [Visual7w](http://ai.stanford.edu/~yukez/visual7w/).
+- Stage 3: The parameters of the entire model (that is, ViT,  projection module, and LLM) are trained. The primary goal is to enhance  the model's proficiency in multimodal chat interactions, thereby  endowing it with the ability to seamlessly integrate and interpret  visual and linguistic inputs. To this end, the training dataset  encompasses a diverse range of sources, totalling approximately 1  million image-text pairs, including [GQA](https://cs.stanford.edu/people/dorarad/gqa/download.html), [VizWiz VQA](https://vizwiz.org/tasks-and-datasets/vqa/), [TextCaps](https://opendatalab.com/OpenDataLab/TextCaps), [OCR-VQA](https://ocr-vqa.github.io/), [Visual Genome](https://homes.cs.washington.edu/~ranjay/visualgenome/api.html), [LAION GPT4V](https://huggingface.co/datasets/laion/gpt4v-dataset) and so on. To ensure data balancing, we impose a cap on the maximum  data contribution from any single source, restricting it to no more than 50,000 pairs.
+
+##### Hardware requirements 
+
+- Yi-VL-6B: RTX 3090, RTX 4090, A10, A30
+- Yi-VL-34B: 4 × RTX 4090, A800 (80 GB)
+
+### MoE-LLaVA
+
+> https://github.com/PKU-YuanGroup/MoE-LLaVA
+> https://huggingface.co/LanguageBind
+
+##### Highlights
+
+- MoE-LLaVA-2.7B×4-Top2-384 using Phi2-2.7B
+- MoE-LLaVA-2.7B×4-Top2 using Phi2-2.7B
+- MoE-LLaVA-1.8B×4-Top2 using Qwen-1.8B
+- MoE-LLaVA-1.6B×4-Top2-384 using StableLM-1.6B
+- MoE-LLaVA-1.6B×4-Top2 using StableLM-1.6B
+
+- The MoE-Tuning consists of three stages. 
+  - In stage I, only the MLP is trained. 
+  - In stage II, all parameters are trained except for the Vision Encoder (VE). 
+  - In stage III, FFNs are used to initialize the experts in MoE, and only the MoE layers are trained. For each MoE layer, only two experts are activated for each token, while the other experts remain silent.
+
+![image-20240205200704884](.multimodality-images/image-20240205200704884.png)
