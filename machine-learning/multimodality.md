@@ -94,3 +94,34 @@ BakLLaVA 1 is a Mistral 7B base augmented with the LLaVA 1.5 architecture.
   - In stage III, FFNs are used to initialize the experts in MoE, and only the MoE layers are trained. For each MoE layer, only two experts are activated for each token, while the other experts remain silent.
 
 ![image-20240205200704884](.multimodality-images/image-20240205200704884.png)
+
+---
+
+### IDEFICS
+
+> https://www.latent.space/p/idefics
+>
+> https://huggingface.co/datasets/HuggingFaceM4/OBELICS
+>
+> https://huggingface.co/HuggingFaceM4/idefics-80b-instruct
+>
+> 
+
+DeepMind was the first to create a SOTA multimodal model by taking a pre-existing LLM ([Chinchilla 80B ](https://arxiv.org/abs/2203.15556)) and pre-existing vision encoder ([CLIP](https://arxiv.org/abs/2103.00020)) and training a “glue” adapter layer, inspiring a generation of stunningly cheap and effective multimodal models including [LLaVA](https://x.com/ChunyuanLi/status/1710299381335798202?s=20), [BakLLaVA](https://github.com/SkunkworksAI/BakLLaVA) and [FireLLaVA](https://twitter.com/lqiao/status/1748243039766925351).
+
+Based on [the excellent paper](https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/tackling-multiple-tasks-with-a-single-visual-language-model/flamingo.pdf), LAION stepped up to create [OpenFlamingo](https://laion.ai/blog/open-flamingo/), but it never scaled beyond 9B.
+
+The M4 (audio + video +  image + text multimodality) research team at HuggingFace [announced](https://x.com/SanhEstPasMoi/status/1632775840135016448?s=20) an independent effort to reproduce Flamingo up to the full 80B scale.
+
+IDEFICS is an Open Access Visual Language Model, available in [9B](https://huggingface.co/HuggingFaceM4/idefics-9b) and [80B](https://huggingface.co/HuggingFaceM4/idefics-80b) model sizes. As an attempt to re-create an open-access version of [Flamingo](https://arxiv.org/abs/2204.14198), it seems to track very well on a range of multimodal benchmarks.
+
+IDEFICS was built by connecting two unimodal models together to provide the multi-modality you see showcased above:
+
+- [Llama](https://huggingface.co/huggyllama/llama-65b) v1 for language (specifically [huggyllama/llama-65b](https://huggingface.co/huggyllama/llama-65b)) - the best available open model at the time, to be swapped for Mistral in the next version of IDEFICS
+- [A CLIP](https://github.com/mlfoundations/open_clip) model for vision (specifically [laion/CLIP-ViT-H-14-laion2B-s32B-b79K](https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K) - after a brief exploration of [EVA-CLIP](https://huggingface.co/QuanSun/EVA-CLIP))
+
+An Open Web-Scale Filtered Dataset of Interleaved Image-Text Documents:
+
+- 115B text tokens
+- 141M English documents
+- 353M images

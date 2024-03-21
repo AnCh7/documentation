@@ -11,3 +11,9 @@
 **ELI5:** Imagine you're in a forest where each tree is a detective trying to find the "strangest" trees (which are like unusual data points in your  data). These detective trees do this by asking random questions like "Is this tree shorter than others?" or "Does this tree have a different  type of leaf?". The weird trees get found out quickly because they're  different from the rest. In an Isolation Forest, the easier it is to  find a tree that stands out by asking these random questions, the more  likely it is to be unusual. This is how the algorithm spots things that  don't quite fit in - the anomalies in your data.
 
 Isolation forests are tree based models specifically used for outlier detection. The IF isolates observations by randomly selecting a feature and then  randomly selecting a split value between the maximum and minimum values  of the selected feature. The number of splittings required to isolate a  sample is equivalent to the path length from the root node to the  terminating node. This path length, averaged over a forest of random trees, is a measure of normality and is used to define an anomaly score. Outliers can typically be isolated quicker, leading to shorter  paths. The algorithm is suitable for low to medium dimensional tabular  data.
+
+### Thresholding with false discovery rate
+
+> https://matthew-brett.github.io/teaching/fdr.html
+
+The false discovery rate is a different *type* of correction than family-wise correction. Instead of controlling for the risk of *any tests* falsely being declared significant under the null hypothesis, FDR will control the *number of tests falsely declared significant as a proportion of the number of all tests declared significant*.
