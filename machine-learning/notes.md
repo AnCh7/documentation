@@ -806,6 +806,8 @@ https://github.com/suno-ai/bark
 
 - GGUF / GGML are file formats for quantized models created by Georgi Gerganov who also created llama.cpp which you need to interact with these files. GGUF files usually already include all the necessary files (tokenizer etc.).
 
+![Image](.notes-images/GItS0JwW8AE-WjQ.jpeg)
+
 ---
 
 #### Embeddings
@@ -1293,6 +1295,16 @@ Chat & Roleplay
 SillyTavern format: I'll stick to the **original universal Roleplay preset** and enjoy excellent conversations regardless of model used, instead of spending time and effort on perfecting a model-specific prompt format, only to then get clearly subpar results with that. 
 
 ---
+
+#### Blind testing different quants
+
+> https://github.com/ggerganov/llama.cpp/discussions/5962
+
+![image-20240315114420829](.notes-images/image-20240315114420829.png)
+
+
+
+
 
 
 
