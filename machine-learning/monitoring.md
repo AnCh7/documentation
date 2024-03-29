@@ -17,3 +17,38 @@ Isolation forests are tree based models specifically used for outlier detection.
 > https://matthew-brett.github.io/teaching/fdr.html
 
 The false discovery rate is a different *type* of correction than family-wise correction. Instead of controlling for the risk of *any tests* falsely being declared significant under the null hypothesis, FDR will control the *number of tests falsely declared significant as a proportion of the number of all tests declared significant*.
+
+
+
+### Evidentlyai
+
+> https://www.evidentlyai.com/product/data-drift
+>
+> https://github.com/evidentlyai
+
+TODO
+
+
+
+
+
+### Arize
+
+> https://arize.com/model-drift/
+>
+> https://docs.arize.com/arize/monitors/drift-monitors
+
+TODO
+
+
+
+### NannyML
+
+> https://github.com/NannyML/nannyml
+>
+> https://nannyml.readthedocs.io/en/stable/tutorials/detecting_data_drift.html
+
+
+
+TODO
+
