@@ -1509,3 +1509,19 @@ Another approach is to fine-tune the model to refuse to answer queries that look
 
 We had more success with methods that involve classification and modification of the prompt before it is passed to the model (see https://www.anthropic.com/news/preparing-for-global-elections-in-2024).
 
+---
+
+#### Tool Documentation Enables Zero-Shot Tool-Usage with Large Language Models
+
+>https://arxiv.org/pdf/2308.00675.pdf
+
+In this paper, we examined the effectiveness of tool docs in enabling zero-shot tool usage with LLMs. 
+
+We first showed that LLMs can achieve on par or better performance than their few-shot counterparts when provided with tool docs. 
+
+We then scaled up to a significantly larger tool set on a newly collected API through docs only. By simply plugging in new tools along with their docs, LLMs are able to tackle unseen tasks in image editing and video tracking without further demos and replicate the functionalities of recent popular projects, suggesting a potential for automatic knowledge discovery.
+
+![image-20240411113311817](/Users/anton/MyDocuments/Notes/machine-learning/.notes-images/image-20240411113311817.png)
+
+Example workflow of tool-using with LLMs to solve a multi-modal question answering task. Given the input question with an image, the LLM selects appropriate tools from the tool set and generates an execution plan to answer the question correctly. Here, the LLMs outlines a plan to first use Text Detector to understand the positioning of the magnets in the image, then leverage Knowledge Retriever to obtain relevant background knowledge about magnets, then finally generate the solution based on the previous steps.
+

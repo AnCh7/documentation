@@ -125,3 +125,79 @@ An Open Web-Scale Filtered Dataset of Interleaved Image-Text Documents:
 - 115B text tokens
 - 141M English documents
 - 353M images
+
+---
+
+### Fuyu-8B
+
+> https://huggingface.co/adept/fuyu-8b
+>
+> https://www.adept.ai/blog/adept-fuyu-heavy
+
+For digital agents, UI understanding.
+
+Fuyu is a vanilla decoder-only transformer with no specialized image encoder. Image patches are linearly projected directly into the first layer of the transformer, bypassing the embedding lookup. This simplified architecture supports arbitrary image resolutions, and dramatically simplifies both training and inference.
+
+We simply treat the normal transformer decoder like an image transformer (albeit with no pooling and causal attention).
+
+This simplification allows us to support arbitrary image resolutions. To accomplish this, we just treat the sequence of image tokens like the sequence of text tokens. We remove image-specific position embeddings and feed in as many image tokens as necessary in raster-scan order.
+
+Fuyu can understand complex visual relationships, such as in the below  chart, where it has to trace connections between actors and shows and  count them to answer the question.
+
+It can also answer nontrivial, multi-hop questions given traditional charts.
+
+Fuyu can also understand documents — both complex infographics and old PDFs.
+
+The model can understand complex relational queries about scientific diagrams.
+
+---
+
+### vistar: Guided Visual Search as a Core Mechanism in Multimodal LLMs
+
+> https://vstar-seal.github.io
+>
+> https://huggingface.co/craigwu/seal_vqa_7b
+>
+> https://huggingface.co/craigwu/seal_vsm_7b
+
+![teaser.png](/Users/anton/MyDocuments/Notes/machine-learning/.multimodality-images/teaser.png)
+
+Show, Search and Tell (SEAL) framework is a general  meta-architecture for MLLMs.
+
+![SEAL Framework](/Users/anton/MyDocuments/Notes/machine-learning/.multimodality-images/pipeline_v2.jpg)
+
+It is comprised of a VQA LLM and a visual search model which collaborate and interact through the visual working memory (VWM).
+
+The VQA LLM  first evaluates if the encoder's initial (global) visual  features suffice for answering the question. If not, it explicitly lists all the needed but missing information in the format of a list of  target objects. Then, it initializes a visual working memory (VWM). The  VWM has four blocks, the <question> block contains the initial  textual question; <global image> contains the initial image;  <searched targets> stores the target object crops after search;  and <target location> stores the coordinates of the searched  targets. Next, the visual search model searches over the image and  localizes each required target. A region containing the identified  target is then cropped from the whole image. The cropped targets, along  with their coordinates, are added to the VWM. After that, the VQA LLM  processes the data contained in the VWM to generate the response  accordingly.             
+
+LLM-guided Visual Search - drawing inspiration from how humans utilize contextual scene and  top-down feature guidance in their visual search process, we've  incorporated similar concepts into the design of the visual search model in V.
+
+Search algorithm A is designed  for pathfinding, aiming to identify the shortest route between a  starting point and a goal by using a heuristic to approximate the cost.
+
+---
+
+### Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond
+
+> https://arxiv.org/abs/2308.12966
+>
+> https://huggingface.co/Qwen
+>
+> https://github.com/QwenLM/Qwen-VL
+
+Qwen-VL adopts a large language model as its foundation component. The model
+is initialized with pre-trained weights from Qwen-7B.
+
+The visual encoder of Qwen-VL uses the Vision Transformer (ViT) (Dosovitskiy et al., 2021) architecture, initialized with pre-trained weights from Openclip’s ViT-bigG (Ilharco et al., 2021). During both training and inference, input images are resized to a specific resolution. The visual encoder processes images by splitting them into patches with a stride of 14, generating a set of image features.
+
+Position-aware Vision-Language Adapter.
+
+Details of Qwen-VL model parameters: 
+
+```
+ Vision Encoder  VL Adapter  LLM   Total
+     1.9B         0.08B     7.7B   9.6B
+```
+
+Image Input: Images are processed through the visual encoder and adapter, yielding fixed-length sequences of image features.
+
+Bounding Box Input and Output: To enhance the model’s capacity for fine-grained visual understanding and grounding, Qwen-VL’s training involves data in the form of region descriptions, questions, and detections.
