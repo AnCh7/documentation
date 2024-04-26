@@ -1422,3 +1422,18 @@ Prompt formats supported: ChatML, Instruct. Both formats are added to override t
 1. Adding spelling errors and typos: Instead of: "The quick brown fox jumps over the lazy dog." Writing: "The quikc brown fox jmups over the lazy dog." So it's like we were in a hurry, and we did a quick typing.
 2. Writing as a non-native speaker: Ask the LLM to write the text as if you were a non-native speaker of the language. Instead of: "I am very happy to write this essay for my English class. I hope to get a good grade." Write: "I am very happy to write this essay for my English class. I hope to get a good grade."
 3. Increase Burstiness: Instead of: "The sun shone brightly. The birds chirped. A gentle breeze rustled the leaves. It was a perfect day for a picnic in the park." Write: "The sun shone brightly. Birds chirped. A gentle breeze rustled the leaves, creating a soothing atmosphere. It was a perfect day for a picnic in the park, with family and friends gathered together to enjoy the lovely weather." In the attacked version, the sentence lengths and structures are varied to create a more dynamic and engaging text. Short sentences are combined with longer, more descriptive ones, mimicking the natural flow of human writing and making it more challenging for AI detectors to identify the text as machine-generated.
+
+---
+
+### Using Claude for prompt generation
+
+The system prompt should contain rules of the best practices for the prompt engineering.
+
+It also helps to write a negative prompt based on the main positive prompt (--cfg-negative-prompt).
+
+![Image](.notes-images/GLSEiPLXwAAJXqh.jpeg)
+
+![Image](.notes-images/GLSF_Y6WMAAH_TL.jpeg)
+
+---
+
