@@ -2,6 +2,8 @@
 
 TODO
 
+
+
 ## Monitoring
 
 ###  alibi-detect
@@ -13,7 +15,7 @@ TODO
 
 Alibi Detect is an open source Python library focused on outlier, adversarial and drift detection.
 
-![https://docs.seldon.io/projects/seldon-core/en/stable/_images/analytics.png](/Users/anton/MyDocuments/Notes/mlops/.seldon-images/analytics.png)
+![https://docs.seldon.io/projects/seldon-core/en/stable/_images/analytics.png](.seldon-images/analytics.png)
 
 #### What is drift?
 
@@ -21,7 +23,7 @@ Although powerful, modern machine learning models can be sensitive. Seemingly su
 
 *Drift* is said to occur when the process underlying X and Y at test time differs from the process that generated the training data. In this case, we can no longer expect the model’s performance on test data to match that observed on held out training data. At test time we always observe features X, and the *ground truth* then refers to a corresponding label Y. If ground truths are available at test time, *supervised drift detection* can be performed, with the model’s predictive performance monitored directly. However, in many scenarios, such as the binary classification example below, ground truths are not available and *unsupervised drift detection* methods are required.
 
-![Drift in deployment](/Users/anton/MyDocuments/Notes/mlops/.seldon-images/drift_deployment.png)
+![Drift in deployment](.seldon-images/drift_deployment.png)
 
 **Covariate drift**: Also referred to as input drift, this occurs when the distribution of the input data has shifted. This may result in the model giving unreliable predictions.
 
@@ -29,13 +31,13 @@ Although powerful, modern machine learning models can be sensitive. Seemingly su
 
 **Concept drift**: This occurs when the process generating y from x has changed. It is possible that the model might no longer give a suitable approximation of the true process.
 
-![2D drift example](/Users/anton/MyDocuments/Notes/mlops/.seldon-images/bg_2d_drift.png)
+![2D drift example](.seldon-images/bg_2d_drift.png)
 
 [Alibi Detect](https://github.com/SeldonIO/alibi-detect) offers a wide array of methods for detecting drift. Generally, these aim to determine whether the distribution P(z) has drifted from a reference distribution Pref(z), where z may represent input data X, true output data Y, or some form of model output, depending on what type of drift we wish to detect.
 
 To decide whether differences between P(z) and Pref(z) are due to drift or just natural randomness in the data, *statistical two-sample hypothesis* testing is used, with the null hypothesis P(z) = Pref(z) . If the p-value obtained is below a given threshold, the null is rejected and the alternative hypothesis P(z) != Pref(z) is accepted, suggesting drift is occurring.
 
-![Drift detection pipeline](/Users/anton/MyDocuments/Notes/mlops/.seldon-images/drift_pipeline.png)
+![Drift detection pipeline](.seldon-images/drift_pipeline.png)
 
 Hypothesis testing involves first choosing a *test statistic* S(z), which is expected to be small if the null hypothesis H0 is true, and large if the alternative Ha is true.
 
@@ -97,9 +99,9 @@ Expected run-time and detection delay - this is the number of time-steps that we
 - Train a VAE on *normal* data so it can reconstruct *inliers* well
 - If the VAE cannot reconstruct the incoming requests well? Outlier!
 
-![image-20231113114504941](/Users/anton/MyDocuments/Notes/mlops/.seldon-images/image-20231113114504941.png)
+![image-20231113114504941](.seldon-images/image-20231113114504941.png)
 
 The adversarial detector is based on [Adversarial Detection and Correction by Matching Prediction Distributions](https://arxiv.org/abs/2002.09364).
 
-![image-20231113115244426](/Users/anton/MyDocuments/Notes/mlops/.seldon-images/image-20231113115244426.png)
+![image-20231113115244426](.seldon-images/image-20231113115244426.png)
 

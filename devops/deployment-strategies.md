@@ -22,6 +22,7 @@ Stop all the running application instances and then spin up the instances with t
 
 Instances running the old version get retired as new instances with the new version get spun up.
 Applicable when your service is horizontally scaled (more than one instance). Depending on the system taking care of the ramped deployment, you can tweak the following parameters to increase the deployment time:
+
 - Parallelism, max batch size: Number of concurrent instances to roll out.
 - Max surge: How many instances to add in addition of the current amount.
 - Max unavailable: Number of unavailable instances during the rolling update procedure.
@@ -108,3 +109,15 @@ Here is a list of conditions that can be used to distribute traffic amongst the 
 [![kubernetes shadow deployment](.deployment-strategies-images/grafana-shadow.png)](https://github.com/ContainerSolutions/k8s-deployment-strategies/blob/master/shadow/grafana-shadow.png)
 
 A shadow deployment consists of releasing version B alongside version A, fork version A’s incoming requests and send them to version B as well without impacting production traffic. This is particularly useful to test production load on a new feature. A rollout of the application is triggered when stability and performance meet the requirements.
+
+#### Multi-Armed Bandit
+
+> Dynamically allocate traffic to different versions of models based on their performance.
+
+**Epsilon-greedy** In ‘greedy’ experiments, the lever with highest known  payout is always pulled except when a random action is taken. A  randomly chosen arm is pulled a fraction ε of the time. The other 1-ε of the time, the arm with highest known payout is pulled.
+
+**Upper confidence bound** assumes that the unknown mean payoffs of each arm will be as high as possible, based on observable data.
+
+**Thompson Sampling (Bayesian)** With this randomized probability matching strategy, the number of  pulls for a given lever should match its actual probability of being the optimal lever.
+
+ **Contextual bandit** the context and environment in which the experiment occurs.
