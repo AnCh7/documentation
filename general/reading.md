@@ -305,15 +305,111 @@ Pages: 9.
 3. **Evaluation & Monitoring**:
    - Focus on monitoring outputs continuously to identify inconsistencies and improve performance.
 
-### 12. ByteByteGo System Design May-17-2022
+### 12. ByteByteGo's System Design PDF from May-17-2022
 
 Pages: 154.
 
-### 13. xxx
+### 13. Graph of Thoughts: Solving Elaborate Problems with Large Language Models
 
+**TL;DR**: The "Graph of Thoughts" (GoT) framework enhances large language models (LLMs) by structuring reasoning processes as arbitrary graphs, surpassing traditional linear or tree-based methods like Chain-of-Thought (CoT) and Tree of Thoughts (ToT). This approach enables more complex and efficient problem-solving, achieving significant improvements in tasks such as sorting.
 
+Pages: 63.
 
+**Detailed Summary**:
 
+The paper introduces the Graph of Thoughts (GoT) framework, which models the reasoning process of LLMs as arbitrary graphs. In this framework, individual units of information, termed "LLM thoughts," are represented as vertices, and the dependencies between them are depicted as edges. This graph-based structure allows for the combination of various thoughts into cohesive outcomes, the distillation of entire networks of thoughts, and the enhancement of reasoning through feedback loops.
 
+GoT extends beyond the limitations of existing paradigms like Chain-of-Thought (CoT) and Tree of Thoughts (ToT), which structure reasoning in linear sequences or hierarchical trees, respectively. By adopting a more flexible graph structure, GoT more closely mirrors human cognitive processes and neural mechanisms, which often involve complex, recurrent networks.
 
+The authors present a modular architecture for implementing GoT, emphasizing fine-grained control over individual thoughts and the ability to incorporate new thought transformations seamlessly. This design facilitates rapid prototyping of novel prompting strategies using various LLMs, including GPT-3.5, GPT-4, and Llama-2.
+
+Empirical evaluations demonstrate GoT's advantages over existing methods. For instance, in sorting tasks, GoT improves quality by approximately 62% compared to ToT, while also reducing associated costs by over 31%. These findings suggest that GoT is particularly effective for tasks that can be decomposed into smaller subtasks, solved individually, and then integrated into a final solution.
+
+Additionally, the paper introduces a new metric for evaluating prompting strategies, termed the "volume of a thought." This metric quantifies the number of LLM thoughts that contribute to a particular thought, providing deeper insights into the differences between various prompting schemes.
+
+In summary, the Graph of Thoughts framework represents a significant advancement in prompting strategies for large language models, enabling more sophisticated and efficient reasoning by leveraging arbitrary graph structures to model complex thought processes.
+
+### 14. A Unified View of Label Shift Estimation
+
+**TL;DR**: The paper "A Unified View of Label Shift Estimation" presents a comprehensive analysis of two primary methods for estimating label distributions under label shift: Black Box Shift Estimation (BBSE) and Maximum Likelihood Label Shift (MLLS). The authors establish consistency conditions for MLLS, unify both methods under a common framework, and decompose MLLS's finite-sample error into components related to miscalibration and estimation error. Their analysis attributes BBSE's statistical inefficiency to information loss due to coarse calibration. Empirical evaluations on synthetic data, MNIST, and CIFAR-10 support their findings.
+
+Pages: 11.
+
+**Detailed Summary**:
+
+The paper addresses the challenge of label shift, where the distribution of labels changes between the source and target domains, while the class-conditional distributions remain constant. This scenario is common in real-world applications, such as medical diagnostics, where the prevalence of diseases (labels) may vary over time or across populations, but the manifestation of symptoms (features) given a disease remains consistent.
+
+**Key Contributions**:
+
+1. **Consistency Conditions for MLLS**: The authors establish that for MLLS to be consistent, two conditions are necessary:
+
+   - **Calibration of the Classifier**: The classifier used must be calibrated, meaning its predicted probabilities should accurately reflect the true likelihoods.
+   - **Invertible Confusion Matrix**: The confusion matrix derived from the classifier must be invertible, ensuring that the system of equations used in the estimation process has a unique solution.
+
+2. **Unified Framework**: The paper presents a framework that encompasses both BBSE and MLLS. They demonstrate that BBSE can be viewed as equivalent to MLLS when a specific calibration method is applied. This unification provides a deeper understanding of the relationship between the two methods and offers insights into their respective advantages and limitations.
+
+3. **Error Decomposition of MLLS**: The authors decompose the finite-sample error of MLLS into two components:
+
+   - **Miscalibration Error**: Error arising from inaccuracies in the classifier's predicted probabilities.
+   - **Estimation Error**: Error due to the finite size of the sample used in the estimation process.
+
+   This decomposition allows for a more nuanced analysis of the factors influencing MLLS's performance and highlights the importance of classifier calibration in achieving accurate label shift estimation.
+
+**Empirical Findings**:
+
+Through experiments on synthetic datasets, as well as the MNIST and CIFAR-10 image datasets, the authors demonstrate that:
+
+- MLLS, when combined with appropriate calibration techniques, outperforms BBSE in terms of estimation accuracy.
+- The superior performance of MLLS is primarily due to its ability to retain more information during the calibration process, whereas BBSE's reliance on confusion matrices leads to a loss of information and, consequently, reduced statistical efficiency.
+
+**Conclusion**:
+
+The paper provides a comprehensive theoretical and empirical analysis of label shift estimation methods, offering valuable insights into the conditions necessary for their success. By unifying BBSE and MLLS under a common framework and elucidating the importance of classifier calibration, the authors contribute to a deeper understanding of domain adaptation techniques in machine learning.
+
+### 15. Practical Benefits of Feature Feedback Under Distribution Shift
+
+**TL;DR**: The paper "Practical Benefits of Feature Feedback Under Distribution Shift" investigates how incorporating feature feedback—auxiliary annotations highlighting salient evidence—affects model performance, particularly under distribution shifts. While feature feedback has shown limited benefits on in-domain test sets, this study finds that, in sentiment analysis tasks, models utilizing feature feedback significantly outperform standard models on out-of-domain datasets, despite similar in-domain performance. However, in natural language inference (NLI) tasks, feature feedback does not yield notable improvements. The research suggests that feature feedback can enhance model robustness to distribution shifts in certain tasks, with effectiveness varying by domain.
+
+Pages: 10.
+
+**Detailed Summary**:
+
+The study explores the utility of feature feedback—annotations provided during training that highlight important parts of the input, such as specific spans in text—for improving model robustness, especially when facing distribution shifts. Previous research indicated that while feature feedback aids interpretability, it offered minimal performance gains on in-domain evaluations. This paper examines whether feature feedback can enhance out-of-domain performance.
+
+**Key Findings**:
+
+1. **Sentiment Analysis**: In experiments involving sentiment analysis, models trained with feature feedback showed no significant improvement in in-domain accuracy compared to classify-only models. However, these models exhibited substantial performance gains on out-of-domain datasets. For instance, both ELECTRA and BERT models achieved approximately 6% higher accuracy on Amazon and Yelp reviews when trained with feature feedback, even when only 25% of the training instances included such feedback.
+2. **Natural Language Inference (NLI)**: In contrast, for NLI tasks, incorporating feature feedback did not lead to significant improvements in either in-domain or out-of-domain performance. The study suggests that the high overlap of rationale tokens in NLI (approximately 80% of unique tokens) may reduce the distinctiveness of the feedback, limiting its effectiveness.
+3. **Vocabulary Analysis**: The research found that in sentiment analysis, rationales comprised about 21% of unique tokens in the training set, indicating that specific words or phrases are more indicative of sentiment. This specificity likely contributes to the observed out-of-domain performance gains. In contrast, the broader distribution of rationale tokens in NLI may dilute their impact.
+
+**Conclusion**:
+
+The paper concludes that feature feedback can enhance model robustness to distribution shifts in tasks like sentiment analysis, where specific evidence spans are strongly associated with the target labels. However, in tasks like NLI, where the relationship between input features and labels is more complex, feature feedback does not provide the same benefits. These findings highlight the importance of task-specific characteristics in determining the effectiveness of feature feedback for improving model generalization under distribution shift.
+
+### 16. Online Label Shift: Optimal Dynamic Regret meets Practical Algorithms
+
+**TL;DR**: The paper "Online Label Shift: Optimal Dynamic Regret meets Practical Algorithms" addresses the challenge of adapting machine learning models to environments where the distribution of class labels changes over time—a scenario known as online label shift. The authors introduce novel algorithms that reduce this adaptation problem to online regression, achieving optimal dynamic regret without prior knowledge of the extent of label distribution drift. Their methods are applicable in both supervised and unsupervised settings and demonstrate superior performance across various simulated and real-world scenarios, often improving accuracy by 1-3% while maintaining sample and computational efficiency.
+
+Pages: 42.
+
+**Detailed Summary**:
+
+In real-world applications, data distributions often evolve over time, posing significant challenges for machine learning models trained under the assumption of static distributions. This paper focuses on the online label shift scenario, where the marginal distribution of class labels changes over time, but the conditional distribution of features given labels remains constant. The authors address both unsupervised and supervised settings:
+
+- **Unsupervised Online Label Shift (UOLS)**: The goal is to adapt a pre-trained classifier to changing label distributions using only unlabeled online data.
+- **Supervised Online Label Shift (SOLS)**: The objective is to concurrently learn a classifier and adapt to dynamically evolving class marginals using labeled online data.
+
+**Key Contributions**:
+
+1. **Algorithmic Framework**: The authors develop algorithms that transform the adaptation problem into an online regression task. By leveraging online regression oracles, their methods can track drifting label proportions effectively. This approach circumvents the need for convexity assumptions typically required in online convex optimization, broadening the applicability to a wider range of classifiers, including non-linear models like decision trees.
+2. **Optimal Dynamic Regret**: The proposed algorithms achieve optimal dynamic regret bounds without prior knowledge of the degree of label distribution drift. Dynamic regret measures the performance of an online algorithm against a sequence of best possible models in hindsight, making it a more suitable metric for non-stationary environments compared to static regret.
+3. **Empirical Validation**: Experiments conducted on both synthetic and real-world datasets demonstrate that the proposed methods outperform existing approaches in various online label shift scenarios. The algorithms consistently achieve 1-3% improvements in accuracy while being sample-efficient and computationally feasible.
+
+**Practical Implications**:
+
+The findings suggest that the proposed algorithms can be effectively applied in dynamic environments where label distributions are subject to change. This has practical significance for applications such as spam detection, medical diagnosis, and financial forecasting, where the prevalence of different classes can shift over time. 
+
+In summary, this paper presents a significant advancement in online learning under label shift, offering practical algorithms with strong theoretical guarantees and empirical performance.
+
+### 17. xxx
 
