@@ -411,5 +411,387 @@ The findings suggest that the proposed algorithms can be effectively applied in 
 
 In summary, this paper presents a significant advancement in online learning under label shift, offering practical algorithms with strong theoretical guarantees and empirical performance.
 
-### 17. xxx
+### 17. RLSbench: Domain Adaptation Under Relaxed Label Shift
 
+**TL;DR**: The paper introduces RLSbench, a comprehensive benchmark for evaluating domain adaptation methods under relaxed label shift conditions across various data modalities. It reveals that many existing methods struggle with label proportion shifts and proposes a two-step meta-algorithm to enhance performance in such scenarios.
+
+Pages: 50.
+
+Domain adaptation aims to enable models trained on a source domain to perform well on a different target domain. Traditional methods often assume that the conditional distribution of features given labels remains constant between domains. However, in real-world applications, both the feature distributions and label proportions can shift, leading to challenges in model adaptation.
+
+The authors identify that while some methods address label shifts, they are sensitive to changes in class-conditional distributions. Conversely, popular deep learning heuristics may falter when label proportions change. To address this, they introduce RLSbench, a large-scale benchmark comprising over 500 distribution shift pairs across vision, tabular, and language data, with varying label proportions. This benchmark emphasizes shifts in label marginals, providing a more realistic evaluation framework.
+
+Through RLSbench, the study evaluates 13 domain adaptation methods, uncovering widespread failures under label proportion shifts that were previously unrecognized. To mitigate these issues, the authors propose a two-step meta-algorithm:
+
+1. **Pseudo-balancing the data at each epoch**: This involves adjusting the training process to account for imbalances in label proportions, ensuring that the model does not become biased towards overrepresented classes.
+2. **Adjusting the final classifier with target label distribution estimates**: By estimating the label distribution in the target domain, the classifier can be fine-tuned to better align with the target data, improving accuracy.
+
+This meta-algorithm enhances existing domain adaptation heuristics under significant label proportion shifts, often improving accuracy by 2–10 percentage points, while having minimal effect when label proportions remain constant. The authors hope that RLSbench will encourage researchers to rigorously evaluate proposed methods in relaxed label shift settings. The code for RLSbench is publicly available, facilitating further research in this area.
+
+### 18. Domain Adaptation under Open Set Label Shift
+
+**TL;DR**: The paper introduces the problem of Domain Adaptation under Open Set Label Shift (OSLS), where the label distribution can change arbitrarily, and new classes may emerge during deployment, while class-conditional distributions remain invariant. The authors propose methods to estimate the target label distribution and learn a target classifier, demonstrating significant improvements over existing baselines.
+
+Pages: 39.
+
+In real-world applications, models often encounter scenarios where the distribution of labels changes over time, and entirely new classes appear that were not present during training. This presents challenges for traditional domain adaptation techniques, which may not effectively handle such shifts.
+
+The authors introduce the concept of Open Set Label Shift (OSLS), which encompasses situations where:
+
+- The label distribution between the source and target domains can change arbitrarily.
+- New, previously unseen classes may emerge in the target domain.
+- Class-conditional distributions (i.e., the distribution of features given a class) remain consistent across domains.
+
+This framework generalizes existing problems like label shift and Positive-Unlabeled (PU) learning.
+
+The primary objectives in OSLS are:
+
+1. **Estimating the target label distribution**, including the prevalence of any novel classes.
+2. **Learning a classifier** that can accurately predict labels in the target domain, accounting for both existing and new classes.
+
+The authors establish necessary and sufficient conditions for identifying these quantities and propose practical methods that leverage black-box predictors to achieve these goals. Unlike typical Open Set Domain Adaptation (OSDA) problems, which are often ill-posed and rely on heuristics, OSLS provides a well-defined problem that can be addressed with principled approaches.
+
+Experiments conducted across various semi-synthetic benchmarks, including vision, language, and medical datasets, demonstrate that the proposed methods consistently outperform existing OSDA baselines, achieving improvements in target domain accuracy ranging from 10% to 25%. Additionally, the authors provide theoretical analysis, establishing finite-sample convergence to the true label marginal and convergence to the optimal classifier in specific settings.
+
+### 19. Domain Adaptation under Missingness Shift
+
+**TL;DR**: The paper introduces the problem of Domain Adaptation under Missingness Shift (DAMS), where distributional changes arise due to varying patterns of missing data between source and target domains. The authors provide theoretical insights and propose methods to adapt models effectively under such shifts, demonstrating their efficacy through experiments.
+
+Pages: 32.
+
+In real-world scenarios, the rate and pattern of missing data can vary across different times, locations, or systems, even when the underlying data distributions remain stable. Such variations, termed "missingness shift," pose challenges for machine learning models trained under one missingness pattern and deployed in another.
+
+The authors formalize this challenge as the Domain Adaptation under Missingness Shift (DAMS) problem, where labeled source data and unlabeled target data differ due to distinct missing data mechanisms. They explore scenarios both with and without missing data indicators (i.e., flags indicating whether a data point is missing).
+
+Key contributions of the paper include:
+
+1. **Reduction to Covariate Shift with Indicators**: When missing data indicators are available, the DAMS problem can be reduced to a covariate shift scenario, allowing the use of existing adaptation techniques.
+2. **Challenges without Indicators**: In the absence of missing data indicators, the situation becomes more complex. The authors establish that:
+   - Covariate shift assumptions are violated, necessitating adaptation.
+   - The optimal predictor trained on the source domain can perform significantly worse on the target domain compared to a naive predictor that always predicts the mean.
+   - Despite the lack of identifiability of missingness rates, the optimal target predictor can still be determined.
+   - For linear models, a straightforward analytical adjustment can provide consistent estimates of the optimal target parameters.
+3. **Proposed Methods**: The paper introduces methods to adjust predictors trained on source data for effective performance on target data under missingness shift. These methods leverage observable relative proportions of nonzero values for each covariate across domains to make necessary adjustments.
+4. **Empirical Validation**: Experiments on synthetic and semi-synthetic datasets demonstrate the effectiveness of the proposed methods, showing improved performance when the underlying assumptions hold.
+
+This work highlights the importance of considering missingness patterns in domain adaptation and provides a foundation for future research in this area.
+
+### 20. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models
+
+**TL;DR**: The paper introduces "chain-of-thought prompting," a method that enhances large language models' reasoning abilities by generating intermediate reasoning steps. This approach significantly improves performance on complex tasks such as arithmetic, commonsense, and symbolic reasoning, especially in models with approximately 100 billion parameters or more.
+
+Pages: 43.
+
+Traditional language models often struggle with tasks requiring multi-step reasoning, even as their size increases. To address this, the authors propose chain-of-thought prompting, where models are prompted with examples that include intermediate reasoning steps leading to the final answer. This method allows models to decompose complex problems into manageable steps, enhancing their problem-solving capabilities. 
+
+Key findings include:
+
+- **Enhanced Performance**: Chain-of-thought prompting leads to significant improvements across various reasoning tasks. For instance, a 540-billion parameter language model (PaLM 540B) achieved state-of-the-art accuracy on the GSM8K benchmark for math word problems, surpassing even fine-tuned models. 
+- **Emergent Abilities in Large Models**: The reasoning capabilities facilitated by chain-of-thought prompting become prominent in models with around 100 billion parameters or more, indicating that model scale plays a crucial role in the emergence of complex reasoning skills. 
+- **Broad Applicability**: This prompting technique is effective across a range of tasks, including arithmetic calculations, commonsense reasoning, and symbolic manipulation, demonstrating its versatility in enhancing language model performance. 
+
+The authors' experiments involved various large language models and benchmarks, consistently showing that chain-of-thought prompting outperforms standard prompting methods. This approach does not require fine-tuning on large datasets, making it a practical and efficient method for improving reasoning in language models. 
+
+### 21. Tree of Thoughts: Deliberate Problem Solving with Large Language Models
+
+**TL;DR**: The paper introduces the "Tree of Thoughts" (ToT) framework, enhancing large language models' problem-solving abilities by enabling deliberate decision-making through exploration of multiple reasoning paths, self-evaluation, and strategic lookahead. This approach significantly improves performance on complex tasks requiring planning and search.
+
+Pages: 14.
+
+Traditional language models generate text in a token-level, left-to-right manner, which can limit their effectiveness in tasks that require complex reasoning, exploration, or strategic planning. To address these limitations, the authors propose the Tree of Thoughts framework, which generalizes the Chain of Thought approach by allowing models to explore multiple reasoning paths ("thoughts") as intermediate steps toward problem-solving. 
+
+Key contributions of the paper include:
+
+1. **Tree of Thoughts Framework**: ToT enables language models to perform deliberate decision-making by considering various reasoning paths, self-evaluating choices, and employing lookahead or backtracking strategies when necessary. 
+2. **Enhanced Problem-Solving Abilities**: The framework significantly improves performance on tasks requiring non-trivial planning or search, such as the Game of 24, Creative Writing, and Mini Crosswords. For instance, in the Game of 24, GPT-4 with chain-of-thought prompting solved only 4% of tasks, whereas the ToT approach achieved a success rate of 74%. 
+3. **Integration with Search Algorithms**: ToT combines language-based reasoning with search algorithms like breadth-first search (BFS) and depth-first search (DFS), facilitating systematic exploration of reasoning paths.
+
+The authors' experiments demonstrate that ToT enhances language models' capabilities across various tasks by enabling more deliberate and strategic problem-solving approaches. This framework represents a significant advancement in the application of language models to complex reasoning tasks.
+
+### 22. Active Learning under Label Shift
+
+**TL;DR**: The paper introduces Mediated Active Learning under Label Shift (MALLS), a method that combines importance weighting and class-balanced sampling to address active learning challenges when class proportions differ between source and target domains. MALLS balances bias and variance, offering theoretical guarantees and demonstrating up to 60% reduction in sample complexity for deep active learning tasks.
+
+Pages: 18.
+
+In real-world applications, models often encounter scenarios where the class proportions differ between training (source) and deployment (target) environments, a situation known as label shift. Traditional active learning methods may struggle under such conditions, leading to inefficient or biased data collection.
+
+The authors propose MALLS, which introduces a "medial distribution" to effectively combine:
+
+- **Importance Weighting**: Adjusts for label shift with theoretical rigor but can suffer from high variance under significant shifts.
+- **Class-Balanced Sampling (Subsampling)**: Addresses label shift practically but may lack strong theoretical guarantees and can be imprecise in active learning settings.
+
+By balancing the bias from class-balanced sampling and the variance from importance weighting, MALLS provides a more robust approach to active learning under label shift.
+
+Key contributions include:
+
+1. **Theoretical Guarantees**: The authors provide sample complexity and generalization bounds for MALLS, demonstrating that active learning can reduce asymptotic sample complexity even under arbitrary label shift.
+2. **Empirical Validation**: Experiments show that MALLS scales to high-dimensional datasets and can reduce the sample complexity of active learning by up to 60% in deep learning tasks.
+
+This work offers a principled approach to active learning in the presence of label shift, combining the strengths of importance weighting and class-balanced sampling to improve data collection efficiency and model performance.
+
+### 23. Introduction to streaming for data scientists by Huyen Chip
+
+The article explains the concept of stream processing, its importance, and how data scientists can benefit from it. Stream processing involves analyzing and processing data in real-time as it is generated, rather than storing it for later analysis. This is particularly useful for applications requiring low-latency insights, such as fraud detection, recommendation systems, or monitoring.
+
+Pages: 20.
+
+Key points include:
+
+1. **What is Stream Processing?**
+   It refers to the continuous processing of data streams in real-time. Unlike traditional batch processing, which analyzes data in chunks, stream processing works on data as it arrives, enabling timely actions.
+2. **Use Cases and Benefits:**
+   Stream processing is critical in scenarios where quick decision-making is needed, such as detecting anomalies, handling high-velocity data (e.g., IoT sensors, logs, or social media feeds), and powering dynamic systems like personalized recommendations.
+3. **Challenges of Stream Processing:**
+   It introduces complexities such as managing state, ensuring fault tolerance, scalability, and designing systems that handle out-of-order or late data. The article highlights the trade-offs and tools required to address these issues.
+4. **Tools for Stream Processing:**
+   The author discusses various tools and frameworks, including Apache Kafka, Apache Flink, and Apache Spark Streaming. Each tool has unique strengths, and the choice depends on the use case.
+5. **Advice for Data Scientists:**
+   Data scientists working with real-time systems should familiarize themselves with the principles of stream processing, understand their use cases, and collaborate with data engineers to build efficient pipelines. Additionally, gaining hands-on experience with popular stream processing frameworks is recommended.
+
+The article provides a helpful introduction for data scientists interested in leveraging stream processing to make real-time data-driven decisions. It emphasizes both its potential and the practical considerations required to implement it effectively.
+
+### 24. Machine learning is going real-time by Huyen Chip
+
+The article explores the concept of real-time machine learning (ML), its significance, challenges, and best practices for implementing it in production systems. Real-time ML involves using live data to make immediate predictions or decisions, enabling systems to adapt and respond quickly to changing conditions.
+
+Pages: 21.
+
+##### Key Points:
+
+1. **What is Real-Time Machine Learning?**
+   Real-time ML refers to systems that can make predictions on live data streams with minimal latency. It contrasts with offline ML, where models are trained and predictions are made on static, pre-collected datasets. Real-time ML enables dynamic, immediate responses such as fraud detection, personalized recommendations, or autonomous driving.
+2. **Why Real-Time ML Matters:**
+   Real-time ML is essential for applications where delays in predictions can reduce value or lead to poor outcomes, such as in:
+   - Online recommendation systems.
+   - Dynamic pricing.
+   - Fraud detection.
+   - Autonomous systems (e.g., self-driving cars).
+3. **Key Components of Real-Time ML:**
+   - **Feature Engineering:** Features must be updated in real-time to reflect the most recent data (e.g., user activity in the last 5 minutes).
+   - **Model Serving:** Models need to handle requests with low latency and high throughput.
+   - **Feedback Loops:** Real-time ML systems often involve online learning, where models continuously improve using fresh data.
+   - **Monitoring:** It's crucial to monitor performance metrics like latency, throughput, and prediction accuracy in real time.
+4. **Challenges in Real-Time ML:**
+   - **Data Delays and Out-of-Order Events:** Ensuring that models work with the most recent and correct data is difficult, especially in distributed systems.
+   - **Infrastructure Complexity:** Real-time ML requires robust pipelines to process and serve data in milliseconds.
+   - **Model Drift:** Models may lose accuracy as data distributions change over time, necessitating frequent retraining.
+5. **Best Practices:**
+   - Design systems with clear trade-offs between performance and latency.
+   - Build scalable data pipelines to handle high-velocity streams.
+   - Use tools and frameworks optimized for real-time processing, such as Apache Kafka for data streaming or TensorFlow Serving for model deployment.
+   - Monitor systems continuously and set up alerts for anomalies.
+6. **Tools and Frameworks for Real-Time ML:**
+   The article highlights tools such as Apache Kafka, Apache Flink, and real-time model-serving frameworks like TensorFlow Serving and TorchServe. The choice of tools depends on the specific use case and infrastructure requirements.
+
+Real-time ML enables businesses to make faster, smarter decisions by leveraging live data streams. However, building real-time ML systems involves technical and operational challenges, from data pipeline design to infrastructure scalability. Data scientists and engineers need to collaborate closely to build robust systems that balance accuracy, latency, and scalability.
+
+### 25. Real-time machine learning: challenges and solutions by Huyen Chip
+
+The article discusses the practical difficulties of implementing real-time machine learning (ML) systems and provides potential solutions for overcoming these challenges. Real-time ML enables applications to make predictions or decisions using live data with minimal delay, but deploying such systems at scale requires addressing technical, infrastructural, and organizational hurdles.
+
+Pages: 18.
+
+##### Key Points:
+
+1. **Feature Engineering in Real-Time:**
+   - **Challenge:** Generating real-time features is difficult, as it requires processing live data streams quickly and ensuring consistency across training and serving environments.
+   - Solution:
+     - Use feature stores (e.g., Feast) to standardize and share features across pipelines.
+     - Employ tools like Apache Kafka and Redis to compute and store real-time feature values.
+2. **Low-Latency Model Serving:**
+   - **Challenge:** Ensuring models serve predictions with low latency is critical, especially when operating under strict SLA (service-level agreement) requirements.
+   - Solution:
+     - Use optimized model-serving frameworks like TensorFlow Serving, TorchServe, or ONNX Runtime.
+     - Consider lightweight models that balance accuracy and speed for low-latency use cases.
+3. **Handling Data Delays and Out-of-Order Events:**
+   - **Challenge:** Real-time systems must deal with delayed, missing, or out-of-order data, which can affect model accuracy.
+   - Solution:
+     - Implement watermarking and windowing techniques to handle out-of-order events (e.g., using Apache Flink).
+     - Design pipelines that tolerate data delays and adjust for late arrivals.
+4. **Online Learning and Model Updates:**
+   - **Challenge:** Models in real-time systems need to adapt quickly to changing data patterns (model drift) without frequent manual retraining.
+   - Solution:
+     - Incorporate online learning algorithms that update models incrementally.
+     - Automate retraining pipelines with CI/CD practices for ML models (MLOps).
+5. **Monitoring and Debugging:**
+   - **Challenge:** Real-time ML systems need continuous monitoring to ensure predictions are accurate and the system is stable.
+   - Solution:
+     - Monitor key metrics like latency, throughput, and prediction quality using tools like Prometheus and Grafana.
+     - Build robust alerting systems to detect anomalies in data pipelines or model performance.
+6. **Infrastructure Scalability:**
+   - **Challenge:** Scaling real-time ML systems to handle high-velocity, high-volume data streams can be resource-intensive and complex.
+   - Solution:
+     - Use distributed data processing frameworks like Kafka, Flink, or Spark Streaming for scalability.
+     - Leverage cloud-based solutions with autoscaling capabilities to dynamically handle load changes.
+7. **Consistency Between Training and Serving:**
+   - **Challenge:** Ensuring the same features and preprocessing logic are used during training and inference to avoid discrepancies.
+   - Solution:
+     - Use unified feature pipelines and maintain consistency between offline and online systems with tools like feature stores.
+     - Version control both the data and models to track changes.
+8. **Organizational Challenges:**
+   - **Challenge:** Real-time ML systems require collaboration across data scientists, engineers, and operations teams, which can lead to communication gaps.
+   - Solution:
+     - Foster cross-functional collaboration with clearly defined roles and responsibilities.
+     - Invest in MLOps practices to streamline workflows and improve collaboration.
+
+Real-time machine learning offers significant advantages for applications requiring immediate decisions, such as fraud detection, dynamic pricing, or personalized recommendations. However, its implementation involves complex challenges related to feature engineering, latency, scalability, and monitoring. The article emphasizes the importance of using the right tools, automating processes, and fostering collaboration to build robust, scalable, and reliable real-time ML systems.
+
+### 26. Why data scientists shouldn’t need to know Kubernetes by Huyen Chip
+
+The article provides an overview of the tools, platforms, and practices necessary to support data science workflows at scale. It emphasizes the importance of building robust infrastructure to enable data scientists to efficiently explore, experiment, and deploy their work while collaborating effectively with engineers and other stakeholders.
+
+Pages: 19.
+
+##### Key Points:
+
+**What is Data Science Infrastructure?**
+
+Data science infrastructure refers to the combination of tools, platforms, and systems that support data scientists in:
+
+- Exploring and analyzing data.
+- Training and evaluating models.
+- Deploying and monitoring machine learning (ML) models in production.
+
+A well-designed infrastructure enhances productivity, ensures scalability, and bridges the gap between data science and engineering teams.
+
+**Core Components of Data Science Infrastructure:**
+
+1. **Data Infrastructure:**
+   - **Purpose:** To store, process, and query large datasets efficiently.
+   - Key Elements:
+     - **Data Storage:** Use of data lakes (e.g., AWS S3, Google Cloud Storage) and data warehouses (e.g., Snowflake, BigQuery, Redshift) for structured and unstructured data.
+     - **Data Processing:** Tools like Apache Spark, Apache Flink, and distributed processing frameworks to handle large-scale data transformations.
+     - **Data Versioning:** Tools like Delta Lake and LakeFS to ensure reproducibility and manage changes to datasets.
+2. **Experimentation Platform:**
+   - **Purpose:** To allow data scientists to experiment with different models, features, and hyperparameters efficiently.
+   - Key Elements:
+     - Notebooks (e.g., Jupyter, Colab) for interactive data exploration.
+     - Experiment tracking tools (e.g., MLflow, Weights & Biases) to record model configurations, metrics, and results.
+     - Scalable compute resources (e.g., Kubernetes, cloud platforms) to train large models.
+3. **Model Serving and Deployment:**
+   - **Purpose:** To deploy models into production environments where they can make predictions.
+   - Key Elements:
+     - Model serving frameworks (e.g., TensorFlow Serving, TorchServe, ONNX Runtime).
+     - Containerization (e.g., Docker) and orchestration (e.g., Kubernetes) for scalable, reliable deployments.
+     - Model versioning to track deployed models and roll back if needed.
+4. **Monitoring and Observability:**
+   - **Purpose:** To ensure deployed models perform as expected and detect issues like data drift, model decay, or latency problems.
+   - Key Elements:
+     - Monitoring tools (e.g., Prometheus, Grafana) for system performance.
+     - Specialized monitoring for data and models (e.g., whylogs, Evidently AI) to track prediction accuracy, input data distributions, and drift.
+5. **Collaboration Tools:**
+   - **Purpose:** To enable data scientists and engineers to work together effectively.
+   - Key Elements:
+     - Source control tools (e.g., Git) to version code.
+     - Shared platforms like JupyterHub or Databricks for team collaboration.
+     - Documentation tools (e.g., Confluence, Notion) for knowledge sharing.
+
+**Challenges in Building Data Science Infrastructure:**
+
+1. **Balancing Flexibility and Standardization:**
+   Allowing data scientists the flexibility to experiment while maintaining consistent, reproducible workflows.
+2. **Scalability:**
+   Designing systems that handle increasing data volume and model complexity as the organization grows.
+3. **Cost Management:**
+   Optimizing infrastructure to avoid excessive cloud costs or inefficient resource usage.
+4. **Integration with Engineering Pipelines:**
+   Ensuring seamless collaboration and handoff between data science workflows and production engineering systems.
+
+**Best Practices for Building Data Science Infrastructure:**
+
+- Invest in tools and platforms that scale with your organization's needs.
+- Automate repetitive tasks (e.g., data preprocessing, deployment pipelines).
+- Foster collaboration between data scientists, engineers, and operations teams.
+- Monitor systems continuously and prioritize reproducibility and transparency.
+
+**Conclusion:**
+
+Effective data science infrastructure is essential for enabling data teams to build and deploy models efficiently while maintaining scalability and reproducibility. Organizations should invest in robust tools for data storage, experimentation, model serving, and monitoring, while also addressing the challenges of collaboration, standardization, and cost management. This article serves as a guide for understanding the key components and best practices needed to support data science workflows at scale.
+
+### 27. A friendly introduction to machine learning compilers and optimizers by Huyen Chip
+
+The article explains the role of machine learning (ML) compilers and optimizers in improving the performance and efficiency of ML models. These tools help bridge the gap between model development and deployment by optimizing models for faster inference, reduced latency, and lower resource usage.
+
+Pages: 18.
+
+**Key Points:**
+
+**What Are ML Compilers and Optimizers?**
+
+ML compilers and optimizers are tools designed to improve the performance of ML models during deployment by:
+
+- Translating high-level ML models (e.g., TensorFlow, PyTorch) into optimized lower-level code.
+- Optimizing the model for specific hardware (e.g., CPUs, GPUs, TPUs).
+- Reducing latency, memory usage, and inference costs.
+
+They focus on deployment rather than training and ensure that models run efficiently on edge devices, mobile devices, or in cloud environments.
+
+**Why Are ML Compilers Important?**
+
+1. **Hardware Specialization:**
+   Different hardware has unique architectures (e.g., GPUs are parallelized, TPUs are matrix-optimized). ML compilers optimize models to leverage these features.
+2. **Performance Gains:**
+   Proper optimization can significantly reduce inference time and resource consumption, improving user experience and reducing infrastructure costs.
+3. **Growing Complexity of ML Models:**
+   As ML models become more complex (e.g., large transformers), compilers are essential for making them feasible to deploy on constrained hardware.
+
+**How Do ML Compilers Work?**
+
+1. **High-Level Model Representation:**
+   ML frameworks like TensorFlow or PyTorch define models using high-level abstractions.
+2. **Lower-Level Intermediate Representation (IR):**
+   ML compilers translate models into an intermediate representation (IR) that is hardware-agnostic. This IR acts as a bridge between the high-level model and low-level hardware instructions.
+3. **Optimization Techniques:**
+   - **Graph Optimizations:** Removing redundant computations, merging operations, or reordering them for efficiency.
+   - **Operator Fusion:** Combining multiple operations into one to reduce overhead.
+   - **Quantization:** Reducing precision (e.g., from 32-bit to 8-bit) to speed up computation while maintaining accuracy.
+   - **Memory Management:** Optimizing data movement and storage to minimize memory bottlenecks.
+4. **Hardware-Specific Code Generation:**
+   The compiler tailors the optimized IR for specific hardware, generating highly efficient low-level code.
+
+**Examples of ML Compilers and Optimizers:**
+
+1. General Purpose:
+   - **TensorFlow XLA (Accelerated Linear Algebra):** Native compiler for TensorFlow.
+   - **TorchScript:** Compiler for PyTorch models.
+   - **ONNX Runtime:** Works with models in the ONNX (Open Neural Network Exchange) format, enabling optimization across frameworks.
+2. Hardware-Specific:
+   - **TVM:** An open-source ML compiler that supports a wide range of hardware (e.g., CPUs, GPUs, and specialized accelerators).
+   - **NVIDIA TensorRT:** Optimizes models for NVIDIA GPUs.
+   - **Apple Core ML:** Optimizes models for Apple devices.
+   - **Google Edge TPU Compiler:** Optimizes for Google's Edge TPUs.
+
+**Challenges in ML Compilers:**
+
+1. **Hardware Diversity:**
+   The proliferation of specialized hardware makes it difficult to design compilers that work efficiently across all platforms.
+2. **Balancing Trade-offs:**
+   Optimization techniques like quantization may reduce precision, so compilers must balance performance gains with accuracy loss.
+3. **Framework Fragmentation:**
+   The variety of ML frameworks (TensorFlow, PyTorch, etc.) creates challenges for interoperability and standardization.
+
+**Conclusion:**
+
+Machine learning compilers and optimizers are essential tools for making ML models faster, more efficient, and deployable on a wide range of hardware. By automating the process of optimization, they reduce the need for manual tuning, enabling data scientists and engineers to focus on building better models. As hardware and ML models evolve, compilers will play a critical role in bridging the gap between research and production deployment.
+
+### 28. Unsupervised Learning under Latent Label Shift
+
+**TL;DR**: The paper introduces a novel approach to unsupervised learning by leveraging distribution shifts across multiple domains to identify latent classes, proposing the Latent Label Shift (LLS) framework and a practical algorithm that outperforms traditional methods, especially when feature-space similarity fails to reveal true groupings.
+
+Pages: 33.
+
+The paper  addresses the challenge of discovering latent classes in unlabeled data, particularly when traditional feature-space similarity methods are inadequate. The authors introduce the Latent Label Shift (LLS) framework, which assumes access to unlabeled data from multiple domains where label distributions can vary, but class-conditional distributions remain constant. This setup allows the identification of classes based on the principle that elements shifting together across domains likely belong to the same group.
+
+In finite input spaces, the authors establish an isomorphism between LLS and topic modeling, drawing parallels between inputs and words, domains and documents, and labels and topics. For continuous data, they demonstrate that with oracle access to domain discriminators, it's possible to identify label distributions up to permutation.
+
+Building on these theoretical insights, the paper proposes a practical algorithm that:
+
+1. Utilizes domain-discriminative models to estimate the probability of a domain given an input.
+2. Clusters examples based on these domain discriminator outputs.
+3. Applies non-negative matrix factorization to the clustered data.
+4. Combines the recovered label distributions with discriminator outputs to compute label probabilities for each domain.
+
+Through semi-synthetic experiments, the authors demonstrate that their algorithm effectively leverages domain information, outperforming competitive unsupervised classification methods, particularly in scenarios where feature-space similarity does not reflect true groupings. This work establishes a significant connection between distribution shift and topic modeling, opening new avenues for future research in unsupervised learning.
+
+### 29. 
