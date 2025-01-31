@@ -794,4 +794,148 @@ Building on these theoretical insights, the paper proposes a practical algorithm
 
 Through semi-synthetic experiments, the authors demonstrate that their algorithm effectively leverages domain information, outperforming competitive unsupervised classification methods, particularly in scenarios where feature-space similarity does not reflect true groupings. This work establishes a significant connection between distribution shift and topic modeling, opening new avenues for future research in unsupervised learning.
 
-### 29. 
+### 29. Agents by Julia Wiesinger, Patrick Marlow and Vladimir Vuskovic
+
+This whitepaper explores Generative AI Agents, their architectures, tools, and practical applications. It distinguishes between AI models and agents, emphasizing how agents extend model capabilities by interacting with external tools. It covers cognitive architectures, orchestration layers, and reasoning techniques (ReAct, Chain-of-Thought, Tree-of-Thoughts). The paper also discusses Extensions, Functions, and Data Stores as key components for enabling real-world interaction. Finally, it presents implementation details, LangChain integration, and production deployment using Vertex AI.
+
+Pages: 42.
+
+###### **Summary**
+
+**What is an AI Agent?**
+
+An agent is an AI system that observes, reasons, and acts using external tools. Unlike standalone models, agents can autonomously plan and execute tasks.
+
+**Core Components of AI Agents**
+
+1. The Model – The AI’s decision-maker.
+2. The Tools – APIs, databases, and functions enabling external interaction.
+3. The Orchestration Layer – Governs how agents intake information, reason, and take action.
+
+**AI Agents vs. Standalone Models**
+
+| Feature     | AI Models                | AI Agents                        |
+| ----------- | ------------------------ | -------------------------------- |
+| Knowledge   | Limited to training data | Can access external tools        |
+| Inference   | Single prediction        | Multi-turn interactions & memory |
+| Logic Layer | No built-in logic        | Uses reasoning frameworks        |
+| Tool Usage  | None                     | Can call APIs & databases        |
+
+**How Agents Operate (Cognitive Architectures)**
+
+- ReAct: Combines reasoning and tool use.
+- Chain-of-Thought (CoT): Breaks down tasks into steps.
+- Tree-of-Thoughts (ToT): Explores multiple reasoning paths for better results.
+
+**Tools: Connecting AI Agents to the Real World**
+
+1. Extensions – AI can execute APIs autonomously.
+2. Functions – AI suggests API calls, but execution is client-side.
+3. Data Stores – AI retrieves structured/unstructured real-time data.
+
+**Practical Use Cases**
+
+- Customer support automation
+- Travel booking assistants
+- Research and summarization tools
+- Financial transaction automation
+
+**Implementation & Production**
+
+- LangChain & LangGraph – Open-source libraries for AI agent development.
+- Vertex AI – Google’s managed AI agent platform for enterprise use.
+
+**Key Takeaways**
+
+- AI agents extend traditional models by enabling interaction, planning, and execution.
+- Tools and cognitive architectures enhance reasoning and decision-making.
+- Practical applications span multiple industries, from automation to finance.
+
+### 30. Common pitfalls when building generative AI applications by Chip Huyen
+
+Pages: 7.
+
+Several frequent mistakes teams make when developing generative AI products:
+
+1. **Using Generative AI Unnecessarily**: Teams often apply generative AI to problems that can be solved more efficiently with simpler methods. For instance, using linear programming for scheduling tasks may be more effective than deploying a generative AI model.
+2. **Confusing 'Bad Product' with 'Bad AI'**: Negative user feedback is sometimes attributed to AI performance when the real issue lies in product design or user experience. Understanding user needs and integrating AI seamlessly into workflows is crucial.
+3. **Starting Too Complex**: Beginning with intricate solutions can lead to unnecessary complications. It's advisable to start with simpler approaches and iterate based on user feedback and performance metrics.
+4. **Overvaluing Early Success**: Initial positive results can create a false sense of accomplishment. Achieving incremental improvements becomes increasingly challenging, and teams should be prepared for diminishing returns as they refine their products.
+5. **Neglecting Human Evaluation**: Relying solely on automated evaluations can be misleading. Incorporating human assessments helps ensure the AI's outputs are practical and aligned with user expectations.
+6. **Crowdsourcing Use Cases Without Strategy**: Gathering ideas from a broad audience without a clear strategy can lead to low-impact applications. It's essential to focus on use cases that align with the organization's goals and offer significant value.
+
+By being aware of these pitfalls, teams can navigate the complexities of building generative AI applications more effectively.
+
+### 31. Self-serve feature platforms: architectures and APIs by Chip Huyen
+
+Pages: 17.
+
+**Evolution of Feature Platforms**
+
+Feature platforms have become essential as companies transition from batch to online predictions. They manage feature engineering, computation, and serve computed features for models to generate predictions. A key challenge in online prediction is latency, which can be categorized into:
+
+1. **Feature Computation Latency**: Time taken to compute features from raw data.
+2. **Feature Retrieval Latency**: Time taken for the prediction service to retrieve computed features.
+3. **Prediction Computation Latency**: Time taken for a model to generate a prediction from computed features.
+
+While feature stores focus on storing and retrieving computed features to reduce retrieval latency and computation costs, feature platforms encompass both computation and retrieval processes. Notable examples include Airbnb's Chronon and LinkedIn's Feathr.
+
+**Self-Serve Feature Engineering**
+
+To accelerate the iteration speed for streaming features, it's crucial to develop feature platforms that are self-serve for data scientists. Challenges in this area include:
+
+1. **Feature API**: Providing user-friendly APIs that allow data scientists to create, deploy, discover, and experiment with features without deep involvement from data engineers. This includes offering interfaces in familiar languages like Python, SQL, or Scala.
+2. **Functionality for Fast Experimentation**:
+   - **Data Discoverability and Governance**: Implementing a feature catalog for easy discovery and sharing of features, along with robust data governance to manage access and ensure compliance.
+   - **Automated Backfills**: Enabling the system to automatically backfill historical data for new features, facilitating quick experimentation and validation.
+
+By addressing these challenges, organizations can empower data scientists to iterate rapidly on feature development, leading to more efficient and effective ML model improvements.
+
+### 32. The Llama 3 Herd of Models
+
+Pages: 92.
+
+**Introduction**
+
+- Introduces Llama 3, a new suite of foundation models by Meta.
+- Designed for multilingual understanding, coding, reasoning, and tool usage.
+- Largest model has 405 billion parameters and supports a 128,000-token context window.
+- Llama Guard 3 is introduced as a safety mechanism for monitoring inputs and outputs.
+
+**Model Architecture**
+
+- Uses a Transformer-based dense architecture with optimized scaling laws.
+- Improved training efficiency and computational performance.
+- Variants of the model are optimized for different deployment environments.
+
+**Training Data**
+
+- Trained on 15 trillion multilingual tokens from scientific papers, books, web data, and code repositories.
+- Applied extensive data filtering and cleaning to remove biases and misinformation.
+- Special techniques used to improve factual grounding and minimize hallucinations.
+
+**Performance Evaluation**
+
+- Benchmarked against GPT-4, Claude 3, and Gemini.
+- Achieves state-of-the-art results in reasoning, coding, and NLP tasks.
+- Demonstrates strong long-context understanding and improved accuracy in complex queries.
+
+**Multimodal Capabilities**
+
+- Experimental versions integrate image, video, and speech capabilities.
+- Competitive with existing multimodal models but still under active development.
+- Applications include vision-language reasoning and audio-based interactions.
+
+**Safety and Guardrails**
+
+- Llama Guard 3 ensures responsible AI usage by filtering unsafe content.
+- Implements reinforcement learning techniques to reduce biases.
+- Includes fine-tuned moderation layers for handling harmful or misleading content.
+
+**Deployment and Open-Source Plans**
+
+- Meta continues its open-source approach, making pre-trained and post-trained models available.
+- Offers APIs and developer tools to support real-world integration.
+- Focuses on making the model adaptable for both research and enterprise applications.
+
+### 33. xxx
