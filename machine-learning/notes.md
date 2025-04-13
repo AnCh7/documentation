@@ -2096,3 +2096,15 @@ Teaching ChatGPT to “think silently” by hiding planning, chain-of-thought, o
 ### Past times jailbreak
 
 ![Image](.notes-images/GZ7NZkbXUAAc6X8.jpeg)
+
+---
+
+#### VRAM requirements
+
+```bash
+npx @huggingface/gguf [model].gguf
+# or for remote files
+npx @huggingface/gguf https://huggingface(.)co/bartowski/Qwen_QwQ-32B-GGUF/resolve/main/Qwen_QwQ-32B-Q4_K_M.gguf
+```
+
+![Image](.notes-images/GlTkf2IWUAAP6MC.jpeg)
