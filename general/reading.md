@@ -1151,9 +1151,36 @@ Pages: 53.
    - **Benchmarking:** Outperforms other open-source models and matches the performance of leading closed-source models in comprehensive evaluations.
    - Public Access
 
-### 39. xxxxx
+### 39. Electron docs
+
+https://www.electronjs.org/docs/latest/
+
+Pages: 306.
+
+### 40. Electron Forge docs
+
+https://www.electronforge.io/
+
+Pages: 150.
+
+### 41. Vite docs
+
+https://vite.dev/guide/
+
+Pages: 250.
+
+### 42. electron-vite
+
+https://electron-vite.org/guide/
+
+Pages: 80.
+
+### 43. Rollup docs
+
+https://rollupjs.org/introduction
+
+Pages: 232.
+
+### 44. xxxxx
 
 Pages: xxxx.
-
-
-
