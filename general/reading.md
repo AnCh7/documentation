@@ -1153,11 +1153,15 @@ Pages: 53.
 
 ### 39. Electron docs
 
+Electron is a framework that lets you build cross-platform desktop apps using JavaScript, HTML, and CSS by bundling a Chromium browser and Node.js into a native application.
+
 https://www.electronjs.org/docs/latest/
 
 Pages: 306.
 
 ### 40. Electron Forge docs
+
+Electron Forge is a toolchain that simplifies the entire Electron app lifecycle — scaffolding, development, packaging, and distribution.
 
 https://www.electronforge.io/
 
@@ -1165,11 +1169,15 @@ Pages: 150.
 
 ### 41. Vite docs
 
+Vite is a frontend build tool that serves code via native ES modules during development and uses Rollup for optimized production builds — making it ideal for modern JavaScript frameworks like Vue, React, Svelte, and more.
+
 https://vite.dev/guide/
 
 Pages: 250.
 
 ### 42. electron-vite
+
+electron-vite is a build tool that combines Electron and Vite, allowing you to develop and build Electron apps using Vite’s dev server and Rollup-based production bundling — significantly improving developer experience and build performance over legacy setups.
 
 https://electron-vite.org/guide/
 
@@ -1177,10 +1185,134 @@ Pages: 80.
 
 ### 43. Rollup docs
 
+Rollup is a JavaScript module bundler that compiles small pieces of code into a single optimized bundle, with a strong focus on ES Modules, tree-shaking, and minimal output size.
+
 https://rollupjs.org/introduction
 
 Pages: 232.
 
-### 44. xxxxx
+### 44. Building Machine Learning Powered Applications by Emmanuel Ameisen.
+
+Pages: 257.
+
+**TL;DR**: this book guiding you step-by-step from framing a product goal as an ML problem through building and refining models to deploying and monitoring them in production.
+
+1. **Chapter 1: From Product Goal to ML Framing**
+   Ameisen shows how to translate a business need into an ML task: estimate feasibility by examining model complexity and data requirements, learn when “the simplest approach” (even coding rules by hand) suffices, and understand how to frame end-to-end solutions. An interview with Monica Rogati illustrates project prioritization.
+2. **Chapter 2: Create a Plan**
+   You define success via business and model metrics (accuracy, latency, freshness), assess scope and challenges, leverage domain expertise to guide data exploration, and commit to starting with a minimal viable pipeline, iterating as you go.
+3. **Chapter 3: Build Your First End-to-End Pipeline**
+   Learn to scaffold a prototype—parsing and cleaning inputs, tokenizing text, generating features—then “test your workflow” by measuring both user experience and raw model outputs, using the ML Editor example to find bottlenecks early.
+4. **Chapter 4: Acquire an Initial Dataset**
+   This chapter teaches efficient data exploration: iterate on small samples, apply a data quality rubric (format, distribution, leakage), label examples strategically (uncertainty sampling, “error” vs “labeling” models), and let insights drive feature design. A sidebar with Robert Munro shares advanced labeling strategies.
+5. **Chapter 5: Train and Evaluate Your Model**
+   Start with the simplest appropriate model, split data properly, then go beyond accuracy—use confusion matrices, ROC and calibration curves, dimensionality reduction on errors, and “top-k” evaluations. Dive into feature importance via both intrinsic and black-box explainers.
+6. **Chapter 6: Debug Your ML Problems**
+   Ameisen adapts software best practices for ML: visualize data flows, write unit tests for preprocessing and training loops, debug optimization issues, detect data leakage or overfitting, and ensure your model generalizes to unseen data.
+7. **Chapter 7: Using Classifiers for Writing Recommendations**
+   Learn to extract both global and local feature importances to generate actionable, human-readable editing suggestions. Ameisen walks through three versions—from simple score reports to fully interpretable recommendation systems.
+8. **Chapter 8: Considerations When Deploying Models**
+   Covers non-technical but critical risks: data ownership, systemic and adversarial biases, feedback loops, context awareness, and dual-use concerns. An interview with Chris Harland highlights how to ship controlled experiments safely.
+9. **Chapter 9: Choose Your Deployment Option**
+   Weigh server-side APIs, batch scoring, client-side inference (including browser and on-device), and emerging federated learning approaches—each with trade-offs in latency, scalability, and privacy.
+10. **Chapter 10: Build Safeguards for Models**
+    Implement input/output validation checks, design graceful fallbacks for model failures, engineer for performance at scale, manage model/data lifecycles (using DAGs), and solicit user feedback. Chris Moody’s insights show how to empower data scientists in production.
+11. **Chapter 11: Monitor and Update Models**
+    Finally, set up monitoring dashboards for both performance and business metrics, detect drift or abuse, automate retraining schedules via CI/CD pipelines, and integrate A/B testing frameworks to continuously validate model improvements.
+
+### 45. Programming Massively Parallel Processors: A Hands-on Approach
+
+This book guiding readers from foundational parallel concepts and CUDA programming through advanced parallel patterns, domain-specific applications, and cluster-level practices.
+
+Pages: 551.
+
+**Part I: Fundamental Concepts**
+
+1. **Chapter 1: Introduction**
+   Surveys heterogeneous parallel computing, motivations for speedup, real-application case studies, programming challenges, competing interfaces (CUDA, OpenCL, etc.), overarching goals, and book organization.
+2. **Chapter 2: Heterogeneous data parallel computing**
+   Introduces data parallelism in CUDA C, program structure, vector-addition kernel, device global memory transfers, threading and kernel invocation, compilation workflow, and basic performance considerations.
+3. **Chapter 3: Multidimensional grids and data**
+   Covers thread‐to‐data mappings for multidimensional grids, image‐blur kernel, matrix-multiplication implementations, and the impact of grid/block design on performance.
+4. **Chapter 4: Compute architecture and scheduling**
+   Details modern GPU architecture, block scheduling, synchronization mechanisms, warp‐level SIMD execution, control divergence, warp scheduling for latency tolerance, resource partitioning, occupancy tuning, and device property queries.
+5. **Chapter 5: Memory architecture and data locality**
+   Explores memory access efficiency, CUDA memory types (global, shared, constant, texture), tiling strategies for reduced global memory traffic, tiled matrix-multiply example, boundary checks, and occupancy impacts.
+6. **Chapter 6: Performance considerations**
+   Focuses on memory coalescing, hiding memory latency, thread coarsening, an optimization checklist, bottleneck analysis, and measurement techniques for performance tuning [Elsevier Shop](https://shop.elsevier.com/books/programming-massively-parallel-processors/hwu/978-0-323-91231-0)[Elsevier Educate](https://www.educate.elsevier.com/book/details/9780323912310).
+
+**Part II: Parallel Patterns**
+
+1. **Chapter 7: Convolution**
+   Introduces constant memory and caching, basic parallel convolution, tiled convolution with halo regions, and cache-based optimizations for stencil operations.
+2. **Chapter 8: Stencil**
+   Covers parallel stencil algorithms, shared-memory tiling, thread coarsening, register tiling, and techniques to maximize data reuse.
+3. **Chapter 9: Parallel histogram**
+   Explains atomic operations, basic histogram kernel, privatization strategies, throughput and latency trade-offs of atomics, coarsening, and aggregation techniques.
+4. **Chapter 10: Reduction**
+   Delves into reduction trees, simple reduction kernels, minimizing control and memory divergence, hierarchical reductions for arbitrary lengths, thread coarsening, and overhead minimization.
+5. **Chapter 11: Prefix sum (scan)**
+   Introduces work-efficient scan algorithms (Kogge-Stone, Brent-Kung), segmented and single-pass scans, coarsening for efficiency, and memory-access–efficient implementations.
+6. **Chapter 12: Merge**
+   Covers dynamic input data identification, parallel merge algorithms, and performance considerations for merging large datasets on the GPU.
+
+**Part III: Advanced Patterns and Applications**
+
+1. **Chapter 13: Sorting**
+   Discusses GPU-optimized parallel sorting techniques such as bitonic and merge sort, key-value sorting patterns, and performance tuning for large-scale sorts.
+2. **Chapter 14: Sparse matrix computation**
+   Explores sparse-matrix representations (CSR/COO), parallel sparse-matrix–vector multiply (SpMV) kernels, and coalesced memory techniques for sparse data.
+3. **Chapter 15: Graph traversal**
+   Addresses parallel graph-traversal patterns (BFS/DFS), frontier management, irregular workloads, and load-balancing strategies on GPUs.
+4. **Chapter 16: Deep learning**
+   Covers GPU-accelerated deep-learning primitives, cuDNN library optimizations, convolutional neural network kernels, and performance considerations for training and inference.
+5. **Chapter 17: Iterative magnetic resonance imaging reconstruction**
+   Presents a case study applying parallel patterns to iterative MRI reconstruction, demonstrating real-world GPU algorithm design and performance evaluation.
+6. **Chapter 18: Electrostatic potential map**
+   Details a molecular-dynamics case study computing electrostatic potential maps, highlighting memory and compute optimization strategies in scientific applications.
+7. **Chapter 19: Parallel programming and computational thinking**
+   Synthesizes goals of parallel computing, algorithm selection, problem decomposition, and computational-thinking methodologies to guide GPU application design.
+
+**Part IV: Advanced Practices**
+
+1. **Chapter 20: Programming a heterogeneous computing cluster**
+   Introduces CUDA streams, MPI basics (point-to-point and collective), overlapping communication and computation, and CUDA-aware MPI for cluster-level GPU programming.
+2. **Chapter 21: CUDA dynamic parallelism**
+   Explains launching kernels from the GPU, dynamic parallelism overview, recursive examples (Bezier curves, quadtrees), support code structure, and performance considerations.
+3. **Chapter 22: Advanced practices and future evolution**
+   Covers host/device interaction models, kernel execution control, memory bandwidth vs. compute throughput, programming environments, and future GPU-architecture trends.
+4. **Chapter 23: Conclusion and outlook**
+   Revisits book goals, summarizes key takeaways, and surveys future directions and emerging GPU computing paradigms.
+
+### 46. Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications by Chip Huyen
+
+Book guides you through an iterative framework—starting from a high-level overview of ML systems, progressing through data engineering, model training, deployment, and monitoring, and culminating in the human and organizational considerations essential for production readiness.
+
+Pages: 386.
+
+1. **Chapter 1: Overview of Machine Learning Systems**
+   Lays the groundwork by defining machine learning systems, examining why they’re both complex and unique, and outlining the key components—from data sources to inference services—that every scalable system must integrate.
+2. **Chapter 2: Introduction to Machine Learning Systems Design**
+   Presents the book’s iterative design methodology, framing every project around stages like project setup, data pipeline construction, modeling decisions, and serving strategies to ensure alignment between business goals and technical architecture.
+3. **Chapter 3: Data Engineering Fundamentals**
+   Delves into the core tasks of ingesting, cleaning, and transforming data—covering storage formats, batch vs. stream processing, and architectural patterns for building reliable, maintainable pipelines.
+4. **Chapter 4: Training Data**
+   Focuses on assembling high-quality training datasets through sampling techniques, labeling strategies, data augmentation, and quality checks to minimize bias and maximize representativeness.
+5. **Chapter 5: Feature Engineering**
+   Covers best practices for extracting, selecting, and encoding features—including automated feature generation, embedding representations, and feature stores—to boost model performance and reproducibility.
+6. **Chapter 6: Model Development and Offline Evaluation**
+   Guides you through selecting appropriate algorithms, splitting data for training and validation, defining evaluation metrics, and conducting thorough offline testing (e.g., cross-validation, error analysis) before deployment.
+7. **Chapter 7: Model Deployment and Prediction Service**
+   Explores serving architectures—such as RESTful APIs, batch scoring, and edge inference—while weighing trade-offs in latency, throughput, scalability, and cost for different deployment scenarios.
+8. **Chapter 8: Data Distribution Shifts and Monitoring**
+   Teaches how to detect concept drift and data distribution changes in real time, set up monitoring dashboards for both data and model health, and trigger alerts or retraining workflows when performance degrades.
+9. **Chapter 9: Continual Learning and Test in Production**
+   Introduces strategies for online or incremental learning, A/B and canary testing in live environments, and techniques for validating model updates safely without disrupting end users.
+10. **Chapter 10: Infrastructure and Tooling for MLOps**
+    Surveys the ecosystem of MLOps platforms, orchestration tools (e.g., Kubernetes, Airflow), model and feature stores, and infrastructure patterns that support reproducible pipelines and large-scale deployments.
+11. **Chapter 11: The Human Side of Machine Learning**
+    Examines organizational structures, collaboration between data scientists, engineers, and business stakeholders, ethical considerations, and communication practices necessary to keep ML projects on track and aligned with company objectives.
+
+### 47. xxxxx
 
 Pages: xxxx.
