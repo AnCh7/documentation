@@ -2108,3 +2108,70 @@ npx @huggingface/gguf https://huggingface(.)co/bartowski/Qwen_QwQ-32B-GGUF/resol
 ```
 
 ![Image](.notes-images/GlTkf2IWUAAP6MC.jpeg)
+
+---
+
+## How I use AI coding assistants
+
+Personal note
+* This is a very personal list. I don’t think it’ll be useful for everyone — but it might be a good starting point for writing your own list.
+
+General advices
+* Treat AI as a teammate, not a tool: provide feedback, documentation, and examples to help improve its output.
+* Let the AI ask you questions.
+* Assign a role of expert in your topic to the LLM: e.g., “Answer as a world-famous MLOps expert...”
+* Ask the AI how to best use AI — meta-questions often give useful strategies.
+* Ask the LLM to evaluate its own responses: rate the code snippets, suggest improvements, and review those improvements before implementing the good ones.
+* Use different working modes:
+  * **Architect mode** — focus on system design, best practices, possible issues.
+  * **Coding mode** — focus on actually writing the code and tests.
+* Reasoning models work better in architect mode — use the right model for the task.
+* When switching to coding, give the model the plan created in architect mode in the form of a TODO list. This helps guide the output and keeps it aligned.
+* Know the difference between zero-shot and few-shot prompting.
+* Programming language choice matters in my experience. Languages like JavaScript, TypeScript, and Python generally work better than Scala. This is tied to language popularity — the more code available in public datasets, the better the model understands it.
+* Ask models to follow best practices specific to the language or framework you're using.
+* Request production-ready code explicitly — models respond well to such requests.
+* It’s very useful to ask models to explain specific functions, classes, code blocks, or even entire repositories.
+* Keep conversations with LLMs short. Even though modern models (like Gemini Pro with 1 million token context) support long chats, every new question resends the full history. This wastes tokens and can reduce quality.
+* Use system prompts to define personal or per-project preferences — e.g., which testing framework to use, how to format comments, naming conventions, etc.
+* AI copilots work much better on existing codebases with clean, high-quality code. It helps to start by writing solid code manually — add tests, follow best practices. Existing code acts as a live example for the LLM and pushes it to generate consistent code that follows your style and patterns.
+* Refactoring and improvements with AI can go on forever. Know when to stop. Avoid overengineering or needless complexity.
+* Model quality can degrade sometimes. For example, third-party APIs may silently switch you to a quantized model during peak hours. If you notice a drop in output quality, don’t get frustrated — just switch providers or write the code manually.
+* Learn about LLM benchmarks and monitor from time to time what is the best model for programming right now. Good resources are https://aider.chat/docs/leaderboards/ and https://lmarena.ai/?leaderboard
+
+Tools
+* Use modern IDEs with built-in AI features. I recommend [zed.dev](https://zed.dev).
+* Learn Git. This is no longer optional — reviewing and merging AI-generated commits, diffs, and PRs becomes a regular part of the workflow.
+* Use quality Git UI clients and diff/merge tools. They reduce cognitive load, highlight changes clearly, and simplify complex merges. My personal picks: [Beyond Compare](https://www.scootersoftware.com) and [Sublime Merge](https://www.sublimemerge.com).
+
+Code quality
+* Code becomes disposable. That’s fine — as long as you still control its quality.
+* Unit tests are an absolute MUST. Use the best model available to generate them. Review test changes carefully — models *can* fake coverage or silently skip edge cases.
+* Code linters are also a MUST. They help catch obvious bugs, typos, and style issues early.
+
+Simplicity
+* Avoid frameworks where possible — or stick to the most basic, most minimal ones. This reduces hallucinations and improves consistency.
+* If you *do* use frameworks, choose only the most popular ones — LLMs are far more reliable with tools they’ve seen thousands of times in learning dataset.
+* Keep projects small. Microservice architecture works best — it naturally creates small, isolated codebases. Smaller codebases fit more easily into a context window, and sometimes the entire project fits, which improves quality and coherence.
+
+Evolution of AI coding tools
+* **Basic Copilot** – autocomplete only (e.g., GitHub Copilot).
+* **Copilot + manual chat** – use Copilot for code, then copy-paste code blocks into ChatGPT or Claude.
+* **Integrated assistants** – Copilot or ChatGPT directly embedded in your IDE.
+* **Agentic mode (basic)** – outside or inside IDE, using just shell tools like `bash`, `ls`, `glob`, `git`, etc.
+* **Agent with advanced tools** – adds things like web search, access to GitHub, databases, multi-step reasoning etc. via MCP servers for example.
+* **Task routing across agents** – delegate sub-tasks to multiple agents for better accuracy or specialization.
+* **Multitasking agents** – multiple agents working in parallel across different repositories.
+
+Mental health
+* Mental health can take a hit early — especially when you realize we’re likely to be replaced by AI coding agents.
+* Shift focus: a *lot* of software still needs to be written.
+* And a *lot* of existing software needs improvement.
+* There will be “vibe coders” who rely entirely on AI and can't read or understand real code. Real professionals who *can* will become even more valuable.
+* Mental health can also suffer from the sudden jump in productivity. Unfamiliar languages or projects aren’t blockers anymore — so you’ll be working on more things, switching context more often. It adds up. Limit the number of tasks. Focus on one thing at a time.
+* Your brain will be processing way more information than before — AI-generated code, explanations, reviews. This can overwhelm. Use AI to *reduce* cognitive load: ask it to summarize, explain, or clean up the noise.
+
+Further Reading
+
+* Read *AI Engineering* by Chip Huyen ([link](https://www.oreilly.com/library/view/ai-engineering/9781098166298)). It gives a solid overview of AI engineering, models, prompt design, RAG, and more.
+* All of this is exciting. Everyone will be coding soon. We’re entering a new era of software development.
