@@ -1313,6 +1313,35 @@ Pages: 386.
 11. **Chapter 11: The Human Side of Machine Learning**
     Examines organizational structures, collaboration between data scientists, engineers, and business stakeholders, ethical considerations, and communication practices necessary to keep ML projects on track and aligned with company objectives.
 
-### 47. xxxxx
+### 48. Byte Latent Transformer: Patches Scale Better Than Tokens
+
+https://arxiv.org/pdf/2412.09871
+
+The paper introduces **Byte Latent Transformer (BLT)**, a tokenizer‑free LLM that groups raw bytes into dynamic “patches’’ chosen by next‑byte entropy. With a three‑part architecture (light local encoder → large latent transformer → light local decoder), BLT reaches Llama‑3‑level accuracy while **cutting inference FLOPs by up to 50%** and showing stronger robustness to noise, multilingual fairness, and long‑tail generalisation.
+
+Pages: 27.
+
+### 49. Agents by Chip Huyen
+
+https://huyenchip.com/2025/01/07/agents.html
+
+Chip Huyen’s essay lays out a practical framework for building and judging AI agents: an agent’s potency equals *tools + planning*. She catalogues the kinds of tools that extend an LLM’s reach, explains why planning must be separated from execution and coupled with reflection, details how to pick and govern tool sets, and pinpoints three clusters of failure—planning, tool, and efficiency errors—arguing that the agentic pattern is an inevitable next step for real‑world applications.
+
+Pages: 29.
+
+### 50. Which Quantization Method is Right for You? (GPTQ vs. GGUF vs. AWQ) 
+
+https://newsletter.maartengrootendorst.com/p/which-quantization-method-is-right
+
+This tutorial walks you through four escalating tricks to fit Zephyr‑7B on consumer hardware:
+
+- load the full FP16 model with HuggingFace
+- split it into multi‑GB *shards*
+- do on‑the‑fly 4‑bit NF4 quantization with *bitsandbytes*
+- skip the work by downloading *pre‑quantised* releases—GPTQ (GPU‑oriented), GGUF (CPU/Mac friendly) and the newer AWQ (fast, accurate 4‑bit).
+
+Pages: 20.
+
+### 51. xxxxx
 
 Pages: xxxx.
