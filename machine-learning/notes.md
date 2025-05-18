@@ -2148,6 +2148,7 @@ Code quality
 * Code becomes disposable. That’s fine — as long as you still control its quality.
 * Unit tests are an absolute MUST. Use the best model available to generate them. Review test changes carefully — models *can* fake coverage or silently skip edge cases.
 * Code linters are also a MUST. They help catch obvious bugs, typos, and style issues early.
+* Same for static code analysis tools like SonarQube, Checkmarx. They help identify deeper issues.
 
 Simplicity
 * Avoid frameworks where possible — or stick to the most basic, most minimal ones. This reduces hallucinations and improves consistency.
@@ -2170,6 +2171,12 @@ Mental health
 * There will be “vibe coders” who rely entirely on AI and can't read or understand real code. Real professionals who *can* will become even more valuable.
 * Mental health can also suffer from the sudden jump in productivity. Unfamiliar languages or projects aren’t blockers anymore — so you’ll be working on more things, switching context more often. It adds up. Limit the number of tasks. Focus on one thing at a time.
 * Your brain will be processing way more information than before — AI-generated code, explanations, reviews. This can overwhelm. Use AI to *reduce* cognitive load: ask it to summarize, explain, or clean up the noise.
+
+Junior developers
+
+- You need to read a lot of high‑quality, human‑written code to develop your code literacy, visual familiarity, and aesthetic sense for elegant code. This will help you later when working with AI‑generated code.
+- Also read books explaining what makes good code and how to transform bad code into good code, for example "Clean Code" by Robert C. Martin or "Refactoring: Improving the Design of Existing Code" by Martin Fowler.
+- Use AI for education, as your mentor. Ask questions, request explanations, and try to dig deeper into every topic.
 
 Further Reading
 
