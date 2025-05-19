@@ -1342,6 +1342,41 @@ This tutorial walks you through four escalating tricks to fit Zephyr‑7B on con
 
 Pages: 20.
 
-### 51. xxxxx
+### 51. Titans: Learning to Memorize at Test Time
+
+The paper introduces a neural long‑term‑memory (LTM) module that is trained to *keep learning* while the model is being used. Coupled with a conventional attention block (short‑term memory), it yields the **Titans** family of architectures, which:
+
+- match the parallel training speed of Transformers
+- keep O(1) inference memory
+- scale past a 2‑million‑token context
+- beat or tie state‑of‑the‑art Transformer, recurrent, and hybrid baselines on language modeling, commonsense reasoning, genomics and time‑series forecasting. 
+
+Pages: 27.
+
+### 52. A Visual Guide to Quantization
+
+https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization
+
+Explains how reducing an LLM’s numeric precision shrinks memory and speeds inference, walks from 32‑bit floats down to 1‑bit weights, and compares key workflows: post‑training quantization (8‑ & 4‑bit GPTQ / GGUF), quantization‑aware training, and extreme schemes like BitNet (1‑bit) and BitNet 1.58b (ternary).
+
+Pages: 42.
+
+### 53. A Visual Guide to Reasoning LLMs
+
+https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-reasoning-llms
+
+Explains the field’s pivot from scaling *train‑time* compute to scaling *test‑time* compute. It visualizes two big families of techniques—(1) *search‑against‑verifiers* and (2) *modifying the proposal distribution*—and uses DeepSeek‑R1 as a worked example of how reinforcement learning plus synthetic data produce open‑source reasoning models that rival proprietary systems like OpenAI o1.
+
+Pages: 40.
+
+### 54. A Visual Guide to Mixture of Experts (MoE)
+
+https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts
+
+This guide strips MoE down to its essentials—*experts* (parallel FFNN sub‑modules) and a *router* that dispatches each token to the best experts. By activating only a handful of experts per token (sparse MoE), LLMs like Mixtral achieve trillions of *total* parameters yet keep inference cost similar to a dense model one‑eighth that size. The article walks through expert architecture, routing math, load‑balancing tricks (KeepTopK, auxiliary loss, expert capacity), the Switch Transformer, Vision‑MoE, Soft‑MoE, and the practical trade‑off between *sparse* (loaded) and *active* (used) parameters.
+
+Pages: 40.
+
+### 55. xxxxx
 
 Pages: xxxx.
