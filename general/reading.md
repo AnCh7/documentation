@@ -1377,6 +1377,263 @@ This guide strips MoE down to its essentials—*experts* (parallel FFNN sub‑mo
 
 Pages: 40.
 
-### 55. xxxxx
+### 55. Seldon Core documentation
 
-Pages: xxxx.
+https://docs.seldon.ai/seldon-core-2
+
+Seldon Core 2 is a Kubernetes-native framework for deploying and  managing machine learning (ML) and Large Language Model (LLM) systems at scale. Its [data-centric approach](https://docs.seldon.ai/seldon-core-2/about/concepts#data-centric-mlops) and modular [architecture](https://docs.seldon.ai/seldon-core-2/about/architecture) enable seamless handling of simple models to complex ML applications  across on-premise, hybrid, and multi-cloud environments while ensuring  flexibility, standardization, observability, and cost efficiency.
+
+Pages: 576.
+
+---
+
+### 56. Model Context Protocol documentation
+
+MCP is an open protocol that standardizes how applications provide  context to LLMs. Think of MCP like a USB-C port for AI applications.  Just as USB-C provides a standardized way to connect your devices to  various peripherals and accessories, MCP provides a standardized way to  connect AI models to different data sources and tools.
+
+Pages: 142.
+
+---
+
+### 57. Scalable Extraction of Training Data from (Production) Language Models
+
+This paper presents a scalable methodology to extract verbatim training data from large LMs—including ChatGPT demonstrating that even aligned models retain and reveal significant memorized content via a new “divergence attack.”
+
+Pages: 64.
+
+**Key Concepts: Extractable vs Discoverable Memorization**
+
+- **Discoverable memorization**: reproducing training data when given the exact prefix from the training set.
+- **Extractable memorization**: adversary doesn’t know the data ahead of time but can still recover it via cleverly designed prompts.
+- The paper bridges existing work by showing unaligned models are vulnerable and introduces novel attacks applicable even to aligned models.
+
+**Methodology & Models Studied**
+
+- Applied at scale across open-source models (e.g., Pythia, GPT-Neo), semi-open (LLaMA, Falcon), and closed systems (GPT‑3.5-turbo/ChatGPT).
+- Used suffix arrays on terabytes of training data for open-source models to efficiently identify 50-token+ exact matches. For closed models, matched outputs via large public web corpus and automated web search.
+
+**Findings: Scale of Leakage**
+
+- **Open-source models**: up to ~35% of known memorized sequences could be extracted with millions of queries.
+- **Alignment lessens but does not prevent memorization**: ChatGPT’s aligned behavior initially appears 50× more private, but remains leaky.
+- **Divergence attack**: by causing the model to "diverge" from chat style, researchers induced playback of training data at up to 150× higher rates leading to thousands of extracted examples for ~$200 in query cost.
+
+**Novel “Divergence Attack”**
+
+- A prompting trick that disrupts ChatGPT's assistant mode, causing it to act like a base model and spill memorized text.
+- This demonstrates that alignment mechanisms (e.g., RLHF) reduce but do not eliminate risky memorization.
+
+**Implications & Recommendations**
+
+- **Privacy risk**: even aligned production models can leak verbatim training data—potentially including private info—if adversarially probed.
+- **Mitigation options**: new testing frameworks, enforceable string-matching filters, better deduplication, and defensive fine-tuning are necessary.
+- **Responsible disclosure**: the authors notified OpenAI in August 2023 and waited 90 days before publication, urging broader adoption of safeguards.
+
+---
+
+### 58. Extracting Training Data from Large Language Models
+
+This paper reveals that **GPT‑2** memorizes and regurgitates verbatim snippets of its training data—including unique, sensitive text like URLs, personal information, code, and GUIDs—through black-box querying. Larger models leak more, underscoring serious privacy risks.
+
+Pages: 19.
+
+**Core Problem**
+
+- The authors ask: *Can a malicious actor extract training examples directly from a language model through API interaction?*
+- Notably, **GPT‑2** was treated as a black-box with no visibility into its training data.
+
+**Attack Methodology**
+
+- **Sample generation**: Prompt GPT‑2 (even with empty prompt) to produce many continuations.
+- **Filtering with heuristics**: Use six ranking metrics, like comparing perplexities between model sizes and compression-based detection, to prioritize outputs likely memorized.
+- **Manual validation**: Top candidates were verified via web searches and direct confirmation.
+
+**Exfiltrated Content**
+
+Recovered data includes:
+
+- Public **personally identifiable information** (names, emails, phone numbers)
+- **IRC chat logs**, **code snippets**, and **128-bit UUIDs**
+- Critically, most instances appeared only once in the training corpus—yet still leaked.
+
+**Larger Models Leak More**
+
+- Experiments revealed a stark correlation: **GPT-2 1.5B** model leaked far more memorized text than its smaller variants (117M, 345M).
+- This aligns with the intuition that higher capacity models can memorize more rare sequences.
+
+**Mitigation & Takeaways**
+
+The authors discuss defenses:
+
+- **Data deduplication**—prevents models from memorizing rare or unique sequences
+- **Differential privacy during training**
+- **Post-training filtering** to detect and suppress memorized outputs
+
+**Implications for Industry**
+
+- Shows clear **privacy hazards** with large-language models, especially in sensitive contexts (medical, financial).
+- Demonstrates the **feasibility of extraction attacks** without model internals.
+- Serves as a wake-up call: **alignment and access restriction alone aren't enough** without robust privacy safeguards.
+
+---
+
+### 59. YOLO-World: Real-Time Open-Vocabulary Object Detection
+
+The paper introduces **YOLO-World**, an open-vocabulary object detection system that extends the YOLO framework to recognize arbitrary object categories specified by natural language prompts. It combines vision-language pretraining with efficient architecture design to achieve high accuracy and real-time performance.
+
+Pages: 15.
+
+**Summary**:
+
+The paper tackles the challenge of extending traditional object detectors like YOLO, which are restricted to a fixed label set, to support **open-vocabulary detection**. This means the model can detect categories that were not part of its supervised training data, simply by providing their names at inference.
+
+To enable this, the authors build a system that integrates **CLIP-based language embeddings** into YOLO. These embeddings are computed from user-specified text prompts and fused with image features extracted by YOLO's backbone.
+
+Key technical components include:
+
+- **RepVL-PAN (Re-parameterizable Vision-Language Path Aggregation Network)**:
+   A lightweight fusion module that integrates text embeddings into YOLO’s feature pyramid. It is re-parameterized after training to simplify computation at inference time.
+- **Prompt-then-Detect Paradigm**:
+   Instead of relying on a fixed classifier, the system accepts a set of text prompts (e.g., “hammer”, “cat”, “stop sign”) that define the target categories. These prompts are encoded once using CLIP and stored, allowing efficient reuse during detection.
+- **Region-Text Contrastive Pretraining**:
+   The model is trained using a large collection of region-text pairs from detection datasets, grounding annotations, and caption data. A contrastive loss aligns visual features with their corresponding text embeddings, allowing generalization to unseen categories.
+
+In terms of performance, YOLO-World achieves strong results:
+
+- **35.4 AP on LVIS** in a zero-shot setting (i.e., detecting categories it was never directly trained on).
+- **52 FPS inference speed** on a V100 GPU, making it suitable for real-time deployment.
+
+Unlike prior open-vocabulary detectors, which rely on slow transformer backbones and full runtime language processing, YOLO-World is designed for efficiency. It precomputes the language component and integrates it into a streamlined detection pipeline.
+
+---
+
+### 60. Improved Baselines with Visual Instruction Tuning
+
+The paper introduces **LLaVA‑1.5**, a more accessible and efficient multimodal model with visual instruction tuning that achieves state-of-the-art performance across 11 benchmarks—using only 1.2 million public examples and training in just one day on a single 8×A100 GPU node.
+
+Pages: 15.
+
+**Summary**:
+
+The authors conduct a **systematic study of design elements** in Large Multimodal Models (LMMs), focusing on the LLaVA framework. Their goal is to understand what contributes most to performance and how to build a strong yet efficient baseline.
+
+- **Simplified architecture**
+   They replace LLaVA’s linear projection with a **two-layer MLP connector** that maps CLIP‑ViT‑L (336 px) visual features into the LLM space. This proves surprisingly effective and data-efficient—even more so than more complex alternatives using Q-formers.
+- **Targeted training data**
+   By adding carefully formatted **academic VQA datasets** (with response formatting prompts), the model significantly improves performance on structured question-answering tasks, without disrupting conversational capabilities.
+- **Performance across tasks**
+   With only 1.2 million public instruction-style examples, LLaVA‑1.5—a 13B‑parameter model—achieves **state-of-the-art** on 11 diverse benchmarks (including VQA, GQA, MM-Vet, etc.). It trains in ~1 day on a single 8-A100 node, demonstrating both efficiency and accessibility.
+- **Exploration of key challenges**
+   The paper investigates several open questions in LMM training:
+  - **High-resolution scaling**: Simply subdividing larger images improves detail and reduces hallucination.
+  - **Compositional generalization**: Mixing long-form and visual reasoning tasks helps downstream writing capabilities.
+  - **Data efficiency**: Even using just 25% of the data maintains performance, highlighting room for smarter data selection and curriculum design.
+  - **Data scaling**: Adjusting data granularity is vital to balancing capability gains and avoiding hallucination.
+
+---
+
+### 61. Attention Is All You Need
+
+The paper introduces the **Transformer**, a novel neural network architecture that completely replaces recurrence and convolutions with **self-attention mechanisms**, enabling faster training and superior performance on sequence tasks like translation.
+
+Pages: 15.
+
+**Summary**:
+
+The authors propose an encoder–decoder model built entirely on **self-attention** and **point-wise, fully connected layers**. Unlike RNNs or CNNs, the Transformer relies on attention to model relationships between all words in a sequence simultaneously.
+
+**Architecture Overview**:
+
+- The **encoder** consists of stacked layers, each with:
+  - **Multi-head self-attention**, allowing the model to attend to different representation subspaces.
+  - A **feed-forward network** applied independently at each position.
+  - **Residual connections** and **layer normalization** for stable training.
+- The **decoder** mirrors the encoder but includes **encoder-decoder attention** to incorporate relevant input context, plus **masked self-attention** to maintain auto-regressive output.
+
+**Key Innovations**:
+
+- **Self-Attention**: Enables efficient computation of dependencies across positions, scalable via parallelization.
+- **Multi-Head Mechanism**: Multiple attention heads learn different aspects of input relationships.
+- **Positional Encoding**: Injects sequence order information using sinusoidal functions, compensating for the lack of recurrence.
+
+**Advantages**:
+
+- **Parallelizable and efficient**: Unlike RNNs, Transformers can be trained across full sequences in parallel.
+- **Superior performance**: Achieves state-of-the-art in machine translation benchmarks (WMT’14 English→German and English→French).
+- **Faster convergence**: Requires significantly less training time compared to comparable architectures.
+
+---
+
+### 62. The Pile: An 800GB Dataset of Diverse Text for Language Modeling
+
+The paper presents **The Pile**, an 825 GB meticulously curated English text corpus assembled from 22 diverse, high-quality sources. It demonstrates that models trained on The Pile achieve improved cross-domain performance compared to those trained on raw web scrapes like Common Crawl.
+
+Pages: 39.
+
+**Summary**:
+
+The authors introduce **The Pile**, a large-scale dataset designed specifically for training general-purpose language models. It totals 825.18 GiB of text compiled from 22 distinct high-quality sources, including both standard NLP datasets and novel collections like PubMed Central, arXiv papers, GitHub code, legal documents, and chat logs.
+
+The Pile’s construction strategy emphasizes **diversity and quality**, contrasting sharply with prior large corpora built primarily from Common Crawl. Notable components include filtered web data (Pile‑CC), scientific literature (PubMed Central, arXiv), programming code (GitHub), legal texts (FreeLaw), forums (Stack Exchange, HackerNews), and email (Enron), among others.
+
+When evaluating, the paper shows that existing language models (GPT‑2, GPT‑3) struggle on many specialty subsets of The Pile, such as academic writing, code, and legal text. Training new GPT‑2–sized models on The Pile yields significantly **lower perplexity** across all subsets compared to models trained on Common Crawl or CC-100, while also improving performance on benchmarks like WikiText and LAMBADA.
+
+The authors also provide extensive **dataset documentation and analyses**, including measures of topical distribution, document lengths, language content (~97% English), profanity, and potential social biases. They release all code and processing details to support transparency and reproducibility.
+
+---
+
+### 63. Auto-Encoding Variational Bayes
+
+The paper introduces the **Variational Autoencoder (VAE)** framework, which enables efficient learning and approximate inference in deep generative models with continuous latent variables. It employs the **reparameterization trick** to allow scalable stochastic gradient training via backpropagation.
+
+Pages: 14.
+
+**Summary**:
+
+The paper tackles the challenge of performing inference and learning in latent-variable generative models—particularly those with complex posterior distributions and continuous latent spaces. Traditional inference techniques struggled with scalability and tractability in deep models.
+
+To overcome these challenges, the authors propose:
+
+- **Amortized variational inference**: Instead of optimizing variational parameters separately for each data point, they train an **encoder network** that maps inputs directly to variational posterior distributions (a recognition model). This allows fast inference across the dataset.
+- **Reparameterization trick**: Latent variables are reparameterized as deterministic functions of input and random noise. This enables unbiased gradient estimation of the evidence lower bound (ELBO) via standard backpropagation.
+- **Variational bound optimization**: The encoder–decoder architecture is jointly trained to maximize the ELBO.
+- **Scalability and flexibility**: The VAE framework supports using deep neural networks for both the encoder and decoder, allowing modeling of high-dimensional data like images and audio.
+
+The effectiveness of this method is demonstrated on **MNIST**—the VAE achieves good generative performance and meaningful latent representations. The training scales to large datasets and operates robustly under standard differentiability assumptions
+
+---
+
+### 64. Pixtral 12B
+
+The paper introduces **Pixtral 12B**, a 12-billion-parameter multimodal model that excels at both image and text understanding. It sets new standards in open-source performance—outperforming much larger models on key benchmarks—while offering practical improvements like variable-resolution image handling and extremely long context support (128 K tokens).
+
+Pages: 24.
+
+**Overview**:
+
+Pixtral 12B builds on a powerful **400M-parameter vision encoder** trained from scratch, paired with a decoder-only LLM (Mistral Nemo 12B). Thanks to a novel 2D RoPE scheme and structural enhancements (e.g., “break tokens,” gated FFNs), it flexibly handles images at their native resolutions and arbitrary aspect ratios—all within a massive 128K-token visual-text context window.
+
+Its instruction-tuned multimodal decoder enables robust **multi-turn image-and-text conversations**, with open-source code and models released under Apache 2.0.
+
+**Key Results**:
+
+- **Multimodal performance**: Pixtral 12B leads all open-source models (~12B) and even rivals closed-source and much larger ones (e.g., LLaMA‑3.2 90B, Claude‑3 Haiku) on benchmarks like MM‑MT‑Bench, MMMU, MathVista, and the LMSys Vision Arena leaderboard.
+- **Text-only performance**: It matches or excels in general-language tasks (MMLU, MATH, HumanEval), proving that multimodal power doesn’t compromise core NLP capabilities.
+- **Evaluation rigor**: The authors highlight how prompt design and evaluation metrics affect multimodal LLM results. They introduce “Explicit prompts” and flexible parsing to foster fairer comparisons.
+
+------
+
+**Technical Highlights**:
+
+- Vision encoder employs **2D rotary positional embeddings (RoPE‑2D)** and **break/end tokens** to handle variable-sized images seamlessly.
+- Multimodal decoder is built atop the **Mistral Nemo 12B** architecture, optimized for both reasoning and instruction following.
+- Support for long multimodal interactions across up to **128 K tokens**, enabling rich image-text dialogue and extended document processing.
+
+---
+
+### 65. xxx
+
+Pages: xxx.
+
+---
+
